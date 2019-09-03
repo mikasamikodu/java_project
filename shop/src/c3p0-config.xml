@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<c3p0-config>
+	<default-config>  
+        <property name="initialPoolSize">10</property>  
+        <property name="maxIdleTime">30</property>  
+        <property name="maxPoolSize">100</property>  
+        <property name="minPoolSize">10</property>  
+        <property name="maxStatements">200</property>  
+    </default-config>  
+  
+   <!--配置连接池mysql-->
+    <named-config name="mysql">  
+        <property name="driverClass">com.mysql.jdbc.Driver</property>  
+        <property name="jdbcUrl">jdbc:mysql://localhost:3306/day13</property>  
+        <property name="user">root</property>  
+        <property name="password">root</property>  
+        <property name="initialPoolSize">10</property>  
+        <property name="maxIdleTime">30</property>  
+        <property name="maxPoolSize">100</property>  
+        <property name="minPoolSize">10</property>  
+        <property name="maxStatements">200</property>  
+    </named-config> 
+    <!--配置连接池oracle-->
+    <named-config name="oracle">  
+    	<property name="driverClass">oracle.jdbc.driver.OracleDriver</property>
+		<property name="jdbcUrl">jdbc:oracle:thin:@127.0.0.1:1521:orcl</property>
+		<property name="user">fams</property>
+		<property name="password">fams</property>
+        <property name="initialPoolSize">10</property>  
+        <property name="maxIdleTime">30</property>  
+        <property name="maxPoolSize">5000</property>  
+        <property name="minPoolSize">10</property>  
+        <property name="maxStatements">5</property> 
+        <property name="checkoutTimeout">1000</property>
+        <property name="maxStatementsPerConnection">100</property>
+     </named-config>
+      <named-config name="oracle2">  
+    	<property name="driverClass">oracle.jdbc.driver.OracleDriver</property>
+		<property name="jdbcUrl">jdbc:oracle:thin:@127.0.0.1:1521:orcl</property>
+		<property name="user">websjkknow</property>
+		<property name="password">websjkknow</property>
+        <property name="initialPoolSize">10</property>  
+        <property name="maxIdleTime">30</property>  
+        <property name="maxPoolSize">5000</property>  
+        <property name="minPoolSize">10</property>  
+        <property name="maxStatements">5</property> 
+        <property name="checkoutTimeout">1000</property>
+        <property name="maxStatementsPerConnection">100</property>
+     </named-config>
+</c3p0-config>

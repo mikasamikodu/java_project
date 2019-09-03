@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC  "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itheima.dao.IUserDao">
+    <!-- 查询所有 -->
+    <select id="findAll" resultType="com.itheima.domain.User">
+        select * from user
+    </select>
+
+    <!-- 通过id查询用户信息 -->
+    <select id="findById" resultType="com.itheima.domain.User" parameterType="Integer">
+        select * from user where id=#{id}
+    </select>
+
+    <!-- 通过queryVo查询用户信息 -->
+    <select id="findByVo" resultType="com.itheima.domain.User" parameterType="com.itheima.domain.QueryVo">
+        select * from user where username like #{user.username}
+    </select>
+
+    <!-- 通过name查询用户信息 -->
+    <select id="findByName" resultType="com.itheima.domain.User" parameterType="java.lang.String">
+        select * from user where username like #{usernsme}
+--          select * from user where username like '${value}' value是固定写法，不可更改，与#{username}(kegenggai username)不一样，z利用的底层是statement,上面用的是prepatedstatement
+    </select>
+
+    <!-- 保存用户信息 -->
+    <insert id="save" parameterType="com.itheima.domain.User">
+        <!--保存后返回新增用户id-->
+        <selectKey keyProperty="id" keyColumn="id" order="AFTER" resultType="int">
+            select last_insert_id();
+        </selectKey>
+        insert into user (username, birthday, sex, address) values(#{username}, #{birthday}, #{sex}, #{address})
+    </insert>
+
+    <!-- 更新用户信息 -->
+    <update id="update" parameterType="com.itheima.domain.User">
+        update user set username=#{username}, birthday=#{birthday}, sex=#{sex}, address=#{address} where id=#{id}
+    </update>
+
+    <!-- 删除用户 -->
+    <delete id="delete" parameterType="java.lang.Integer">
+        delete from user where id=#{id}
+    </delete>
+
+    <!-- 使用聚合函数查询用户数量 -->
+    <select id="findTotal" resultType="int">
+        select count(*) from user
+    </select>
+</mapper>

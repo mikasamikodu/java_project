@@ -1,0 +1,5 @@
+package service;
+
+public interface WebService {
+	public String selectInfo(String info) throws Exception;
+}

@@ -1,0 +1,23 @@
+package service;
+
+import java.util.List;
+
+import com.dao.Insert;
+import com.jiexi.ToXml;
+
+@javax.jws.WebService
+public class WebServiceImpl implements WebService{
+	
+	@Override
+	public String selectInfo(String info) throws Exception {
+//		System.out.println("接受数据成功，输出结果为");
+//		System.out.println(info);
+//		Insert i=new Insert();
+//		
+//		ToXml t2=new ToXml();
+//		List<Object> o=t2.xml1(info);
+//		i.insertInfo(o);
+//		return info;
+	}
+
+}

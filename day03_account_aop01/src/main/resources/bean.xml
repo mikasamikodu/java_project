@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+<!--配置benafactory-->
+    <bean id="beanFactory" class="com.itheima.factory.BeanFactory">
+        <property name="transactionManager" ref="transactionManager"></property>
+        <property name="accountService" ref="accountService"></property>
+    </bean>
+<!--配置代理service对象-->
+    <bean id="proxyAccountService" factory-bean="beanFactory" factory-method="getAccountService"></bean>
+
+   <bean id="accountService" class="com.itheima.service.impl.IAccountServiceImpl">
+      <property name="accountDao" ref="accountDao"></property>
+   </bean>
+
+    <bean id="accountDao" class="com.itheima.dao.impl.IAccountDaoImpl">
+      <property name="runner" ref="runner"></property>
+      <property name="connectionUtils" ref="connectionUtils"></property>
+    </bean>
+
+    <bean id="runner" class="org.apache.commons.dbutils.QueryRunner" scope="prototype"></bean>
+
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="driverClass" value="com.mysql.jdbc.Driver"></property>
+        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/day13"></property>
+        <property name="user" value="root"></property>
+        <property name="password" value="root"></property>
+    </bean>
+
+    <bean id="transactionManager" class="com.itheima.util.TransactionManager">
+      <property name="connectionUtils" ref="connectionUtils"></property>
+    </bean>
+
+    <bean id="connectionUtils" class="com.itheima.util.ConnectionUtils">
+      <property name="dataSource" ref="dataSource"></property>
+    </bean>
+</beans>

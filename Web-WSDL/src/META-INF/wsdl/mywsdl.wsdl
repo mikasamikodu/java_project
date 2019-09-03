@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+				  xmlns:tns="http://www.example.org/mywsdl/" 
+				  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+				  xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+				  name="mywsdl" 
+				  targetNamespace="http://www.example.org/mywsdl/">
+ 
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://www.example.org/mywsdl/">
+    
+   		<xsd:element name="add" type="tns:addType"/>
+   		<xsd:element name="addResponse" type="tns:addResponse"/>
+   		<xsd:element name="divede" type="tns:divedeType"/>
+   		<xsd:element name="divedeResponse" type="tns:divedeResponse"/>
+   		
+   		<xsd:complexType name="addType">
+   			<xsd:sequence>
+   				<xsd:element name="a" type="xsd:int"/>
+   				<xsd:element name="b" type="xsd:int"/>
+   			</xsd:sequence>
+   		</xsd:complexType>
+   		
+   		<xsd:complexType name="addResponse">
+   			<xsd:sequence>
+   				<xsd:element name="addResult" type="xsd:int"/>
+   			</xsd:sequence>
+   		</xsd:complexType>
+   		
+   		<xsd:complexType name="divedeType">
+   			<xsd:sequence>
+   				<xsd:element name="num1" type="xsd:int"/>
+   				<xsd:element name="num2" type="xsd:int"/>
+   			</xsd:sequence>
+   		</xsd:complexType>
+   		
+   		<xsd:complexType name="divedeResponse">
+   			<xsd:sequence>
+   				<xsd:element name="divedeResult" type="xsd:int"/>
+   			</xsd:sequence>
+   		</xsd:complexType>
+   		
+    </xsd:schema>
+  </wsdl:types>
+  
+  <wsdl:message name="add">
+  	<wsdl:part name="add" element="tns:add"/>
+  </wsdl:message>
+  
+  <wsdl:message name="addResponse">
+  	<wsdl:part name="addResponse" element="tns:addResponse"/>
+  </wsdl:message>
+  
+  <wsdl:message name="divede">
+  	<wsdl:part name="divede" element="tns:divede"/>
+  </wsdl:message>
+  
+  <wsdl:message name="divedeResponse">
+  	<wsdl:part name="divedeResponse" element="tns:divedeResponse"/>
+  </wsdl:message>
+  
+  <wsdl:portType name="MyService">
+  
+    <wsdl:operation name="add">
+      <wsdl:input message="tns:add"/>
+      <wsdl:output message="tns:addResponse"/>
+    </wsdl:operation>
+    
+    <wsdl:operation name="divede">
+    	<wsdl:input message="tns:divede"/>
+    	<wsdl:output message="tns:divedeResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+ 
+  <wsdl:binding name="myServiceSOAP" type="tns:MyService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="add">
+      <soap:operation soapAction="http://www.example.org/mywsdl/add"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+   
+    <wsdl:operation name="divede">
+      <soap:operation soapAction="http://www.example.org/mywsdl/divede"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  
+  <wsdl:service name="MyServiceImplService">
+    <wsdl:port binding="tns:myServiceSOAP" name="MyServiceImplPort">
+<!--       <soap:address location="http://erptest2.sdic.com.cn:9999/GtjtIntfService/service/WsExampleService"/>
+ -->      <soap:address location="http://localhost:9999/service"/>
+    </wsdl:port>
+  </wsdl:service>
+
+</wsdl:definitions>

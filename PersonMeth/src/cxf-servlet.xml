@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:beans="http://cxf.apache.org/configuration/beans" xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jaxrs-client="http://cxf.apache.org/jaxrs-client" xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xmlns:task="http://www.springframework.org/schema/task" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+		http://cxf.apache.org/configuration/beans http://cxf.apache.org/schemas/configuration/cxf-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+		http://cxf.apache.org/jaxrs-client http://cxf.apache.org/schemas/jaxrs-client.xsd
+		http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd"
+	default-lazy-init="false">
+
+
+	<!-- 引入CXF Bean定义如下,早期的版本中使用 -->
+	<import resource="classpath:META-INF/cxf/cxf.xml" />
+	<import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" />
+	<import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
+
+	<!-- <jaxws:endpoint id="importName" implementor="com.service.ws.impl.importNameImpl" 
+		address="/importName"> </jaxws:endpoint> -->
+	<jaxws:server address="/importName" serviceClass="com.service.ws.importName">
+		<!-- 服务接口的实现类 -->
+		<jaxws:serviceBean>
+			<bean class="com.service.ws.impl.importNameImpl"></bean>
+		</jaxws:serviceBean>
+		<!-- <jaxws:inInterceptors> <bean class="org.apache.cxf.interceptor.LoggingInInterceptor"></bean> 
+			</jaxws:inInterceptors> <jaxws:outInterceptors> <bean class="org.apache.cxf.interceptor.LoggingOutInterceptor"></bean> 
+			</jaxws:outInterceptors> -->
+	</jaxws:server>
+	<jaxws:server address="/importCorp" serviceClass="com.service.ws.importCorp">
+		<!-- 服务接口的实现类 -->
+		<jaxws:serviceBean>
+			<bean class="com.service.ws.impl.importCorpImpl"></bean>
+		</jaxws:serviceBean>
+	</jaxws:server>
+	
+	<jaxws:server address="/importVendor" serviceClass="com.service.ws.ImportVendor">
+		<!-- 服务接口的实现类 -->
+		<jaxws:serviceBean>
+			<bean class="com.service.ws.impl.ImportVendorImpl"></bean>
+		</jaxws:serviceBean>
+	</jaxws:server>
+	<task:annotation-driven />  <!-- 定时器开关 -->
+	<bean id="importNameInfo" class="com.importInfo.impl.ImportNameImpl" />
+	<bean id="importVendorInfo" class="com.importInfo.impl.ImportVendorImpl" />
+	<!-- //@Scheduled(cron = "0 */60 * * * ?")//1小时处理一次 -->
+	<!-- 扫描指定包 6秒"0/6 * * * * *" -->
+	<!-- 扫描包指定每天17点扫描"0 0 17 * * ?" -->
+	<!-- 扫描包指定每天17:30扫描"0 30 17 * * ?" -->
+	<!-- 扫描包指定每天12:30扫描 0 30 12 * * ? -->
+	<task:scheduled-tasks>
+		<task:scheduled ref="importNameInfo" method="importNameInfo"
+			cron="0 0 17 * * ?" /><!-- 人员与组织机构扫描时间 -->
+		<task:scheduled ref="importVendorInfo" method="importVendorInfo" cron="0 30 12 * * ?"/><!-- 供应商扫描时间 -->
+	</task:scheduled-tasks>
+</beans>

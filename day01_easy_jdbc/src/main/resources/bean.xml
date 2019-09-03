@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!-- 第一种方式:使用默认构造函数创建。、
+     在psring的配置文件中，使用bean标签，配以id和class属性后，且没有其他属性与标签后，
+     将会采用默认构造函数创建对象，如果没有默认构造函数则无法创建对象
+    -->
+    <!--<bean id="IaccountService" class="com.itheima.service.IaccountServiceImpl"></bean>-->
+    <!--<bean id="IaccountDao" class="com.itheima.dao.IaccountDaoImpl"></bean>-->
+    <!--第二种方式：使用普通工厂类的方法创建对象（使用某个类中的方法创建对象，并存入spring的容器）-->
+    <!--<bean id="BeanFacory1" class="com.itheima.factory.BeanFactory1"></bean>-->
+    <!--<bean id="IaccountService" factory-bean="BeanFacory1" factory-method="get"></bean>-->
+    <!--第三种方式：使用工厂类的静态方法创建对象（使用某个类中的静态方法创建对象，并存入spring的容器）-->
+    <!--<bean id="IaccountService" class="com.itheima.factory.BeanFactory1" factory-method="get2"></bean>-->
+    <!--bean的作用范围调整
+        bean标签的scope属性：
+            作用：用于bean的作用范围
+            取值：常用的是单例与多例
+                singleton: 单例的（默认值）
+                prototype: 多例的
+                request  : 作用于web应用的请求范围
+                session  : 作用于web应用的会话范围
+                global-session: 作用于集群环境的会话范围（全局会话范围），当不是集群范围是就是session
+       bean的生命周期：
+            单例：
+                出生: 容器创建时对象出生
+                活着: 容器在，对象在
+                死亡: 容器销毁，对象死亡
+                容器与对象生命周期相同
+            多例:
+                出生: 当使用时，对象被创建
+                活着: 对象只要对象在使用就活着
+                死亡: 当对象长时间不用，且没有被别的引用，由java垃圾回收器回收
+    -->
+    <!--<bean id="IaccountService" class="com.itheima.service.IaccountServiceImpl"></bean>-->
+    <!--spring中的依赖注入：
+        依赖注入：dependency injection
+        依赖关系：降低程序间耦合
+        依赖关系的管理日后都交给spring管理
+        在当前类中需要其他类的对象，由spring提供，我们只需在配置文档里说明即可
+        依赖关系的维护就是依赖注入
+        依赖注入可注入的数据有三类：基本类型与String类型，其他bean类型（在配置文件中或注解配置过的bean），
+                                  复杂类型/集合类型
+        注入方式：一、使用构造函数提供；二、使用set方式提供；三、使用注解提供；
+
+    -->
+    <!--构造函数注入：
+        使用标签：constructor-arg
+        标签内属性:
+            type:  用于指定要注入的数据的数据类型，该数据类型也是构造参数中某个参数或某些参数的数据类型，不常用
+            index: 用于指定注入的索引位置，位置从0开始算，不常用
+            name:  使用名称指定参数位置，常用
+            ==============以上三个参数都是与指定参数位置相关======================
+            value: 用于指定给定参数内部数据
+            ref:   用于指定其他类型的bean数据，这里的bean指的是在spring的Ioc核心容器中出现过的对象
+
+       优势：创建对象时，必须注入数据
+       弊端：改变了bean对象的实例化方式，使得创建对象时，必须注入数据，不论是否会用到这些数据
+    -->
+    <!--<bean id="IaccountService" class="com.itheima.service.IaccountServiceImpl">-->
+        <!--<constructor-arg name="age"   value="18"></constructor-arg>-->
+        <!--<constructor-arg name="name"  value="tom"></constructor-arg>-->
+        <!--<constructor-arg name="birth" ref="date"></constructor-arg>-->
+    <!--</bean>-->
+
+    <!--<bean id="date" class="java.util.Date"></bean>-->
+
+    <!--set方法注入：
+        使用标签： property
+        标签位置： bean标签内部
+        标签属性：
+            name:  指定注入时使用的set方法名称
+            ==============以上三个参数都是与指定参数位置相关======================
+            value: 用于指定给定参数内部数据
+            ref:   用于指定其他类型的bean数据，这里的bean指的是在spring的Ioc核心容器中出现过的对象
+         优势：创建对象时没有明确限制，可以直接使用默认构造函数
+         弊端：如果某个字段必须有值，则获取对象是有可能set方法没有执行
+    -->
+    <!--<bean id="IaccountService2" class="com.itheima.service.IaccountServiceImpl2">-->
+        <!--<property name="age" value="12"></property>-->
+        <!--<property name="name" value="rose"></property>-->
+        <!--<property name="birth" ref="date"></property>-->
+    <!--</bean>-->
+
+    <!--复杂类型与集合类型数据注入
+        list类型数据注入用的标签：list,set,array
+        map类型数据注入用标签：map,props
+        结构相同，标签可以互换
+    -->
+    <!--<bean id="IaccountService3" class="com.itheima.service.IaccountServiceImpl3">-->
+        <!--<property name="str">-->
+            <!--<array>-->
+                <!--<value>aaa</value>-->
+                <!--<value>bbb</value>-->
+                <!--<value>ccc</value>-->
+            <!--</array>-->
+        <!--</property>-->
+        <!--<property name="list">-->
+            <!--<set>-->
+                <!--<value>123</value>-->
+                <!--<value>456</value>-->
+            <!--</set>-->
+
+        <!--</property>-->
+        <!--<property name="map">-->
+            <!--<props>-->
+                <!--<prop key="12">zz</prop>-->
+                <!--<prop key="13">xx</prop>-->
+            <!--</props>-->
+
+        <!--</property>-->
+        <!--property与map内容互换-->
+        <!--<property name="property">-->
+            <!--<map>-->
+                <!--<entry key="as" value="as"></entry>-->
+                <!--<entry key="bs" value="bs"></entry>-->
+            <!--</map>-->
+        <!--</property>-->
+        <!--list与set内容互换-->
+        <!--<property name="set">-->
+            <!--<list>-->
+                <!--<value>111</value>-->
+                <!--<value>222</value>-->
+                <!--<value>333</value>-->
+            <!--</list>-->
+        <!--</property>-->
+    <!--</bean>-->
+</beans>

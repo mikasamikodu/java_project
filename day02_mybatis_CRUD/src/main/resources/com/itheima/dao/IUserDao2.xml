@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC  "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itheima.dao.IUserDao">
+    <!--当实体类属性与数据库字段不匹配的时候可通过配置resultMap来让双方进行匹配。
+        如果配置了resultMap，则已经配置好的sql语句的resultType需要改为resultMap，
+        值就是配置的resultMap-->
+    <resultMap id="userMap" type="com.itheima.domain.User">
+        <!--主键配置property是类的属性,column是数据库的字段-->
+        <id property="id" column="id"></id>
+        <result property="username" column="username"></result>
+        <result property="birthday" column="birthday"></result>
+        <result property="sex" column="sex"></result>
+        <result property="address" column="address"></result>
+    </resultMap>
+    <!-- 查询所有 -->
+    <select id="findAll" resultMap="userMap">
+        select * from user
+    </select>
+
+    <!-- 通过id查询用户信息 -->
+    <select id="findById" resultMap="userMap" parameterType="Integer">
+        select * from user where id=#{id}
+    </select>
+
+    <!-- 通过queryVo查询用户信息 -->
+    <select id="findByVo" resultMap="userMap" parameterType="com.itheima.domain.QueryVo">
+        select * from user where username like #{user.username}
+    </select>
+
+    <!-- 通过name查询用户信息 -->
+    <select id="findByName" resultMap="userMap" parameterType="java.lang.String">
+        select * from user where username like #{usernsme}
+--          select * from user where username like '${value}' value是固定写法，不可更改，与#{username}(kegenggai username)不一样，z利用的底层是statement,上面用的是prepatedstatement
+    </select>
+
+    <!-- 保存用户信息 -->
+    <insert id="save" parameterType="com.itheima.domain.User">
+        <!--保存后返回新增用户id-->
+        <selectKey keyProperty="id" keyColumn="id" order="AFTER" resultType="int">
+            select last_insert_id();
+        </selectKey>
+        insert into user (username, birthday, sex, address) values(#{username}, #{birthday}, #{sex}, #{address})
+    </insert>
+
+    <!-- 更新用户信息 -->
+    <update id="update" parameterType="com.itheima.domain.User">
+        update user set username=#{username}, birthday=#{birthday}, sex=#{sex}, address=#{address} where id=#{id}
+    </update>
+
+    <!-- 删除用户 -->
+    <delete id="delete" parameterType="java.lang.Integer">
+        delete from user where id=#{id}
+    </delete>
+
+    <!-- 使用聚合函数查询用户数量 -->
+    <select id="findTotal" resultType="int">
+        select count(*) from user
+    </select>
+</mapper>
