@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<books  xmlns="http://www.example.org/books"
+	    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	    xsi:noNamespaceSchemaLocation="books.xsd">
+		<book id="1">
+			<title>java</title>
+			<content>java</content>
+			<author>tom</author>
+		</book>
+		<book id="2">
+			<title>java</title>
+			<content>java</content>
+			<authors>
+				<author>jack</author>
+				<author>tom</author>
+			</authors>
+		</book>
+</books>

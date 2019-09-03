@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+			targetNamespace="http://www.example.org/classroom1" 
+			xmlns:tns="http://www.example.org/classroom1" 
+			elementFormDefault="qualified">
+			<xsd:include schemaLocation="student1.xsd"/>
+			
+			<xsd:element name="classroom1" type="tns:classroom1Type"/>
+			
+			<xsd:complexType name="classroom1Type">
+					
+					<xsd:sequence>
+						<xsd:element name="grade" type="tns:gradeType"/>
+						<xsd:element name="name" type="xsd:string"/>
+						<xsd:element name="student">
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="student1" type="tns:student1Type"/>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+					</xsd:sequence>
+			</xsd:complexType>
+			
+			<xsd:simpleType name="gradeType">
+				<xsd:restriction base="xsd:int">
+					<xsd:minInclusive value="1000"/>
+					<xsd:maxInclusive value="2000"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+</xsd:schema>

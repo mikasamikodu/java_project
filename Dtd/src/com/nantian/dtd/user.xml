@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<user xmlns="http://www.example.org/users"
+	  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	  xsi:schemaLocation="http://www.example.org/users">
+	<id>1</id>
+	<born>2012-12-12</born>
+	<username>zhangsan</username>
+</user>
+<!--xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"，这是创建了一个可以引入其他schema的命名空间  -->
+<!-- xsi:schemaLocation="http://www.example.org/user"，这是引入了其他的命名空间 -->
+<!-- 注意:如果要使用eclipse中命名空间的引用，则需要为xml增加xml的catagory.增加路径：Window->preferences->XML->xml catalog->User Specified Entries->Add->Workspace -->
+<!--为xml增加xml的catagory,除上述路径外，还可以在命名空间声明中加入这句声明： xsi:noNamespaceSchemaLocation="user.xsd"-->

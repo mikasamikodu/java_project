@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" 
+		targetNamespace="http://www.example.org/users" 
+		xmlns:tns="http://www.example.org/users" 
+		elementFormDefault="qualified">
+		
+		<element name ="user">
+			<complexType>
+				<sequence>
+					<element name="id" type="int"/>
+					<element name="born" type="date"/>
+					<element name="username" type="string"/>
+				</sequence>
+			</complexType>
+		</element>
+</schema>
+<!-- xmlns="http://www.w3.org/2001/XMLSchema",这是schema的默认命名空间，不可修改，但是可以加前缀，如果加前缀的话，则每个element都需要加前缀 -->
+<!-- targetNamespace="http://www.example.org/user",这是自己文档的命名空间，可以方便其他的xml或schema引用 -->
+<!--xmlns:tns="http://www.example.org/user"，此处名称与自己的命名空间相同，但是增加了tns前缀，此时如果需要引用当前文件的类型，则需要加tns的前缀 -->
