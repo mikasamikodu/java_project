@@ -41,7 +41,7 @@ public class UserTest {
         for(User user: users){
             System.out.println("-------------");
             System.out.println(user);
-            System.out.println(user.getRoles());
+            System.out.println(user.getAccounts());
         }
     }
 

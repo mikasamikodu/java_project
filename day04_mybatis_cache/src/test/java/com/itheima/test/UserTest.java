@@ -39,9 +39,7 @@ public class UserTest {
     public void testfindAll(){
         List<User> users = dao.findAll();
         for(User user: users){
-            System.out.println("-------------");
             System.out.println(user);
-            System.out.println(user.getRoles());
         }
     }
 

@@ -1,27 +1,27 @@
 package com.itheima.test;
 
-import com.itheima.dao.IUserDao;
-import com.itheima.domain.User;
+import com.itheima.dao.IAccountDao;
+import com.itheima.domain.Account;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
 import java.io.InputStream;
-import java.util.Date;
 import java.util.List;
 
-public class UserTest {
+public class AccountTest {
 
     private InputStream in = null;
     private SqlSession sql = null;
-    private IUserDao dao = null;
+    private IAccountDao dao = null;
     @Before
     public void init() throws Exception{
         in = Resources.getResourceAsStream("sqlMapConfig.xml");
         sql = new SqlSessionFactoryBuilder().build(in).openSession();
-        dao = sql.getMapper(IUserDao.class);
+        dao = sql.getMapper(IAccountDao.class);
     }
 
     @After
@@ -37,17 +37,12 @@ public class UserTest {
 
     @Test//测试查询所有用户信息的方法
     public void testfindAll(){
-        List<User> users = dao.findAll();
-        for(User user: users){
+        List<Account> accounts = dao.findAll();
+        for(Account account: accounts){
             System.out.println("-------------");
-            System.out.println(user);
-            System.out.println(user.getRoles());
+            System.out.println(account);
+            System.out.println(account.getUser());
         }
     }
 
-    @Test//测试通过id查询用户信息的方法
-    public void testfindById(){
-        User user = dao.findById(41);
-        System.out.println(user);
-    }
 }

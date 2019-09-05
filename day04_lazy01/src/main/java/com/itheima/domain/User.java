@@ -11,14 +11,14 @@ public class User implements Serializable {
     private String sex;
     private String address;
 
-    private List<Role> roles;
+    private List<Account> accounts;
 
-    public List<Role> getRoles() {
-        return roles;
+    public List<Account> getAccounts() {
+        return accounts;
     }
 
-    public void setRoles(List<Role> roles) {
-        this.roles = roles;
+    public void setAccounts(List<Account> accounts) {
+        this.accounts = accounts;
     }
 
     @Override
