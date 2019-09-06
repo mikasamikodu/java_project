@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
-  <uri name="http://www.example.org/users" uri="platform:/resource/Dtd/src/com/nantian/dtd/users.xsd"/>
-  <uri name="http://www.example.org/books" uri="platform:/resource/Dtd/src/com/nantian/dtd/books.xsd"/>
-  <uri name="http://www.example.org/persons" uri="platform:/resource/Dtd/src/com/nantian/dtd/persons.xsd"/>
-  <uri name="http://www.example.org/persons1" uri="platform:/resource/Dtd/src/com/nantian/dtd/persons1.xsd"/>
-</catalog>
