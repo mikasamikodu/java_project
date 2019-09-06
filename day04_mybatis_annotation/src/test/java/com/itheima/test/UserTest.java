@@ -15,38 +15,37 @@ import java.util.List;
 
 public class UserTest {
 
-    private InputStream in = null;
-    SqlSessionFactory factory =  null;
-//    private SqlSession sql = null;
-//    private IUserDao dao = null;
-    @Before
-    public void init() throws Exception{
-        in = Resources.getResourceAsStream("sqlMapConfig.xml");
-        factory =  new SqlSessionFactoryBuilder().build(in);
-//        sql = factory.openSession();
-//        dao = sql.getMapper(IUserDao.class);
-    }
-
-    @After
-    public void destory() throws Exception{
-//        sql.commit();
-//        if(sql!=null){
-//            sql.close();
+    public static void main(String[] args) throws Exception{
+        InputStream in = Resources.getResourceAsStream("sqlMapConfig.xml");
+        SqlSessionFactory factory =  new SqlSessionFactoryBuilder().build(in);
+        SqlSession sql = factory.openSession();
+        IUserDao dao = sql.getMapper(IUserDao.class);
+//        List<User> users = dao.findAll();
+//        for (User user: users) {
+//            System.out.println(user);
 //        }
-        if(in!=null){
-            in.close();
-        }
-    }
-
-    @Test//测试查询所有用户信息的方法
-    public void testTheFirstCache(){
-        SqlSession sql1 = factory.openSession();
-        IUserDao dao1 = sql1.getMapper(IUserDao.class);
-        User user1 = dao1.findById(41);
-        sql1.close();
-        SqlSession sql2 = factory.openSession();
-        IUserDao dao2 = sql2.getMapper(IUserDao.class);
-        User user2 = dao2.findById(41);
-        System.out.println(user1==user2);
+//        User user = new User();
+//        user.setUsername("tom3");
+//        user.setAddress("天通苑");
+//        user.setSex("男");
+//        user.setBirthday(new Date());
+//        dao.save(user);
+//        User user = dao.findById(58);
+//        System.out.println(user);
+//        user.setUsername("tom31");
+//        user.setAddress("天通苑");
+//        user.setSex("男");
+//        user.setBirthday(new Date());
+//        dao.update(user);
+//        System.out.println(dao.findById(58));
+//        dao.delete(58);
+//        List<User>  users = dao.findByName("%王%");
+//        for (User user: users) {
+//            System.out.println(user);
+//        }
+        System.out.println(dao.findCount());
+        sql.commit();
+        sql.close();
+        in.close();
     }
 }
