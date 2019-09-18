@@ -18,11 +18,19 @@
         <property name="prefix" value="/WEB-INF/pages/"/>
         <property name="suffix" value=".jsp"/><!--可为空,方便实现自已的依据扩展名来选择视图解释类的逻辑  -->
     </bean>
-
-    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"></bean>
-
+	
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/user/*"/>
+			<bean class="com.itheima.interceptor.MyInterceptor"/>
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<bean class="com.itheima.interceptor.MyInterceptor2"/>
+		</mvc:interceptor>
+	</mvc:interceptors>
+	
+	<bean id="sysExceptionResolver" class="com.itheima.exception.SysExceptionResolver"></bean>
     <!-- 默认的注解映射的支持 -->
     <mvc:annotation-driven />
-    <!--设置前端控制器不拦截静态资源并指定哪些不拦截-->
-    <mvc:resources location="/js/" mapping="/js/**"/>
 </beans>

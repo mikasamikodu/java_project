@@ -11,11 +11,6 @@
     <title>Title</title>
 </head>
 <body>
-    <h3>跳转成功
-    </h3>
-request:
-${user.name}<br/>
-${user.password}<br/>
-${user.age}<br/>
+    ${errormsg}
 </body>
 </html>
