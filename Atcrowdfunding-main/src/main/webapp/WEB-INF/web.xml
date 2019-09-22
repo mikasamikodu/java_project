@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app id="WebApp_ID" version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+	<display-name>crowdfunding</display-name>
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath*:spring/spring-*.xml</param-value>
+    </context-param>
+    
+    <!-- 监听器:
+    		作用：创建spring的IOC容器，然后放在application域
+    		从ioc中取出东西的方法：AppliacationContext app =   WebAppliacationContextUtils.getWebAppliacationContext(appliacation);	
+     		ServletContextListener监听器作用：监听ServletContext的创建于销毁
+     				如果ServletContext创建(服务器启动)，则创建IOC容器(XMLWebApplicationContext)；
+     				如果ServletContext销毁(服务器销毁，卸载项目)，则销毁IOC容器；
+     		web环境下，IOC容器是接口XMLWebApplicationContext，
+     		单元测试时，IOC容器是接口ClassPathApplicationContext
+     -->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
+    <!-- 字符编码过滤器 :
+    		只负责解决POST请求乱码问题，不能解决GET的
+    -->
+    <filter>
+        <filter-name>encoding</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <init-param>
+        <!-- 处理请求乱码问题 -->
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+        <init-param>
+        <!-- 处理响应乱码问题 -->
+            <param-name>forceEncoding</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+    <!-- 过滤器只对请求进行过滤，之后的转发重定向默认不过滤，要过滤需要配置dispatcher -->
+        <filter-name>encoding</filter-name>
+        <url-pattern>/*</url-pattern>
+       <!--  <dispatcher>FORWARD</dispatcher>
+        <dispatcher>REQUEST</dispatcher> -->
+    </filter-mapping>
+
+
+<!-- 支持RESTful风格，可以将post请求转化为put和delete请求，会读取隐含参数“_method” -->	    
+	<filter>  
+	    <filter-name>HiddenHttpMethodFilter</filter-name>  
+	    <filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>  
+	</filter>
+	<filter-mapping>  
+	    <filter-name>HiddenHttpMethodFilter</filter-name>  
+	    <servlet-name>springmvc</servlet-name>  
+	</filter-mapping> 
+
+    
+    <servlet>
+        <servlet-name>springmvc</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath:spring/springmvc-context.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>springmvc</servlet-name>
+        <url-pattern>*.htm</url-pattern>
+        <url-pattern>*.do</url-pattern>
+    </servlet-mapping>
+    
+    <!-- 会话超时时间 -->
+    <session-config>
+        <session-timeout>60</session-timeout>
+    </session-config>
+    
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+</web-app>
