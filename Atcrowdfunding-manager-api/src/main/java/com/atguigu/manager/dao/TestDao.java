@@ -4,5 +4,7 @@ import java.util.Map;
 
 public interface TestDao {
 
-	public void insert(Map<String, Object> map);
+	@SuppressWarnings("rawtypes")
+	public void insert(Map map);
+	
 }

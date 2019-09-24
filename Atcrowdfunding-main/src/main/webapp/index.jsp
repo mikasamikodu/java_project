@@ -3,10 +3,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+<meta http-equiv="Content-type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
- <a href="test.do">test</a>
+<jsp:forward page="index.htm"/>
 </body>
 </html>

@@ -1,1 +1,9 @@
-/.metadata/
+build
+target
+.idea
+.classpath
+.project
+.settings
+*.iml
+.gitignore
+.metadata

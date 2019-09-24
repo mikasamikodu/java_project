@@ -12,10 +12,10 @@
     <context:annotation-config />
     
     <!-- 字符串字符编码转换 -->
-    <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" >
+  <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" >
         <property name="messageConverters">   
 	         <list>
-	             <bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">   
+	         	 <bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">   
 	                <property name="supportedMediaTypes">
 	                      <list>
 	                          <value>application/json;charset=UTF-8</value>
@@ -38,9 +38,11 @@
     
     <bean id="exceptionResolver"  
         class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">  
+       <!--  <property name="exceptionAttribute" value="exception"></property> --><!-- 异常解析器捕获异常后会将异常对象放入request域，默认名为exception -->
         <property name="exceptionMappings">  
             <props>
                 <prop key="java.lang.Exception">error/error</prop>
+                <prop key="com.atguigu.exception.LoginFailException">login</prop>
             </props>  
         </property>  
     </bean>

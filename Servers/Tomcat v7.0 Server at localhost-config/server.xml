@@ -114,7 +114,7 @@
       </Realm>
 
       <Host appBase="webapps" autoDeploy="true" name="localhost" unpackWARs="true">
-
+			
         <!-- SingleSignOn valve, share authentication between web applications
              Documentation at: /docs/config/valve.html -->
         <!--
@@ -126,7 +126,7 @@
              Note: The pattern used is equivalent to using pattern="common" -->
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" pattern="%h %l %u %t &quot;%r&quot; %s %b" prefix="localhost_access_log." suffix=".txt"/>
 
-      <Context docBase="DMS" path="/DMS" reloadable="true" source="org.eclipse.jst.jee.server:DMS"/><Context docBase="Atcrowdfunding-main" path="/Atcrowdfunding-main" reloadable="true" source="org.eclipse.jst.jee.server:Atcrowdfunding-main"/></Host>
+      <Context docBase="Atcrowdfunding-main" path="/Atcrowdfunding-main" reloadable="true" source="org.eclipse.jst.jee.server:Atcrowdfunding-main"/></Host>
     </Engine>
   </Service>
 </Server>

@@ -4,18 +4,21 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.atguigu.manager.dao.TestDao;
 import com.atguigu.manager.service.TestService;
-
+@Service
 public class TestServiceImpl implements TestService {
 
 	@Autowired
 	private TestDao testDao;
-	@Override
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void insert() {
-		Map<String, Object> map = new HashMap<String,  Object>();
-		map.put("name", "å¼ ä¸‰");
+		System.out.println("TestServiceImpl");
+		Map map = new HashMap();
+		map.put("name", "ÕÅÈý");
 		testDao.insert(map);
 	}
 
