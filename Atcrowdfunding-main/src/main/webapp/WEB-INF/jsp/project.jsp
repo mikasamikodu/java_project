@@ -152,7 +152,7 @@
                                     </div>
                                     <p>剩余 15 天</p>
                                     <div>
-                                     <p><span/>已有629人支持该项目</p>
+                                     <p><span></span>已有629人支持该项目</p>
                                      <button type="button" class="btn  btn-warning btn-lg btn-block" data-toggle="modal" data-target="#myModal">立即支持</button>
                                     </div>
                                 </div>
@@ -327,7 +327,7 @@
           </div>
         </div>
       </div>
-    </div>
+    <!-- </div> -->
     
     <script src="${APP_PATH }/jquery/jquery-2.1.1.min.js"></script>
     <script src="${APP_PATH }/bootstrap/js/bootstrap.min.js"></script>

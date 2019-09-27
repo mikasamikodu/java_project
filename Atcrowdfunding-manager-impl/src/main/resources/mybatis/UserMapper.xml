@@ -15,15 +15,27 @@
 		where id = #{id,jdbcType=INTEGER}
 	</delete>
 	<insert id="insert" parameterType="com.atguigu.bean.User">
-		insert into t_user (id,
+		insert into t_user (
 		loginacct, userpswd,
 		username, email, createtime
+		)
+		values
+		(#{loginacct,jdbcType=VARCHAR},
+		#{userpswd,jdbcType=CHAR},
+		#{username,jdbcType=VARCHAR},
+		#{email,jdbcType=VARCHAR}, #{createtime,jdbcType=CHAR}
+		)
+	</insert>
+	<insert id="doRegister" parameterType="com.atguigu.bean.Member">
+		insert into t_member (id,
+		loginacct, userpswd,
+		username, email, authstatus,usertype
 		)
 		values
 		(#{id,jdbcType=INTEGER}, #{loginacct,jdbcType=VARCHAR},
 		#{userpswd,jdbcType=CHAR},
 		#{username,jdbcType=VARCHAR},
-		#{email,jdbcType=VARCHAR}, #{createtime,jdbcType=CHAR}
+		#{email,jdbcType=VARCHAR}, #{authstatus,jdbcType=CHAR}, #{usertype,jdbcType=CHAR}
 		)
 	</insert>
 	<update id="updateByPrimaryKey" parameterType="com.atguigu.bean.User">
@@ -55,6 +67,15 @@
 		select id, loginacct, userpswd,
 		username, email, createtime
 		from t_user where loginacct=#{loginacct} and userpswd=#{userpswd}
+	</select>
+	<select id="queryList" resultMap="BaseResultMap">
+		select id, loginacct, userpswd,username, email, createtime
+		from t_user 
+		limit #{startIndex},#{pageSize}
+	</select>
+	<select id="queryCount" resultType="Integer">
+		select count(*)
+		from t_user
 	</select>
 
 </mapper>

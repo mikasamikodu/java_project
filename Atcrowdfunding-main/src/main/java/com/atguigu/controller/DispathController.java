@@ -8,10 +8,14 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.atguigu.bean.Member;
 import com.atguigu.bean.User;
 import com.atguigu.manager.service.UserService;
+import com.atguigu.utils.AjaxResult;
 import com.atguigu.utils.Const;
+import com.atguigu.utils.MD5Util;
 
 @Controller
 public class DispathController {
@@ -34,21 +38,62 @@ public class DispathController {
 		return "login";
 	}
 	
+	/*Í¬²½ÇëÇó
+	 * @RequestMapping("/doLogin") public String doLogin(String loginacct,String
+	 * userpswd,String type,HttpSession session) { Map<String,Object> map = new
+	 * HashMap<String,Object>(); map.put("loginacct", loginacct);
+	 * map.put("userpswd", userpswd); map.put("type", type); User user =
+	 * userService.queryUserLogin(map); session.setAttribute(Const.LOGIN_USER,
+	 * user); return "redirect:/main.htm"; }
+	 */
+	//Òì²½ÇëÇó
+	@ResponseBody
 	@RequestMapping("/doLogin")
-	public String doLogin(String loginacct,String userpswd,String type,HttpSession session) {
-		Map<String,Object> map = new HashMap<String,Object>();
-		map.put("loginacct", loginacct);
-		map.put("userpswd", userpswd);
-		map.put("type", type);
-		User user = userService.queryUserLogin(map);
-		session.setAttribute(Const.LOGIN_USER, user);
-		return "redirect:/main.htm";
+	public Object doLogin(String loginacct,String userpswd,String type,HttpSession session) {
+		AjaxResult result = new AjaxResult();
+		try {
+			Map<String,Object> map = new HashMap<String,Object>();
+			map.put("loginacct", loginacct);
+			map.put("userpswd", MD5Util.digest(userpswd));
+			map.put("type", type);
+			User user = userService.queryUserLogin(map);
+			session.setAttribute(Const.LOGIN_USER, user);
+			result.setSuccess(true);
+		}catch(Exception e) {
+			result.setMessage("µÇÂ¼Ê§°Ü£¡");
+			result.setSuccess(false);
+			e.printStackTrace();
+		}
+		return result;
 	}
 	
+	@RequestMapping("/logout")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "redirect:/index.htm";
+	}
 	
-	@RequestMapping("/reg")
+	@RequestMapping("/register")
 	public String register() {
-		return "reg";
+		return "register";
+	}
+	
+	@ResponseBody
+	@RequestMapping("/doRegister")
+	public AjaxResult doRegister(Member member) {
+		AjaxResult result = new AjaxResult();
+		try {
+			member.setUsername(member.getLoginacct());
+			member.setAuthstatus("0");
+			member.setUserpswd(MD5Util.digest(member.getUserpswd()));
+			userService.doRegister(member);
+			result.setSuccess(true);
+		}catch(Exception e) {
+			result.setMessage("×¢²áÊ§°Ü£¡");
+			result.setSuccess(false);
+			e.printStackTrace();
+		}
+		return result;
 	}
 	
 	@RequestMapping("/project")
