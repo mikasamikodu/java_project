@@ -1,7 +1,10 @@
 package com.atguigu.controller;
 
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.atguigu.bean.Member;
+import com.atguigu.bean.Permission;
 import com.atguigu.bean.User;
 import com.atguigu.manager.service.UserService;
 import com.atguigu.utils.AjaxResult;
@@ -57,6 +61,26 @@ public class DispathController {
 			map.put("userpswd", MD5Util.digest(userpswd));
 			map.put("type", type);
 			User user = userService.queryUserLogin(map);
+			
+			List<Permission> permissions = userService.quertPermissionsByUserId(user.getId());
+			Map<Integer,Permission> map2 = new HashMap<Integer, Permission>();
+			Set<String> permissionUriSet = new HashSet<String>();
+			Permission root = null;
+			for(Permission permission:permissions) {
+				map2.put(permission.getId(), permission);
+				permissionUriSet.add("/"+permission.getUrl());
+			}
+			for(Permission permission:permissions) {
+				if(permission.getPid()==null) {
+					root = permission;
+				}else {
+					Permission parent = map2.get(permission.getPid());
+					parent.getChildren().add(permission);
+				}
+			}
+			session.setAttribute("permissionRoot", root);
+			session.setAttribute(Const.MY_URIS, permissionUriSet);
+			
 			session.setAttribute(Const.LOGIN_USER, user);
 			result.setSuccess(true);
 		}catch(Exception e) {

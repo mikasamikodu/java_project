@@ -629,7 +629,7 @@ h3.break>a {
     <script>
     $(".thumbnail img").css("cursor", "pointer");
     $(".thumbnail img").click(function(){
-        window.location.href = "project.htm";
+        window.location.href = "${APP_PATH}/project/index.htm";
     });
     </script>
   </body>

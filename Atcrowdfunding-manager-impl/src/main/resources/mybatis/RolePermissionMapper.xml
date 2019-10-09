@@ -10,11 +10,19 @@
     delete from t_role_permission
     where id = #{id,jdbcType=INTEGER}
   </delete>
+  <delete id="deleteByRoleid" parameterType="java.lang.Integer" >
+    delete from t_role_permission
+    where roleid = #{roleid,jdbcType=INTEGER}
+  </delete>
   <insert id="insert" parameterType="com.atguigu.bean.RolePermission" >
     insert into t_role_permission (id, roleid, permissionid
       )
     values (#{id,jdbcType=INTEGER}, #{roleid,jdbcType=INTEGER}, #{permissionid,jdbcType=INTEGER}
       )
+  </insert>
+  <insert id="insertByid">
+    insert into t_role_permission (roleid, permissionid)
+    values (#{roleid,jdbcType=INTEGER}, #{permissionid,jdbcType=INTEGER})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.RolePermission" >
     update t_role_permission
@@ -22,10 +30,10 @@
       permissionid = #{permissionid,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select id, roleid, permissionid
+  <select id="selectByPrimaryKey" resultType="java.lang.Integer" parameterType="java.lang.Integer" >
+    select permissionid
     from t_role_permission
-    where id = #{id,jdbcType=INTEGER}
+    where roleid = #{roleid,jdbcType=INTEGER}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
     select id, roleid, permissionid

@@ -1,7 +1,9 @@
 package com.atguigu.manager.dao;
 
 import com.atguigu.bean.Role;
+
 import java.util.List;
+import java.util.Map;
 
 public interface RoleMapper {
     int deleteByPrimaryKey(Integer id);
@@ -13,4 +15,10 @@ public interface RoleMapper {
     List<Role> selectAll();
 
     int updateByPrimaryKey(Role record);
+
+	List<Role> queryPage(Map<String, Object> map);
+
+	Integer queryCount();
+
+	Integer delBatch(Integer[] id);
 }

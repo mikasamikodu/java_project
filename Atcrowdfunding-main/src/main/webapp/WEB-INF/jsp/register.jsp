@@ -27,7 +27,7 @@
 
     <div class="container">
 
-      <form id="registerForm" action='doRegister.do' method="post"  class="form-signin" role="form">
+      <form id="registerForm" action='${APP_PATH }/doRegister.do' method="post"  class="form-signin" role="form">
         <h2 class="form-signin-heading"><i class="glyphicon glyphicon-log-in"></i> 用户注册</h2>
 		  <div class="form-group has-success has-feedback">
 			<input type="text" name="loginacct" class="form-control" id="loginacct" placeholder="请输入登录账号" autofocus>
@@ -73,14 +73,13 @@
     		
     		//表单验空
     		if($.trim(loginacct.val()) == ""){
-    			 layer.msg("账号不能为空", {time:1000, icon:5, shift:6}, function(){
-        			 loginacct.val("");
-            		 loginacct.focus();
-        		 });
-    			
-    			/* alert("账户名不能为空"); */
-    			return false;
-    		}
+          		 //icon5效果是笑脸，shift:6效果是抖动，time:1000效果持续时间是1秒
+           		 layer.msg("账户名不能为空", {time:1000, icon:5, shift:1}, function(){
+           			 loginacct.val("");
+               		 loginacct.focus();
+           		 });
+           		 return false;
+          	 }
     		if($.trim(userpswd.val()) == ""){
     			 layer.msg("密码不能为空", {time:1000, icon:5, shift:6}, function(){
     				 userpswd.val("");
@@ -105,26 +104,30 @@
     		
     		$.ajax({
     			type : "POST",
-    			url : "doRegister.do",
+    			url : "${APP_PATH}/doRegister.do",
     			data : {
     				loginacct : loginacct.val(),
     				userpswd : userpswd.val(),
     				email : email.val(),
     				usertype : usertype.val()
     			},
+    			beforeSend : function(){
+    				layerIndex = layer.msg("正在注册...", {icon:6});
+    				return true;
+    			},
     			success : function(result){
+    				layer.close(layerIndex);
     				if(result.success){
-    					console.log("success");
+    					layer.msg("注册成功！", {time:1000, icon:5, shift:3});
     					window.location.href="${APP_PATH}/login.htm";
     				}else{
-    					console.log("fail");
-    					alert(result.message);
-    					return;
+    					layer.msg(result.message, {time:1000, icon:5, shift:6});
+    					return false;
     				}
     			},
-    			error : function(e){
-    				alert("error"+e.message);
-					return;
+    			error : function(){
+    				layer.msg("注册失败！！", {time:1000, icon:5, shift:6});
+    				return false;
     			}
     		});
     	}

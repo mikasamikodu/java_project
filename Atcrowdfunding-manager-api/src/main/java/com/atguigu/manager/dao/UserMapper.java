@@ -1,11 +1,12 @@
 package com.atguigu.manager.dao;
 
 import com.atguigu.bean.Member;
+import com.atguigu.bean.Permission;
 import com.atguigu.bean.User;
+import com.atguigu.vo.Data;
+
 import java.util.List;
 import java.util.Map;
-
-import org.apache.ibatis.annotations.Param;
 
 public interface UserMapper {
     int deleteByPrimaryKey(Integer id);
@@ -22,8 +23,11 @@ public interface UserMapper {
 
 	int doRegister(Member member);
 
-	List<User> queryList(@Param(value="startIndex") Integer startIndex,
-						 @Param(value="pageSize") Integer pageSize);
+	List<User> queryList(Map<String,Object> map);
 
-	Integer queryCount();
+	Integer queryCount(Map<String, Object> paramMap);
+
+	int deleteBatchUser(Data data);
+
+	List<Permission> queryPermissionsByUserId(Integer id);
 }

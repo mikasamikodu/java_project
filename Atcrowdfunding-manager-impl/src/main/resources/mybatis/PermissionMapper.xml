@@ -20,16 +20,33 @@
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.Permission" >
     update t_permission
-    set pid = #{pid,jdbcType=INTEGER},
-      name = #{name,jdbcType=VARCHAR},
-      icon = #{icon,jdbcType=VARCHAR},
-      url = #{url,jdbcType=VARCHAR}
+    <set>
+    	<if test="name!=null">
+	      name = #{name,jdbcType=VARCHAR},
+    	</if>
+    	<if test="icon!=null">
+	      icon = #{icon,jdbcType=VARCHAR},
+    	</if>
+    	<if test="url!=null">
+	      url = #{url,jdbcType=VARCHAR}
+    	</if>
+    </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select id, pid, name, icon, url
     from t_permission
     where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="getRootPermission" resultType="com.atguigu.bean.Permission">
+    select id, pid, name, icon, url
+    from t_permission
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="queryByPid" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select id, pid, name, icon, url
+    from t_permission
+    where pid = #{pid,jdbcType=INTEGER}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
     select id, pid, name, icon, url

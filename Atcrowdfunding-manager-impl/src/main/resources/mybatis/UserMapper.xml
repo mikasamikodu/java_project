@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.atguigu.manager.dao.UserMapper">
 
 	<resultMap id="BaseResultMap" type="com.atguigu.bean.User">
@@ -14,13 +14,21 @@
 		delete from t_user
 		where id = #{id,jdbcType=INTEGER}
 	</delete>
-	<insert id="insert" parameterType="com.atguigu.bean.User">
-		insert into t_user (
+	<delete id="deleteBatchUser">
+		delete from t_user
+		where id in 
+		<foreach collection="datas" open="(" close=")" separator="," item="user">
+			#{user.id}
+		</foreach>
+	</delete>
+	<!-- 配置 useGeneratedKeys="true" keyProperty="id"，可以在插入数据后将主键id返回-->
+	<insert id="insert" parameterType="com.atguigu.bean.User" useGeneratedKeys="true" keyProperty="id">
+		insert into t_user (id,
 		loginacct, userpswd,
 		username, email, createtime
 		)
 		values
-		(#{loginacct,jdbcType=VARCHAR},
+		(#{id,jdbcType=INTEGER},#{loginacct,jdbcType=VARCHAR},
 		#{userpswd,jdbcType=CHAR},
 		#{username,jdbcType=VARCHAR},
 		#{email,jdbcType=VARCHAR}, #{createtime,jdbcType=CHAR}
@@ -42,12 +50,8 @@
 		update t_user
 		set
 		loginacct = #{loginacct,jdbcType=VARCHAR},
-		userpswd =
-		#{userpswd,jdbcType=CHAR},
 		username = #{username,jdbcType=VARCHAR},
-		email = #{email,jdbcType=VARCHAR},
-		createtime =
-		#{createtime,jdbcType=CHAR}
+		email = #{email,jdbcType=VARCHAR}
 		where id = #{id,jdbcType=INTEGER}
 	</update>
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
@@ -62,6 +66,15 @@
 		username, email, createtime
 		from t_user
 	</select>
+	<select id="queryPermissionsByUserId" resultType="com.atguigu.bean.Permission" parameterType="int">
+		SELECT DISTINCT(permission.id),permission.`pid`,permission.`name`,permission.`icon`,permission.`url`  
+		FROM t_permission permission,t_role_permission rolepermission,t_role role,t_user_role userrole,t_user USER
+		WHERE permission.id=rolepermission.`permissionid` AND
+		      rolepermission.`roleid`=role.id AND
+		      role.id=userrole.`roleid` AND 
+		      userrole.`userid`=user.`id` AND 
+		      user.id=#{id} order by permission.id
+	</select>
 
 	<select id="queryUserlogin" parameterType="map" resultMap="BaseResultMap">
 		select id, loginacct, userpswd,
@@ -71,11 +84,35 @@
 	<select id="queryList" resultMap="BaseResultMap">
 		select id, loginacct, userpswd,username, email, createtime
 		from t_user 
+		<where>
+			<if test="input!=null">
+			loginacct like concat("%", #{input}, "%") 
+			or username like concat("%", #{input}, "%") 
+			or email like concat("%", #{input}, "%") 
+			</if>
+		</where>
+		order by createtime desc
+		limit #{startIndex},#{pageSize}
+	</select>
+	<select id="queryCount" resultType="int">
+		select count(*)
+		from t_user
+		<where>
+			<if test="input!=null">
+			loginacct like concat("%", #{input}, "%") 
+			or username like concat("%", #{input}, "%") 
+			or email like concat("%", #{input}, "%") 
+			</if>
+		</where>
+	</select>
+<!-- 	<select id="queryList" resultMap="BaseResultMap">
+		select id, loginacct, userpswd,username, email, createtime
+		from t_user 
 		limit #{startIndex},#{pageSize}
 	</select>
 	<select id="queryCount" resultType="Integer">
 		select count(*)
 		from t_user
-	</select>
+	</select> -->
 
 </mapper>

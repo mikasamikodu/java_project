@@ -52,6 +52,7 @@
 			<tx:method name="*" propagation="REQUIRED" isolation="DEFAULT" rollback-for="java.lang.Exception"/>
 			<tx:method name="query*" read-only="true"/>
 			<tx:method name="get*" read-only="true"/>
+			<tx:method name="select*" read-only="true"/>
 		</tx:attributes>
 	</tx:advice>
 	

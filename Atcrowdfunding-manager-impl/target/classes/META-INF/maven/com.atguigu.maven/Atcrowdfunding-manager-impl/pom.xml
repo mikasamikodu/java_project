@@ -2,6 +2,14 @@
   <modelVersion>4.0.0</modelVersion>
   <artifactId>Atcrowdfunding-manager-impl</artifactId>
   <dependencies>
+	<dependency>
+		  <groupId>javax.servlet</groupId>
+		  <artifactId>servlet-api</artifactId>
+	</dependency> 
+	<dependency>
+		<groupId>javax.servlet.jsp</groupId>
+	    <artifactId>jsp-api</artifactId>
+	</dependency>
   	<dependency>
   		<groupId>com.atguigu.maven</groupId>
   		<artifactId>Atcrowdfunding-manager-api</artifactId>
