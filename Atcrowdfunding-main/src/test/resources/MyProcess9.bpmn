@@ -52,14 +52,14 @@
         <omgdi:waypoint x="327.0" y="230.0"></omgdi:waypoint>
         <omgdi:waypoint x="237.0" y="270.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="100.0" x="241.0" y="245.0"></omgdc:Bounds>
+          <omgdc:Bounds height="14.0" width="48.0" x="241.0" y="245.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
         <omgdi:waypoint x="327.0" y="230.0"></omgdi:waypoint>
         <omgdi:waypoint x="407.0" y="270.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="100.0" x="359.0" y="243.0"></omgdc:Bounds>
+          <omgdc:Bounds height="14.0" width="48.0" x="359.0" y="243.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>

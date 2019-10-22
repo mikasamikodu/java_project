@@ -31,11 +31,11 @@
       <form id="loginForm" action="${APP_PATH }/doLogin.do" method="post" class="form-signin" role="form">
         <h2 class="form-signin-heading"><i class="glyphicon glyphicon-log-in"></i> 用户登录</h2>
 		  <div class="form-group has-success has-feedback">
-			<input type="text" class="form-control" value="admin" name="loginacct" id="loginacct" placeholder="请输入登录账号" autofocus>
+			<input type="text" class="form-control" name="loginacct" id="loginacct" placeholder="请输入登录账号" autofocus>
 			<span class="glyphicon glyphicon-user form-control-feedback"></span>
 		  </div>
 		  <div class="form-group has-success has-feedback">
-			<input type="password" class="form-control" value="123" id="userpswd" name="userpswd" placeholder="请输入登录密码" style="margin-top:10px;">
+			<input type="password" class="form-control" id="userpswd" name="userpswd" placeholder="请输入登录密码" style="margin-top:10px;">
 			<span class="glyphicon glyphicon-lock form-control-feedback"></span>
 		  </div>
 		  <div class="form-group has-success has-feedback">
@@ -46,7 +46,7 @@
 		  </div>
         <div class="checkbox">
           <label>
-            <input type="checkbox" value="remember-me"> 记住我
+            <input type="checkbox" id="rememberme"> 记住我2周
           </label>
           <br>
           <label>
@@ -87,23 +87,32 @@
     		 return false;
     	 }
     	 var layerIndex = -1; 
+    	 var rememberme = $("#rememberme")[0].checked;
     	 $.ajax({
     		 type : "POST",
     		 url : "${APP_PATH}/doLogin.do",
     		 data : {
     			 "loginacct" : loginacct.val(),
     			 "userpswd" : userpswd.val(),
-    			 "type" : type.val()
+    			 "type" : type.val(),
+    			 "rememberme" : rememberme?"1":"0"
     		 },
     		 beforeSend : function(){
     			 //数据校验
-    			 layerIndex = layer.msg("处理中...", {icon:6});
+    			 layerIndex = layer.msg("正在登录...", {icon:6});
     			 return true;
     		 },
     		 success: function(result){
     			 layer.close(layerIndex);
     			 if(result.success){
-	    			 window.location.href="${APP_PATH}/main.htm";
+    				 if("member"==type.val()){
+    					 window.location.href="${APP_PATH}/member/index.htm";
+    				 }else if("user"==type.val()){
+		    			 window.location.href="${APP_PATH}/main.htm";
+    				 }else{
+    					 layer.msg("登录类型异常！", {time:1000, icon:5, shift:6});
+    	    			 return false;
+    				 }
     			 }else{
     				layer.msg(result.message, {time:1000, icon:5, shift:6});
     				return false;

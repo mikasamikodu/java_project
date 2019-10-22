@@ -12,6 +12,7 @@
 	<link rel="stylesheet" href="${APP_PATH }/bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" href="${APP_PATH }/css/font-awesome.min.css">
 	<link rel="stylesheet" href="${APP_PATH }/css/main.css">
+	<link rel="stylesheet" href="${APP_PATH }/css/pagination.css">
 	<style>
 	.tree li {
         list-style-type: none;
@@ -65,82 +66,31 @@
   <button type="button" class="btn btn-warning"><i class="glyphicon glyphicon-search"></i> 查询</button>
 </form>
 
-<button type="button" class="btn btn-primary" style="float:right;" onclick="window.location.href='form.html'"><i class="glyphicon glyphicon-upload"></i> 上传流程定义文件</button>
+<form id="uploadForm" method="post" enctype="multipart/form-data">
+	<input type="file" id="uploadFile" style="display:none" name="processDefinitionFile"></input>
+</form>
+
+<button type="button" id="uploadBtn" class="btn btn-primary" style="float:right;"><i class="glyphicon glyphicon-upload"></i> 上传流程定义文件</button>
 <br>
  <hr style="clear:both;">
           <div class="table-responsive">
             <table class="table  table-bordered">
               <thead>
-                <tr >
-                  <th width="30">#</th>
-                  <th>流程名称</th>
-                  <th>流程版本</th>
-                  <th>任务名称</th>
-                  <th>申请会员</th>
+                <tr>
+                  <th width="50">序号</th>
+                  <th>流程定义名称</th>
+                  <th>流程定义版本</th>
+                  <th>流程定义Key</th>
                   <th width="100">操作</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>实名认证审批流程</td>
-                  <td>2</td>
-                  <td>人工审核</td>
-                  <td>张三</td>
-                  <td>
-                      <button type="button" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-eye-open"></i></button>
-                      <button type="button" class="btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"></i></button>
-				  </td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>实名认证审批流程</td>
-                  <td>2</td>
-                  <td>人工审核</td>
-                  <td>张三</td>
-                  <td>
-                      <button type="button" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-eye-open"></i></button>
-                      <button type="button" class="btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"></i></button>
-				  </td>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td>实名认证审批流程</td>
-                  <td>2</td>
-                  <td>人工审核</td>
-                  <td>张三</td>
-                  <td>
-                      <button type="button" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-eye-open"></i></button>
-                      <button type="button" class="btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"></i></button>
-				  </td>
-                </tr>
-                <tr>
-                  <td>4</td>
-                  <td>实名认证审批流程</td>
-                  <td>2</td>
-                  <td>人工审核</td>
-                  <td>张三</td>
-                  <td>
-                      <button type="button" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-eye-open"></i></button>
-                      <button type="button" class="btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"></i></button>
-				  </td>
-                </tr>
-              </tbody>
+              <tbody></tbody>
 			  <tfoot>
 			     <tr >
 				     <td colspan="6" align="center">
-						<ul class="pagination">
-								<li class="disabled"><a href="#">上一页</a></li>
-								<li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-								<li><a href="#">2</a></li>
-								<li><a href="#">3</a></li>
-								<li><a href="#">4</a></li>
-								<li><a href="#">5</a></li>
-								<li><a href="#">下一页</a></li>
-							 </ul>
+						<ul class="pagination"></ul>
 					 </td>
 				 </tr>
-
 			  </tfoot>
             </table>
           </div>
@@ -154,6 +104,9 @@
     <script src="${APP_PATH }/bootstrap/js/bootstrap.min.js"></script>
 	<script src="${APP_PATH }/script/docs.min.js"></script>
 	<script src="${APP_PATH }/script/common.js"></script>
+	<script src="${APP_PATH }/jquery/jquery-form.min.js"></script>
+	<script src="${APP_PATH }/jquery/layer/layer.js"></script>
+	<script src="${APP_PATH }/jquery/jquery.pagination.js"></script>
         <script type="text/javascript">
             $(function () {
 			    $(".list-group-item").click(function(){
@@ -167,7 +120,126 @@
 					}
 				});
 			    showMenu();
+			    queryPageUser(0);
             });
+            
+            function pageChange(pageNo){
+				queryPageUser(pageNo);
+            }
+            
+            var json = {
+        			"pageNo" : 1,
+        			"pageSize" : 5
+        		};
+            
+            function queryPageUser(pageNo, jq){
+            	var layerIndex = -1;
+            	json.pageNo = pageNo;
+            	$.ajax({
+            		type : "post",
+            		url : "${APP_PATH}/process/doIndex.do",
+            		data : json,
+            		beforeSend : function(){
+            			layerIndex = layer.load("正在加载数据...", {icon:6});
+            			return true;
+            		},
+            		success : function(result){
+            			layer.close(layerIndex);
+            			var page = result.page;
+        				var datas = page.datas;
+            			if(result.success){
+            				var content = '';
+            				$.each(datas, function(i, n){
+            					content += '<tr>';
+            		            content += '<td>'+(i+1)+'</td>';
+            		            content += '<td>'+n.name+'</td>';
+            		            content += '<td>'+n.version+'</td>';
+            		            content += '<td>'+n.key+'</td>';
+            		            content += '<td>';
+            		            content += '    <button type="button" onclick="window.location.href=\'${APP_PATH}/process/showImg.htm?id='+n.id+'+\'" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-eye-open"></i></button>';
+            		            content += '    <button type="button" onclick="deleteProDe(\''+n.id+'\',\''+n.name+'\')" class="btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"></i></button>';
+            					content += '  </td>';
+            		          	content += '</tr>';
+            				});
+                        	$("tbody").empty().append(content);
+                        	
+                       		// 创建分页
+                       		$(".pagination").pagination(page.totalSize, {
+                       			num_edge_entries: 1,//边缘页数
+                       			num_display_entries: 3, //主体页数
+                       			callback: queryPageUser,
+                       			items_per_page: page.pageSize, //每页显示1项
+                       			current_page: pageNo,
+                       			prev_text: "上一页",
+                       			next_text: "下一页"
+                       		});
+                        	 
+            			}else{
+            				layer.msg(result.message, {time:1000, icon:5});
+            			}
+            		},
+            		error : function(){
+            			layer.msg("加载数据失败...", {time:1000, icon:5});
+            		}
+            	});
+            }
+            
+            $("#uploadBtn").click(function(){
+            	$("#uploadFile").click();
+            });
+            
+            $("#uploadFile").change(function(){
+            	var options = {
+       		 		url : "${APP_PATH}/process/upload.do",
+       		 		beforeSubmit : function(){
+       					layerIndex = layer.msg("正在部署，请稍等...", {icon:1, shift:2});
+       					return true;
+       		 		},
+       		 		success : function(result){
+       		 			layer.close(layerIndex);
+       		 			if(result.success){
+       		 				layer.msg("部署成功", {time:1000, icon: 6, shift:2});
+       		 				queryPageUser(0);
+       		 			}else{
+       		 				layer.msg(result.message, {time:1000, icon: 5, shift:6});
+       		 			}
+       		 		}
+        		};
+       			$("#uploadForm").ajaxSubmit(options);	
+       			return;
+            });
+            
+            function deleteProDe(id, name){
+            	layer.confirm("确定删除流程定义"+name+"吗？", {icon:8, shift:2}, function(index){
+					var cindex = null;
+            		$.ajax({
+						type: "post",
+						url: "${APP_PATH}/process/delete.do",
+						data: {
+							"id" : id  
+						},
+						beforeSend : function(){
+							cindex = layer.msg("正在删除，请稍等...", {icon:6, shift:2});
+							return true;
+						},
+						success : function(result){
+							layer.close(cindex);
+							if(result.success){
+								layer.msg("删除成功！", {time:1000, icon:6, shift:2});
+								queryPageUser(0);
+							}else{
+								layer.msg(result.message, {time:1000, icon:5, shift:7});
+							}
+						},
+						error : function(){
+							layer.msg("删除失败！", {time:1000, icon:5, shift:7});
+						}
+					});            		
+            		layer.close(index);
+            	}, function(index){
+            		layer.close(index);
+            	})
+            }
         </script>
   </body>
 </html>

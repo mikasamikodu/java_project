@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import com.atguigu.bean.Member;
 import com.atguigu.bean.User;
 import com.atguigu.utils.Const;
 
@@ -23,18 +24,21 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 		uri.add("/doRegister.do");
 		uri.add("/doLogin.do");
 		uri.add("/logout.do");
+		uri.add("/index.htm");
 		
 		String servletPath = request.getServletPath();
 		if(uri.contains(servletPath)) {
 			return true;
-		}
-		HttpSession session = request.getSession();
-		User user = (User)session.getAttribute(Const.LOGIN_USER);
-		if(user!=null) {
-			return true;
 		}else {
-			response.sendRedirect(request.getContextPath()+"/login.htm");
-			return false;
+			HttpSession session = request.getSession();
+			User user = (User)session.getAttribute(Const.LOGIN_USER);
+			Member member = (Member)session.getAttribute(Const.LOGIN_MEMBER);
+			if(user!=null || member!=null) {
+				return true;
+			}else {
+				response.sendRedirect(request.getContextPath()+"/login.htm");
+				return false;
+			}
 		}
 	}
 }

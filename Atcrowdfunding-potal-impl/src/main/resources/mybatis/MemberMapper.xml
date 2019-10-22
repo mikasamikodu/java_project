@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.atguigu.potal.dao.MemberMapper" >
+  <resultMap id="BaseResultMap" type="com.atguigu.bean.Member" >
+   		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="loginacct" property="loginacct" jdbcType="VARCHAR" />
+		<result column="userpswd" property="userpswd" jdbcType="CHAR" />
+		<result column="username" property="username" jdbcType="VARCHAR" />
+		<result column="email" property="email" jdbcType="VARCHAR" />
+		<result column="authstatus" property="authstatus" jdbcType="CHAR" />
+		<result column="usertype" property="usertype" jdbcType="CHAR" />
+		<result column="realname" property="realname" jdbcType="VARCHAR" />
+		<result column="cardnum" property="cardnum" jdbcType="VARCHAR" />
+		<result column="accttype" property="accttype" jdbcType="CHAR" />
+		<result column="telephone" property="telephone" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_member
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.atguigu.bean.Member" >
+    insert into t_member (id, loginacct,userpswd,userpswd,email,authstatus,usertype,realname,cardnum,accttype,telephone)
+    values (#{id}, #{loginacct},#{userpswd},#{userpswd},#{email},#{authstatus},#{usertype},#{realname},#{cardnum},#{accttype},#{telephone})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.Member" >
+    update t_member
+    set loginacct = #{loginacct,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select id, loginacct
+    from t_member
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, loginacct
+    from t_member
+  </select>
+  <select id="queryMemberlogin" resultMap="BaseResultMap" >
+    select *
+    from t_member where loginacct = #{loginacct} and userpswd = #{userpswd}
+  </select>
+</mapper>

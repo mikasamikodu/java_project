@@ -7,6 +7,7 @@ import java.util.Map;
 import org.activiti.engine.HistoryService;
 import org.activiti.engine.ProcessEngine;
 import org.activiti.engine.RepositoryService;
+import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.history.HistoricProcessInstance;
 import org.activiti.engine.history.HistoricProcessInstanceQuery;
@@ -168,21 +169,28 @@ public class Test {
 	@org.junit.Test
 	public void test10() {
 		ProcessDefinition result = service.getRepositoryService().createProcessDefinitionQuery().latestVersion().singleResult();
+		RuntimeService runtimeService = service.getRuntimeService();
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("yesListener", new YesListener());
 		map.put("noListener", new NoListener());
-		ProcessInstance instance = service.getRuntimeService().startProcessInstanceById(result.getId(), map);
-		System.out.println(instance);//ProcessInstance[401]
+		ProcessInstance instance = runtimeService.startProcessInstanceById(result.getId(), map);
+//		List<ProcessInstance> list = service.getRuntimeService().createProcessInstanceQuery().list();
+//		for (ProcessInstance processInstance : list) {
+//			System.out.println(processInstance.getProcessVariables().get("noListener"));
+//		}
+		System.out.println(instance.getProcessVariables());//ProcessInstance[401]
 		
 	}
 	
 	@org.junit.Test
 	public void test11() {
+		ProcessDefinition result = service.getRepositoryService().createProcessDefinitionQuery().latestVersion().singleResult();
 		TaskService taskService = service.getTaskService();
 		TaskQuery taskQuery = taskService.createTaskQuery();
 		List<Task> list = taskQuery.taskAssignee("zhangsan").list();
 		for(Task task:list) {
-			taskService.setVariable(task.getId(), "flag", "false");
+			taskService.setVariable(task.getId(), "flag", "true");
+			//System.out.println(taskService.getVariable(task.getId(), "flag"));
 			taskService.complete(task.getId());
 		}
 		
