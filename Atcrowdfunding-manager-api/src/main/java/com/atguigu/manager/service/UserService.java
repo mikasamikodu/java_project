@@ -3,7 +3,6 @@ package com.atguigu.manager.service;
 import java.util.List;
 import java.util.Map;
 
-import com.atguigu.bean.Member;
 import com.atguigu.bean.Permission;
 import com.atguigu.bean.Role;
 import com.atguigu.bean.User;
@@ -13,8 +12,6 @@ import com.atguigu.vo.Data;
 public interface UserService {
 
 	User queryUserLogin(Map<String, Object> map);
-
-	void doRegister(Member member);
 
 	Page queryPage(Map<String, Object> map);
 

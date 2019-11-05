@@ -5,12 +5,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.atguigu.bean.Permission;
+import com.atguigu.bean.Role;
 import com.atguigu.manager.service.PermissionService;
 import com.atguigu.manager.service.RolePermissionService;
 import com.atguigu.manager.service.RoleService;
@@ -35,19 +38,37 @@ public class RoleController {
 		return "role/index";
 	}
 	
+	@RequestMapping("/add")
+	public String add() {
+		return "role/add";
+	}
+	
 	@RequestMapping("/assignPermission")
 	public String assignPermission() {
 		return "role/assignPermission";
 	}
 	
+	@RequestMapping("/update")
+	public String update(Integer id,HttpServletRequest request) {
+		Role role = roleService.selectRoleById(id);
+		request.setAttribute("role", role);
+		return "role/edit";
+	}
+	
 	@ResponseBody
 	@RequestMapping("/doIndex")
-	public Object doIndex(Integer pageSize,Integer pageNo) {
+	public Object doIndex(Integer pageSize,Integer pageNo,String content) {
 		AjaxResult ajax = new AjaxResult();
 		try {
 			Map<String, Object> map = new HashMap<String,Object>();
-			map.put("pageNo", pageNo);
+			map.put("pageNo", pageNo+1);
 			map.put("pageSize", pageSize);
+			if(content!=null) {
+				if(content.contains("%")) {
+					content = content.replace("%", "\\\\%");
+				}
+				map.put("content", content);
+			}
 			Page page = roleService.queryPage(map);
 			ajax.setPage(page);
 			ajax.setSuccess(true);
@@ -125,6 +146,36 @@ public class RoleController {
 			}
 		}
 		return root;
+	}
+	
+	@ResponseBody
+	@RequestMapping("/doAdd")
+	public Object doAdd(Role role) {
+		AjaxResult ajax = new AjaxResult();
+		try {
+			int result = roleService.saveRole(role);
+			ajax.setSuccess(result==1);
+		}catch(Exception e) {
+			ajax.setSuccess(false);
+			ajax.setMessage("新增角色信息出现问题！");
+			e.printStackTrace();
+		}
+		return ajax;
+	}
+	
+	@ResponseBody
+	@RequestMapping("/doUpdate")
+	public Object doUpdate(Role role) {
+		AjaxResult ajax = new AjaxResult();
+		try {
+			int result = roleService.updateRole(role);
+			ajax.setSuccess(result==1);
+		}catch(Exception e) {
+			ajax.setSuccess(false);
+			ajax.setMessage("修改角色信息出现问题！");
+			e.printStackTrace();
+		}
+		return ajax;
 	}
 	
 }

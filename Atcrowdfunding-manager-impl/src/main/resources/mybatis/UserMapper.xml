@@ -22,29 +22,11 @@
 		</foreach>
 	</delete>
 	<!-- 配置 useGeneratedKeys="true" keyProperty="id"，可以在插入数据后将主键id返回-->
-	<insert id="insert" parameterType="com.atguigu.bean.User" useGeneratedKeys="true" keyProperty="id">
-		insert into t_user (id,
-		loginacct, userpswd,
-		username, email, createtime
-		)
-		values
-		(#{id,jdbcType=INTEGER},#{loginacct,jdbcType=VARCHAR},
-		#{userpswd,jdbcType=CHAR},
-		#{username,jdbcType=VARCHAR},
-		#{email,jdbcType=VARCHAR}, #{createtime,jdbcType=CHAR}
-		)
-	</insert>
-	<insert id="doRegister" parameterType="com.atguigu.bean.Member">
-		insert into t_member (id,
-		loginacct, userpswd,
-		username, email, authstatus,usertype
-		)
-		values
-		(#{id,jdbcType=INTEGER}, #{loginacct,jdbcType=VARCHAR},
-		#{userpswd,jdbcType=CHAR},
-		#{username,jdbcType=VARCHAR},
-		#{email,jdbcType=VARCHAR}, #{authstatus,jdbcType=CHAR}, #{usertype,jdbcType=CHAR}
-		)
+	<insert id="insert" parameterType="com.atguigu.bean.User">
+		insert into t_user (loginacct, userpswd,username, email, createtime)
+		values (#{loginacct,jdbcType=VARCHAR},#{userpswd,jdbcType=CHAR},
+		#{username,jdbcType=VARCHAR},#{email,jdbcType=VARCHAR}, 
+		#{createtime,jdbcType=CHAR})
 	</insert>
 	<update id="updateByPrimaryKey" parameterType="com.atguigu.bean.User">
 		update t_user

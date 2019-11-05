@@ -52,33 +52,31 @@
 	  <div style="padding-top:10px;">
 		<div class="row">
       <div class="col-xs-6 col-md-3">
-      
-      <h2>商业公司</h2>
-        <a href="#" class="thumbnail">
-          
+      	<h2>商业公司</h2>
+        <a href="#" class="thumbnail" accttype="0">
           <img alt="100%x180" src="${APP_PATH }/img/services-box1.jpg" data-holder-rendered="true" style="height: 180px; width: 100%; display: block;">
         </a>
       </div>
       <div class="col-xs-6 col-md-3">
         <h2>个体工商户</h2>
-        <a href="#" class="thumbnail">
+        <a href="#" class="thumbnail" accttype="1">
           <img alt="100%x180" src="${APP_PATH }/img/services-box2.jpg" data-holder-rendered="true" style="height: 180px; width: 100%; display: block;">
         </a>
       </div>
       <div class="col-xs-6 col-md-3">
         <h2>个人经营</h2>
-        <a href="#" class="thumbnail">
+        <a href="#" class="thumbnail" accttype="2">
           <img alt="100%x180" src="${APP_PATH }/img/services-box3.jpg" data-holder-rendered="true" style="height: 180px; width: 100%; display: block;">
         </a>
       </div>
       <div class="col-xs-6 col-md-3">
         <h2>政府及非营利组织</h2>
-        <a href="#" class="thumbnail">
+        <a href="#" class="thumbnail" accttype="3">
           <img alt="100%x180" src="${APP_PATH }/img/services-box4.jpg" data-holder-rendered="true" style="height: 180px; width: 100%; display: block;">
         </a>
       </div>
     </div>
-	<button type="button" class="btn btn-danger btn-lg btn-block" onclick="window.location.href='${APP_PATH}/member/apply.htm'">认证申请</button>
+	<button id="applyBtn" type="button" class="btn btn-danger btn-lg btn-block">认证申请</button>
     </div> <!-- /container -->
     </div> <!-- /container -->
       <!-- /END THE FEATURETTES -->
@@ -102,10 +100,38 @@
     <script src="${APP_PATH }/jquery/jquery-2.1.1.min.js"></script>
     <script src="${APP_PATH }/bootstrap/js/bootstrap.min.js"></script>
 	<script src="${APP_PATH }/script/docs.min.js"></script>
+	<script src="${APP_PATH }/jquery/layer/layer.js"></script>
 	<script>
+	var accttype = 0;
     $(".thumbnail").click(function(){
         $('.seltype').remove();
         $(this).prepend('<div class="glyphicon glyphicon-ok seltype"></div>');
+        accttype = $(this).attr("accttype");
+    });
+    
+    $("#applyBtn").click(function(){
+    	var length = $(".seltype").length;
+    	if(length==0){
+    		layer.msg("请选择一种账户类型！", {time:1000,icon:8,shift:6});
+    	}else{
+    		$.ajax({
+    			type: "post",
+    			url: "${APP_PATH}/member/updateAccttype.do",
+    			data: {
+    				"accttype": accttype
+    			},
+    			success: function(result){
+    				if(result.success){
+    					window.location.href="${APP_PATH}/member/apply.htm";
+    				}else{
+    					layer.msg(result.message, {time:1000,icon:5,shift:6});
+    				}
+    			},
+    			error: function(){
+    				layer.msg("帐户类型更新出现异常", {time:1000,icon:5,shift:6});
+    			}
+    		});
+    	}
     });
 	</script>
   </body>

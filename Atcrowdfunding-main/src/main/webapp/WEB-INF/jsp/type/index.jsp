@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="zh-CN">
   <head>
@@ -72,55 +73,15 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>营业执照副本</td>
-                  <td><input type="checkbox"></td>
-                  <td><input type="checkbox"></td>
-                  <td><input type="checkbox"></td>
-                  <td><input type="checkbox"></td>
-                </tr>
-                <tr>
-                  <td>税务登记证</td>
-                  <td><input type="checkbox"></td>
-                  <td><input type="checkbox"></td>
-                  <td><input type="checkbox"></td>
-                  <td><input type="checkbox"></td>
-                </tr>
-                <tr>
-                  <td>组织机构代码证</td>
-                  <td><input type="checkbox"></td>
-                  <td><input type="checkbox"></td>
-                  <td><input type="checkbox"></td>
-                  <td><input type="checkbox"></td>
-                </tr>
-                <tr>
-                  <td>单位登记证件 </td>
-                  <td><input type="checkbox"></td>
-                  <td><input type="checkbox"></td>
-                  <td><input type="checkbox"></td>
-                  <td><input type="checkbox"></td>
-                </tr>
-                <tr>
-                  <td>法定代表人证件</td>
-                  <td><input type="checkbox"></td>
-                  <td><input type="checkbox"></td>
-                  <td><input type="checkbox"></td>
-                  <td><input type="checkbox"></td>
-                </tr>
-                <tr>
-                  <td>经营者证件 </td>
-                  <td><input type="checkbox"></td>
-                  <td><input type="checkbox"></td>
-                  <td><input type="checkbox"></td>
-                  <td><input type="checkbox"></td>
-                </tr>
-                <tr>
-                  <td>手执身份证照片</td>
-                  <td><input type="checkbox"></td>
-                  <td><input type="checkbox"></td>
-                  <td><input type="checkbox"></td>
-                  <td><input type="checkbox"></td>
-                </tr>
+              	<c:forEach items="${certs }" var="cert">
+              		<tr>
+	                  <td>${cert.name }</td>
+	                  <td><input type="checkbox" accttype="0" certid="${cert.id }"></td>
+	                  <td><input type="checkbox" accttype="1" certid="${cert.id }"></td>
+	                  <td><input type="checkbox" accttype="2" certid="${cert.id }"></td>
+	                  <td><input type="checkbox" accttype="3" certid="${cert.id }"></td>
+	                </tr>
+              	</c:forEach>
               </tbody>
             </table>
           </div>
@@ -148,6 +109,10 @@
 				});
 			    showMenu();
             });
+            
+            <c:forEach items="${certTypes }" var="certType">
+            	$("input:checkbox[accttype='${certType.accttype}'][certid='${certType.certid}']").attr("checked", true);
+            </c:forEach>
         </script>
   </body>
 </html>

@@ -14,19 +14,37 @@
 		<result column="accttype" property="accttype" jdbcType="CHAR" />
 		<result column="telephone" property="telephone" jdbcType="VARCHAR" />
   </resultMap>
+  
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_member
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.atguigu.bean.Member" >
-    insert into t_member (id, loginacct,userpswd,userpswd,email,authstatus,usertype,realname,cardnum,accttype,telephone)
-    values (#{id}, #{loginacct},#{userpswd},#{userpswd},#{email},#{authstatus},#{usertype},#{realname},#{cardnum},#{accttype},#{telephone})
+  
+  
+  <insert id="insert" parameterType="com.atguigu.bean.Member">
+    insert into t_member (id, loginacct,userpswd,username,email,authstatus,usertype,realname,cardnum,accttype,telephone)
+    values (#{id}, #{loginacct},#{userpswd},#{username},#{email},#{authstatus},#{usertype},#{realname},#{cardnum},#{accttype},#{telephone})
   </insert>
-  <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.Member" >
+  
+  <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.Member">
     update t_member
-    set loginacct = #{loginacct,jdbcType=VARCHAR}
+    set loginacct = #{loginacct,jdbcType=CHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <update id="updateAccttype" parameterType="com.atguigu.bean.Member">
+    update t_member
+    set accttype = #{accttype,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateBaseinfo" parameterType="com.atguigu.bean.Member">
+    update t_member
+    set realname = #{realname,jdbcType=VARCHAR},
+    cardnum = #{cardnum,jdbcType=VARCHAR},
+    telephone = #{telephone,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select id, loginacct
     from t_member

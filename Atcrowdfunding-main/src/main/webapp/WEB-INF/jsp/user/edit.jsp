@@ -157,7 +157,7 @@
             			layer.close(layerIndex);
             			layer.msg("修改成功", {time:500, icon: 6, shift: 4});
             			if(result.success){
-             				window.location.href = "${APP_PATH}/index.htm";
+             				window.location.href = "${APP_PATH}/user/index.htm";
             			}else{
             				layer.msg(result.message, {time:1000, icon: 6});
             			}

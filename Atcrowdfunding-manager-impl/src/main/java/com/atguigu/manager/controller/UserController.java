@@ -60,7 +60,7 @@ public class UserController {
 		AjaxResult ajax = new AjaxResult();
 		try {
 			Map<String,Object> map = new HashMap<String,Object>();
-			map.put("pageNo", pageNo);
+			map.put("pageNo", pageNo+1);
 			map.put("pageSize", pageSize);
 			if(StringUtil.isNotEmpty(input)) {
 				if(input.contains("%")) {

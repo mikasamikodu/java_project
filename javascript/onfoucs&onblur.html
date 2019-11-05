@@ -1,0 +1,22 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>hello javascript</title>
+	</head>
+	<body>
+		<label>name:<label>
+		<input id='text' type="text"/>
+		<span id='span' style='color:red'></span>
+	</body>
+	<script type='text/javascript'>
+		var text = document.getElementById('text');
+		text.onfocus = function() {
+			var span = document.getElementById('span');
+			span.innerHTML = '名字至少5位';
+		}
+		text.onblur = function() {
+			var span = document.getElementById('span');
+			span.innerHTML = '输入不符合规则';
+		}
+	</script>
+</html>

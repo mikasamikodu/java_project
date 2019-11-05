@@ -2,6 +2,7 @@ package com.atguigu.manager.dao;
 
 import com.atguigu.bean.AccountTypeCert;
 import java.util.List;
+import java.util.Map;
 
 public interface AccountTypeCertMapper {
     int deleteByPrimaryKey(Integer id);
@@ -10,7 +11,7 @@ public interface AccountTypeCertMapper {
 
     AccountTypeCert selectByPrimaryKey(Integer id);
 
-    List<AccountTypeCert> selectAll();
-
     int updateByPrimaryKey(AccountTypeCert record);
+
+	List<Map<String, Object>> selectAll();
 }

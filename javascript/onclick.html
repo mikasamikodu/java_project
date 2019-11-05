@@ -1,0 +1,23 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>hello javascript</title>
+	</head>
+	<body>
+		<!--将事件与响应行为内嵌在HTML标签内-->
+		<input type="button" value="button1" onclick='alert("hello world!");'/>
+		<!--将事件内嵌在HTML标签内，响应行为用函数进行封装-->
+		<input type='button' value='button2' onclick='fun()'>
+		<!--事件与响应行为都用函数进行封装内-->
+		<input id='btn' type="button" value="button3"/>
+	</body>
+	<script type='text/javascript'>
+		function fun(){
+			alert('hello world!');
+		}
+		var btn = document.getElementById('btn');
+		btn.onclick = function(){
+			alert('hello world!');
+		}
+	</script>
+</html>

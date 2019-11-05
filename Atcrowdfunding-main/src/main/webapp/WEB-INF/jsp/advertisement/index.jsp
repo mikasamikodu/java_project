@@ -12,6 +12,7 @@
 	<link rel="stylesheet" href="${APP_PATH }/bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" href="${APP_PATH }/css/font-awesome.min.css">
 	<link rel="stylesheet" href="${APP_PATH }/css/main.css">
+	<link rel="stylesheet" href="${APP_PATH }/css/pagination.css">
 	<style>
 	.tree li {
         list-style-type: none;
@@ -59,12 +60,12 @@
   <div class="form-group has-feedback">
     <div class="input-group">
       <div class="input-group-addon">查询条件</div>
-      <input class="form-control has-success" type="text" placeholder="请输入查询条件">
+      <input id="input" class="form-control has-success" type="text" placeholder="请输入查询条件">
     </div>
   </div>
-  <button type="button" class="btn btn-warning"><i class="glyphicon glyphicon-search"></i> 查询</button>
+  <button type="button" id="searchBtn" class="btn btn-warning"><i class="glyphicon glyphicon-search"></i> 查询</button>
 </form>
-<button type="button" class="btn btn-danger" style="float:right;margin-left:10px;"><i class=" glyphicon glyphicon-remove"></i> 删除</button>
+<button id="deleteBatchBtn" type="button" class="btn btn-danger" style="float:right;margin-left:10px;"><i class=" glyphicon glyphicon-remove"></i> 删除</button>
 <button type="button" class="btn btn-primary" style="float:right;" onclick="window.location.href='${APP_PATH}/advertisement/add.htm'"><i class="glyphicon glyphicon-plus"></i> 新增</button>
 <br>
  <hr style="clear:both;">
@@ -73,55 +74,18 @@
               <thead>
                 <tr >
                   <th width="30">#</th>
+                  <th width="30"><input type="checkbox" id="allCheckbox"/></th>
                   <th>广告描述</th>
                   <th>状态</th>
                   <th width="100">操作</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>XXXXXXXXXXXX商品广告</td>
-                  <td>未审核</td>
-                  <td>
-                      <button type="button" class="btn btn-success btn-xs"><i class="glyphicon glyphicon-check"></i></button>
-                      <button type="button" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-pencil"></i></button>
-                      <button type="button" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-remove"></i></button>
-				  </td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>XXXXXXXXXXXX商品广告</td>
-                  <td>已发布</td>
-                  <td>
-                      <button type="button" class="btn btn-success btn-xs"><i class="glyphicon glyphicon-eye-open"></i></button>
-                      <button type="button" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-pencil"></i></button>
-                      <button type="button" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-remove"></i></button>
-				  </td>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td>XXXXXXXXXXXX商品广告</td>
-                  <td>审核中</td>
-                  <td>
-                      <button type="button" class="btn btn-success btn-xs"><i class="glyphicon glyphicon-eye-open"></i></button>
-                      <button type="button" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-pencil"></i></button>
-                      <button type="button" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-remove"></i></button>
-				  </td>
-                </tr>
               </tbody>
 			  <tfoot>
 			     <tr >
 				     <td colspan="4" align="center">
-						<ul class="pagination">
-								<li class="disabled"><a href="#">上一页</a></li>
-								<li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-								<li><a href="#">2</a></li>
-								<li><a href="#">3</a></li>
-								<li><a href="#">4</a></li>
-								<li><a href="#">5</a></li>
-								<li><a href="#">下一页</a></li>
-							 </ul>
+						<ul class="pagination"></ul>
 					 </td>
 				 </tr>
 
@@ -138,6 +102,8 @@
     <script src="${APP_PATH }/bootstrap/js/bootstrap.min.js"></script>
 	<script src="${APP_PATH }/script/docs.min.js"></script>
 	<script src="${APP_PATH }/script/common.js"></script>
+	<script src="${APP_PATH }/jquery/layer/layer.js"></script>
+	<script src="${APP_PATH }/jquery/jquery.pagination.js"></script>
         <script type="text/javascript">
             $(function () {
 			    $(".list-group-item").click(function(){
@@ -151,7 +117,127 @@
 					}
 				});
 			    showMenu();
+			    queryPage(0);
             });
+            
+          var json = {
+        		  "pageSize": 3
+          }
+		  function queryPage(pageNo,jq){
+			  json.pageNo = pageNo;
+			  $.ajax({
+				  type: "post",
+				  url: "${APP_PATH}/advertisement/doIndex.do",
+				  data: json,
+				  beforeSend: function(){
+					  layerIndex = layer.msg("正在加载数据，请稍等...",{icon:6,shift:2});
+					  return true;
+				  },
+				  success: function(result){
+					  layer.close(layerIndex);
+					  if(result.success){
+						  var content = '';
+						  var page = result.page;
+						  var datas = page.datas;
+						  $.each(datas, function(i,n){
+							  var status = '';
+							  if(n.status==0){
+								  status = '草稿';
+							  }else if(n.status==1){
+								  status = '未审核';
+							  }else if(n.status==2){
+								  status = '审核完成';
+							  }else{
+								  status = '发布';
+							  }
+							  content += '<tr>';
+					          content += '  <td>'+(i+1)+'</td>';
+							  content += '  <td><input type="checkbox" id="'+n.id+'"/></td>';
+					          content += '  <td>'+n.name+'</td>';
+					          content += '  <td>'+status+'</td>';
+					          content += '  <td>';
+					          content += '      <button type="button" class="btn btn-success btn-xs"><i class="glyphicon glyphicon-check"></i></button>';
+					          content += '      <button onclick="window.location.href=\'${APP_PATH}/advertisement/edit.htm?id='+n.id+'\'" type="button" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-pencil"></i></button>';
+					          content += '      <button onclick="deleteData('+n.id+',\''+n.name+'\')" type="button" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-remove"></i></button>';
+							  content += '  </td>';
+					          content += '</tr>';
+						  });
+						  $("tbody").html(content);
+						  
+						  $(".pagination").pagination(page.totalSize, {
+                     			num_edge_entries: 1,//边缘页数
+                     			num_display_entries: 3, //主体页数
+                     			callback: queryPage,
+                     			items_per_page: page.pageSize, //每页显示1项
+                     			current_page: pageNo,
+                     			prev_text: "上一页",
+                     			next_text: "下一页"
+                     	  });
+					  }else{
+						  layer.msg(result.message, {time:1000,icon:5,shift:2});
+					  }
+				  },
+				  error: function(){
+					  layer.msg("数据加载失败", {time:1000,icon:5,shift:2});
+				  }
+			  });
+		  }
+          $("#searchBtn").click(function(){
+        	  json.input = $("#input").val();
+        	  queryPage(0);
+          });
+          function deleteData(id,name){
+        	  layer.confirm("确认要删除广告"+name+"吗？",{icon:3,shift:2},function(index){
+        		  $.ajax({
+        			  type: "post",
+        			  url: "${APP_PATH}/advertisement/doDelete.do",
+        			  data: {
+        				  "id": id
+        			  },
+        			  success: function(result){
+        				  if(result.success){
+        					  queryPage(0);
+        				  }else{
+        					  layer.msg(result.message, {time:1000, icon:5, shift:6});
+        				  }
+        			  }
+        		  });
+        		  layer.close(index);
+        	  },function(index){
+        		  layer.close(index);
+        	  });
+          }
+          $("#allCheckbox").click(function(){
+        	  var checked = this.checked;
+        	  $("tbody tr td input:checkbox").prop("checked", checked);
+          });
+          $("#deleteBatchBtn").click(function(){
+        	  var checked = $("tbody tr td input:checked");
+        	  var json = null;
+        	  $.each(checked,function(i,n){
+        		  if(i!=0){
+        			  json += "&";
+        		  }
+        		  json += "id="+checked[i].id
+        	  });
+        	  layer.confirm("是否确认删除这些数据？",{icon:3,shift:2},function(index){
+        		  $.ajax({
+        			  type: "post",
+        			  url: "${APP_PATH}/advertisement/doDeleteBatch.do",
+        			  data: json,
+        			  success: function(result){
+        				  if(result.success){
+        				       queryPage(0);
+        			 	  }else{
+        					   layer.msg(result.message, {time:1000,icon:5,shift:6});
+        			  	  }
+        			  }
+        		  });
+        		  layer.close(index);
+        	  },function(index){
+        		  layer.close(index);
+        	  })
+          });
         </script>
   </body>
 </html>

@@ -77,7 +77,7 @@
 						}
 					}
 				});
-				
+			    showMenu();
 				var setting = {
 					view: {
 						selectedMulti: false,
@@ -145,7 +145,6 @@
                     ]}
                 ];
 				$.fn.zTree.init($("#treeDemo"), setting, d);
-				showMenu();
             });
         </script>
   </body>

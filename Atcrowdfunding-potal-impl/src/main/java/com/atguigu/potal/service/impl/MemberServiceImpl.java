@@ -15,8 +15,23 @@ public class MemberServiceImpl implements MemberService {
 	private MemberMapper memberMapper;
 	
 	@Override
+	public int doRegister(Member member) {
+		return memberMapper.insert(member);
+	}
+	
+	@Override
 	public Member queryMemberLogin(Map<String, Object> map) {
 		return memberMapper.queryMemberlogin(map);
+	}
+
+	@Override
+	public int updateAccttype(Member member) {
+		return memberMapper.updateAccttype(member);
+	}
+
+	@Override
+	public int updateBaseinfo(Member loginMember) {
+		return memberMapper.updateBaseinfo(loginMember);
 	}
 
 }

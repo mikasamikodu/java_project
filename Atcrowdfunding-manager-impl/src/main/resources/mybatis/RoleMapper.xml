@@ -17,8 +17,8 @@
     </foreach>
   </delete>
   <insert id="insert" parameterType="com.atguigu.bean.Role" >
-    insert into t_role (id, name)
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR})
+    insert into t_role (name)
+    values (#{name,jdbcType=VARCHAR})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.Role" >
     update t_role
@@ -36,10 +36,21 @@
   </select>
   <select id="queryPage" resultMap="BaseResultMap" >
     select id, name
-    from t_role limit #{startIndex},#{pageSize}
+    from t_role 
+    <where>
+    	<if test="content!=null">
+    		name like concat('%',#{content},'%')
+    	</if>
+    </where>
+    limit #{startIndex},#{pageSize}
   </select>
   <select id="queryCount" resultType="int">
     select count(*)
     from t_role
+    <where>
+    	<if test="content!=null">
+    		name like concat('%',#{content},'%')
+    	</if>
+    </where>
   </select>
 </mapper>

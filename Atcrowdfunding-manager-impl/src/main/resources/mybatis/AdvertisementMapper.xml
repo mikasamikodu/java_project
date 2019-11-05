@@ -13,6 +13,13 @@
     delete from t_advertisement
     where id = #{id,jdbcType=INTEGER}
   </delete>
+  <delete id="deleteBatchByIds">
+    delete from t_advertisement
+ 	where id in 
+	<foreach collection="array" open="(" close=")" separator="," item="id">
+		#{id}
+	</foreach>
+  </delete>
   <insert id="insert" parameterType="com.atguigu.bean.Advertisement" >
     insert into t_advertisement (name, iconpath, 
       status, url, userid)
@@ -33,8 +40,21 @@
     from t_advertisement
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <select id="selectAll" resultMap="BaseResultMap" >
-    select id, name, iconpath, status, url, userid
-    from t_advertisement
+  <select id="queryPage" resultMap="BaseResultMap" >
+    select * from t_advertisement
+    <where>
+    	<if test="input!=null">
+    		name like concat('%',#{input},'%')
+    	</if>
+    </where>
+    limit #{startIndex},#{pageSize}
+  </select>
+  <select id="queryCount" resultType="int" >
+    select count(*) from t_advertisement
+    <where>
+    	<if test="input!=null">
+    		name like concat('%',#{input},'%')
+    	</if>
+    </where>
   </select>
 </mapper>

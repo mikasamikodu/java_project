@@ -1,0 +1,40 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>hello javascript</title>
+	</head>
+	<body>
+		<select id='city'>
+			<option value='zg'>中国</option>
+			<option value='rb'>日本</option>
+			<option value='mg'>美国</option>
+		</select>
+		<select id='area'>
+			<option>北京</option>
+			<option>天津</option>
+			<option>上海</option>
+		</select>
+	</body>
+	<script type='text/javascript'>
+		var city = document.getElementById('city');
+		city.onchange = function(){
+			var value = city.value;
+			switch(value) {
+				case 'zg':
+					var area = document.getElementById('area');
+					area.innerHTML = "<option>黑龙江</option><option>河北</option><option>山东</option>";
+					break;
+				case 'rb':
+					var area = document.getElementById('area');
+					area.innerHTML = "<option>大阪</option><option>札幌</option><option>名古屋</option>";
+					break;
+				case 'mg':
+					var area = document.getElementById('area');
+					area.innerHTML = "<option>洛杉矶</option><option>旧金山</option><option>纽约</option>";
+					break;
+				default:
+					alert('error');
+			}
+		};
+	</script>
+</html>

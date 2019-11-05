@@ -53,19 +53,19 @@
         
 		<form role="form" style="margin-top:20px;">
 		  <div class="form-group">
-			<label for="exampleInputEmail1">真实名称</label>
-			<input type="text" class="form-control" id="exampleInputEmail1" placeholder="请输入真实名称">
+			<label for="realname">真实名称</label>
+			<input type="text" class="form-control" id="realname" placeholder="请输入真实名称">
 		  </div>
 		  <div class="form-group">
-			<label for="exampleInputPassword1">身份证号码</label>
-			<input type="text" class="form-control" id="exampleInputPassword1" placeholder="请输入身份证号码">
+			<label for="cardnum">身份证号码</label>
+			<input type="text" class="form-control" id="cardnum" placeholder="请输入身份证号码">
 		  </div>
 		  <div class="form-group">
-			<label for="exampleInputPassword1">电话号码</label>
-			<input type="text" class="form-control" id="exampleInputPassword1" placeholder="请输入电话号码">
+			<label for="telephone">电话号码</label>
+			<input type="text" class="form-control" id="telephone" placeholder="请输入电话号码">
 		  </div>
-          <button type="button" onclick="window.location.href='accttype.html'" class="btn btn-default">上一步</button>
-		  <button type="button" onclick="window.location.href='apply-1.html'"  class="btn btn-success">下一步</button>
+          <button type="button" disabled class="btn btn-default">上一步</button>
+		  <button type="button" id="next" class="btn btn-success">下一步</button>
 		</form>
 		<hr>
     </div> <!-- /container -->
@@ -92,6 +92,27 @@
 	        e.preventDefault()
 	        $(this).tab('show')
 	      });
+		  $("#next").click(function(){
+			  $.ajax({
+				  type: "post",
+				  url: "${APP_PATH}/member/baseinfo.do",
+				  data: {
+					  "realname": $("#realname").val(),
+					  "cardnum": $("#cardnum").val(),
+					  "telephone": $("#telephone").val()
+				  },
+				  success: function(result){
+					  if(result.success){
+						  window.location.href="${APP_PATH}/member/basicinfo.htm";
+					  }else{
+	    				  layer.msg(result.message, {time:1000,icon:5,shift:6});
+	    			  }
+	    		  },
+	    		  error: function(){
+	    			  layer.msg("帐户基本信息更新出现异常", {time:1000,icon:5,shift:6});
+	    		  }
+			  });
+		  });
 	</script>
   </body>
 </html>

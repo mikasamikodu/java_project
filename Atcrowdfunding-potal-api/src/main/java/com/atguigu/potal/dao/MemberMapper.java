@@ -19,4 +19,8 @@ public interface MemberMapper {
 	int doRegister(Member member);
 	
 	List<Member> selectAll();
+
+	int updateAccttype(Member member);
+
+	int updateBaseinfo(Member loginMember);
 }

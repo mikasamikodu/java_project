@@ -1,7 +1,9 @@
 package com.atguigu.manager.dao;
 
-import com.atguigu.bean.Advertisement;
 import java.util.List;
+import java.util.Map;
+
+import com.atguigu.bean.Advertisement;
 
 public interface AdvertisementMapper {
     int deleteByPrimaryKey(Integer id);
@@ -13,4 +15,10 @@ public interface AdvertisementMapper {
     List<Advertisement> selectAll();
 
     int updateByPrimaryKey(Advertisement record);
+
+	List<Advertisement> queryPage(Map<String, Object> map);
+
+	Integer queryCount(Map<String, Object> map);
+
+	void deleteBatchByIds(Integer[] ids);
 }

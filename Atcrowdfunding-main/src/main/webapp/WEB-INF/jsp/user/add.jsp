@@ -119,14 +119,6 @@
             		 loginacct.focus();
         		 });
         		 return false;
-       	 	}else{
-        		var patt1=new RegExp("^[0-9a-zA-Z_-]{3,10}$");
-        		if(patt1.test(loginacct.val())){
-        			return true;
-        		}else{
-        			layer.msg("账户名不符合规则", {time:1000, icon:5, shift:6});
-        			return false;
-        		}
        	 	}
         	if($.trim(username.val()) == ""){
        		 //icon5效果是笑脸，shift:6效果是抖动，time:1000效果持续时间是1秒
@@ -135,14 +127,6 @@
         			username.focus();
         		 });
         		 return false;
-       	 	}else{
-        		var patt1=new RegExp("^(?!_)(?!.*?_$)[a-zA-Z0-9_\u4e00-\u9fa5]{3,10}$");
-        		if(patt1.test(username.val())){
-        			return true;
-        		}else{
-        			layer.msg("账户名不符合规则", {time:1000, icon:5, shift:6});
-        			return false;
-        		}
        	 	}
         	if($.trim(email.val()) == ""){
        		 //icon5效果是笑脸，shift:6效果是抖动，time:1000效果持续时间是1秒
@@ -151,14 +135,6 @@
         			email.focus();
         		 });
         		 return false;
-       	 	}else{
-        		var patt1=new RegExp("^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$");
-        		if(patt1.test(username.val())){
-        			return true;
-        		}else{
-        			layer.msg("邮箱不符合规则", {time:1000, icon:5, shift:6});
-        			return false;
-        		}
        	 	}
         	
         	$.ajax({

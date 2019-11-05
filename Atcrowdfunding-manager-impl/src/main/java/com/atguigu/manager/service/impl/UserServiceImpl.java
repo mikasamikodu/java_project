@@ -8,7 +8,6 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.atguigu.bean.Member;
 import com.atguigu.bean.Permission;
 import com.atguigu.bean.Role;
 import com.atguigu.bean.User;
@@ -39,18 +38,6 @@ public class UserServiceImpl implements UserService {
 			throw new LoginFailException("用户名或密码不正确");
 		}
 		return user;
-	}
-
-	@Override
-	public void doRegister(Member member) {
-		User user = new User();
-		user.setCreatetime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()).toString());
-		user.setEmail(member.getEmail());
-		user.setLoginacct(member.getLoginacct());
-		user.setUsername(member.getUsername());
-		user.setUserpswd(member.getUserpswd());
-		userMapper.doRegister(member);
-		userMapper.insert(user);
 	}
 
 	@Override

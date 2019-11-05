@@ -1,6 +1,8 @@
 package com.atguigu.manager.controller;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
@@ -19,6 +21,7 @@ import com.atguigu.bean.User;
 import com.atguigu.manager.service.AdvertisementService;
 import com.atguigu.utils.AjaxResult;
 import com.atguigu.utils.Const;
+import com.atguigu.utils.Page;
 
 @Controller
 @RequestMapping("/advertisement")
@@ -35,6 +38,13 @@ public class AdvertisementController {
 	@RequestMapping("/add")
 	public String add() {
 		return "advertisement/add";
+	}	
+	
+	@RequestMapping("/edit")
+	public String edit(Integer id,HttpServletRequest request) {
+		Advertisement advertisement = advertisementService.findById(id);
+		request.setAttribute("advertisement", advertisement);
+		return "advertisement/edit";
 	}	  
 	
 	@ResponseBody
@@ -71,4 +81,61 @@ public class AdvertisementController {
 		}
 		return ajax;
 	}
+	
+	@ResponseBody
+	@RequestMapping("/doIndex")
+	public Object doIndex(Integer pageNo,Integer pageSize,String input) {
+		AjaxResult ajax = new AjaxResult();
+		try {
+			Map<String,Object> map = new HashMap<String,Object>();
+			map.put("pageNo", pageNo);
+			map.put("pageSize", pageSize);
+			if(input!=null) {
+				if(input.contains("%")) {
+					input = input.replace("%", "\\\\%");
+				}
+				map.put("input", input);
+			}
+			Page page = advertisementService.queryPage(map);
+			ajax.setPage(page);
+			ajax.setSuccess(true);
+		}catch(Exception e) {
+			ajax.setSuccess(false);
+			ajax.setMessage("数据加载出现异常！");
+			e.printStackTrace();
+		}
+		return ajax;
+	}
+	
+	@ResponseBody
+	@RequestMapping("/doDelete")
+	public Object doDelete(Integer id) {
+		AjaxResult ajax = new AjaxResult();
+		try {
+			advertisementService.deleteById(id);
+			ajax.setSuccess(true);
+		}catch(Exception e) {
+			ajax.setSuccess(false);
+			ajax.setMessage("数据删除出现异常！");
+			e.printStackTrace();
+		}
+		return ajax;
+	}
+	
+	@ResponseBody
+	@RequestMapping("/doDeleteBatch")
+	public Object doDeleteBatch(Integer[] id) {
+		AjaxResult ajax = new AjaxResult();
+		try {
+			advertisementService.deleteBatchByIds(id);
+			ajax.setSuccess(true);
+		}catch(Exception e) {
+			ajax.setSuccess(false);
+			ajax.setMessage("数据删除出现异常！");
+			e.printStackTrace();
+		}
+		return ajax;
+	}
+	
+	
 }

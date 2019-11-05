@@ -154,6 +154,19 @@ public class DispathController {
 		return "redirect:/index.htm";
 	}
 	
+	@RequestMapping("/logoff")
+	public String logoff(HttpServletRequest request,HttpServletResponse response) {
+		Cookie[] cookies = request.getCookies();
+		for(Cookie cookie:cookies) {
+			if("loginCode".equals(cookie.getName())) {
+				cookie.setMaxAge(0);
+				cookie.setPath("/");
+				response.addCookie(cookie);
+			}
+		}
+		return "redirect:/index.htm";
+	}
+	
 	@RequestMapping("/register")
 	public String register() {
 		return "register";
@@ -162,19 +175,19 @@ public class DispathController {
 	@ResponseBody
 	@RequestMapping("/doRegister")
 	public AjaxResult doRegister(Member member) {
-		AjaxResult result = new AjaxResult();
+		AjaxResult ajax = new AjaxResult();
 		try {
 			member.setUsername(member.getLoginacct());
 			member.setAuthstatus("0");
 			member.setUserpswd(MD5Util.digest(member.getUserpswd()));
-			userService.doRegister(member);
-			result.setSuccess(true);
+			int result = memberService.doRegister(member);
+			ajax.setSuccess(result==1);
 		}catch(Exception e) {
-			result.setMessage("×¢²áÊ§°Ü£¡");
-			result.setSuccess(false);
+			ajax.setMessage("×¢²áÊ§°Ü£¡");
+			ajax.setSuccess(false);
 			e.printStackTrace();
 		}
-		return result;
+		return ajax;
 	}
 	
 	@RequestMapping("/project")

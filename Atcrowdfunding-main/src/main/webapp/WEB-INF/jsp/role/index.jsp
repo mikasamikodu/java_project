@@ -61,13 +61,13 @@
   <div class="form-group has-feedback">
     <div class="input-group">
       <div class="input-group-addon">查询条件</div>
-      <input class="form-control has-success" type="text" placeholder="请输入查询条件">
+      <input id="content" class="form-control has-success" type="text" placeholder="请输入查询条件">
     </div>
   </div>
-  <button type="button" class="btn btn-warning"><i class="glyphicon glyphicon-search"></i> 查询</button>
+  <button type="button" id="searchBtn" class="btn btn-warning"><i class="glyphicon glyphicon-search"></i> 查询</button>
 </form>
 <button type="button" id="delBatch" class="btn btn-danger" style="float:right;margin-left:10px;"><i class=" glyphicon glyphicon-remove"></i> 删除</button>
-<button type="button" class="btn btn-primary" style="float:right;" onclick="window.location.href='form.html'"><i class="glyphicon glyphicon-plus"></i> 新增</button>
+<button type="button" class="btn btn-primary" style="float:right;" onclick="window.location.href='${APP_PATH}/role/add.htm'"><i class="glyphicon glyphicon-plus"></i> 新增</button>
 <br>
  <hr style="clear:both;">
           <div class="table-responsive">
@@ -116,8 +116,8 @@
 						}
 					}
 				});
-			    queryPage(0);
 			    showMenu();
+			    queryPage(0);
             });
             
             function pageChange(pageNo){
@@ -125,7 +125,7 @@
             }
             
            	var str = {
-           		"pageSize" : 5
+           		"pageSize" : 3
            	}
            	
             function queryPage(pageNo, jq){
@@ -152,7 +152,7 @@
             		            content += '<td>'+role.name+'</td>';
             		            content += '<td>';
             					content += '      <button type="button" onclick="window.location.href=\'${APP_PATH}/role/assignPermission.htm?id='+role.id+'\'" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-check"></i></button>';
-            					content += '      <button type="button" class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></button>';
+            					content += '      <button type="button" onclick="window.location.href=\'${APP_PATH}/role/update.htm?id='+role.id+'\'" class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></button>';
             					content += '	  <button type="button" onclick="deleteRole('+role.id+')" class="btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"></i></button>';
             					content += '  </td>';
             		          	content += '</tr>';
@@ -181,11 +181,11 @@
 							
             				// 创建分页
                        		$(".pagination").pagination(page.totalSize, {
-                       			num_edge_entries: 1,//边缘页数
-                       			num_display_entries: 3, //主体页数
+                       			num_edge_entries: 2,//边缘页数
+                       			num_display_entries: 1, //主体页数
                        			callback: queryPage,
-                       			items_per_page: page.pageSize, //每页显示1项
-                       			current_page: pageNo,
+                       			items_per_page: page.pageSize, //每页显示5项
+                       			current_page: pageNo,//当前显示页
                        			prev_text: "上一页",
                        			next_text: "下一页"
                        		});
@@ -199,7 +199,10 @@
             		}
             	});
             }
-           	
+			$("#searchBtn").click(function(){
+				str.content = $("#content").val();
+				queryPage(0);
+           	});
            	function deleteRole(id){
         		$.ajax({
         			type : "post",
@@ -215,7 +218,7 @@
         				layer.close(layerIndex);
         				if(result.success){
         					layer.msg("删除成功(-_-)", {time:1000, icon:6});
-        					window.location.href = "${APP_PATH}/role/index.htm";
+        					queryPage(0);
         				}else{
         					layer.msg(result.message, {time:1000, icon:5, shift: 5});
         				}
@@ -252,7 +255,7 @@
         				layer.close(layerIndex);
         				if(result.success){
         					layer.msg("批量删除成功(-_-)", {time:1000, icon:6});
-        					window.location.href = "${APP_PATH}/role/index.htm";
+        					queryPage(0);
         				}else{
         					layer.msg(result.message, {time:1000, icon:5, shift: 5});
         				}

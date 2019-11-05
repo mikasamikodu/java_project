@@ -59,44 +59,26 @@
   <div class="form-group has-feedback">
     <div class="input-group">
       <div class="input-group-addon">查询条件</div>
-      <input class="form-control has-success" type="text" placeholder="请输入查询条件">
+        <input class="form-control has-success" type="text" placeholder="请输入查询条件">
+      </div>
     </div>
-  </div>
-  <button type="button" class="btn btn-warning"><i class="glyphicon glyphicon-search"></i> 查询</button>
-</form>
-<br>
- <hr style="clear:both;">
+    <button type="button" class="btn btn-warning"><i class="glyphicon glyphicon-search"></i> 查询</button>
+	</form>
+	<br>
+	 <hr style="clear:both;">
           <div class="table-responsive">
             <table class="table  table-bordered">
               <thead>
                 <tr >
                   <th width="30">#</th>
+                  <th width="30"><input type="checkbox"/></th>
                   <th>名称</th>
                   <th>代码</th>
                   <th>值</th>
                   <th width="100">操作</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>项目列表显示数量</td>
-                  <td>project-list-size</td>
-                  <td>12</td>
-                  <td>
-				      <button type="button" class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></button>
-				  </td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>首页项目显示数量</td>
-                  <td>home-project-list-size</td>
-                  <td>4</td>
-                  <td>
-				      <button type="button" class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></button>
-				  </td>
-                </tr>
-              </tbody>
+              <tbody></tbody>
             </table>
           </div>
 			  </div>
@@ -109,6 +91,7 @@
     <script src="${APP_PATH }/bootstrap/js/bootstrap.min.js"></script>
 	<script src="${APP_PATH }/script/docs.min.js"></script>
 	<script src="${APP_PATH }/script/common.js"></script>
+	<script src="${APP_PATH }/jquery/layer/layer.js"></script>
         <script type="text/javascript">
             $(function () {
 			    $(".list-group-item").click(function(){
@@ -122,6 +105,34 @@
 					}
 				});
 			    showMenu();
+            });
+            <tr>
+	            <td>1</td>
+	            <td>项目列表显示数量</td>
+	            <td>project-list-size</td>
+	            <td>12</td>
+	            <td>
+			        <button type="button" class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></button>
+			    </td>
+            </tr>
+            $.ajax({
+            	type: "post",
+            	url: "${APP_PATH}/param/doIndex.do",
+            	beforeSend: function(){
+            		layerIndex = layer.msg("正在加载数据！",{icon:2,shift:2});
+            		return true;
+            	},
+            	success: function(result){
+            		layer.close(layerIndex);
+            		if(result.success){
+            			var page = result.page;
+            			var datas = page.datas;
+            			var content = '';
+            			$.each(datas,function(i,n){
+            				
+            			});
+            		}
+            	}
             });
         </script>
   </body>

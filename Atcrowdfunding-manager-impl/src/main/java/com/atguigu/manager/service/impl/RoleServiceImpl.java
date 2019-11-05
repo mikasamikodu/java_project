@@ -23,7 +23,7 @@ public class RoleServiceImpl implements RoleService {
 		map.put("startIndex", startIndex);
 		List<Role> role = roleMapper.queryPage(map);
 		page.setDatas(role);
-		Integer count = roleMapper.queryCount();
+		Integer count = roleMapper.queryCount(map);
 		page.setTotalSize(count);
 		return page;
 	}
@@ -34,6 +34,18 @@ public class RoleServiceImpl implements RoleService {
 	@Override
 	public Integer delBatch(Integer[] id) {
 		return roleMapper.delBatch(id);
+	}
+	@Override
+	public int saveRole(Role role) {
+		return roleMapper.insert(role);
+	}
+	@Override
+	public int updateRole(Role role) {
+		return roleMapper.updateByPrimaryKey(role);
+	}
+	@Override
+	public Role selectRoleById(Integer id) {
+		return roleMapper.selectByPrimaryKey(id);
 	}
 
 }

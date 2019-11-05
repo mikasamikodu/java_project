@@ -119,8 +119,8 @@
 						}
 					}
 				});
-			    queryPageUser(0);
 			    showMenu();
+			    queryPageUser(0);
             });
           
             function deleteUserById(id, name){
@@ -137,7 +137,7 @@
                 		success : function(result){
                 			layer.msg("删除成功", {time:500, icon: 6, shift: 4});
                 			if(result.success){
-                 				window.location.href = "${APP_PATH}/index.htm";
+                 				window.location.href = "${APP_PATH}/user/index.htm";
                 			}else{
                 				layer.msg(result.message, {time:1000, icon: 6});
                 			}
@@ -151,19 +151,17 @@
         		}); 
         	}
             
-            function pageChange(pageNo){
+            /* function pageChange(pageNo){ */
 /*             	window.location.href="index.do?pageNo="+pageNo;
  */
- 				queryPageUser(pageNo);
-            }
+ 			/* 	queryPageUser(pageNo);
+            } */
             
             var json = {
-        			"pageNo" : 1,
         			"pageSize" : 10
         		};
             
             function queryPageUser(pageNo, jq){
-            	var layerIndex = -1;
             	json.pageNo = pageNo;
             	$.ajax({
             		type : "post",

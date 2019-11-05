@@ -1,0 +1,20 @@
+<html>
+	<head>
+		<meta charset='utf-8'/>
+		<title>hello js</title>
+	</head>
+	<body>
+		<a href='onclick.html' onclick='fun(event)'>please click me!!!</a>
+	</body>
+	<script type='text/javascript'>
+		function fun(e) {
+			if(e&&e.preventDefault){
+				alert('w3c');
+				e.preventDefault();
+			}else {
+				alert('ie');
+				window.event.returnValue=false;
+			}
+		}
+	</script>
+</html>

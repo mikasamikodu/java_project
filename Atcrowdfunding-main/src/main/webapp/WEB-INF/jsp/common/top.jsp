@@ -12,6 +12,7 @@
 		<li><a href="#"><i class="glyphicon glyphicon-comment"></i> 消息</a></li>
 		<li class="divider"></li>
 		<li><a href="${APP_PATH }/logout.do"><i class="glyphicon glyphicon-off"></i> 退出系统</a></li>
+		<li><a href="${APP_PATH }/logoff.do"><i class="glyphicon glyphicon-off"></i> 注销</a></li>
 	  </ul>
     </div>
 </li>

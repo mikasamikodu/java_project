@@ -84,7 +84,6 @@
 				  <td><input type="checkbox"></td>
                   <td>营业执照副本</td>
                   <td>
-				      
 				      <button type="button" class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></button>
 					  <button type="button" class="btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"></i></button>
 				  </td>

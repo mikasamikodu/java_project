@@ -27,8 +27,8 @@
     from t_account_type_cert
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <select id="selectAll" resultMap="BaseResultMap" >
-    select id, accttype, certid
+  <select id="selectAll" resultType="map" >
+    select  accttype, certid
     from t_account_type_cert
   </select>
 </mapper>

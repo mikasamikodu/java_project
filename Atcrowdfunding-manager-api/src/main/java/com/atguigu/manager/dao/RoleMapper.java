@@ -18,7 +18,7 @@ public interface RoleMapper {
 
 	List<Role> queryPage(Map<String, Object> map);
 
-	Integer queryCount();
+	Integer queryCount(Map<String, Object> map);
 
 	Integer delBatch(Integer[] id);
 }
