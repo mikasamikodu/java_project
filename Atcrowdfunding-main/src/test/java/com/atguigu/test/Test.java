@@ -38,7 +38,7 @@ public class Test {
 	@org.junit.Test
 	public void test2() {
 		RepositoryService repositoryService = service.getRepositoryService();
-		Deployment deploy = repositoryService.createDeployment().addClasspathResource("MyProcess9.bpmn").deploy();
+		Deployment deploy = repositoryService.createDeployment().addClasspathResource("auth.bpmn").deploy();
 		System.out.println(deploy);//DeploymentEntity[id=301, name=null]
 	}
 	

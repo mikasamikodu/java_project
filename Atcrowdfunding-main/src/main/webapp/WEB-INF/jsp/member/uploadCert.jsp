@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="zh-CN">
   <head>
@@ -45,20 +46,23 @@
       </div>
 
 		<ul class="nav nav-tabs" role="tablist">
-		  <li role="presentation" ><a href="#"><span class="badge">1</span> 基本信息</a></li>
-		  <li role="presentation" class="active"><a href="#"><span class="badge">2</span> 资质文件上传</a></li>
-		  <li role="presentation"><a href="#"><span class="badge">3</span> 邮箱确认</a></li>
-		  <li role="presentation"><a href="#"><span class="badge">4</span> 申请确认</a></li>
+		  <li role="presentation" ><a href="${APP_PATH }/member/basicinfo.htm"><span class="badge">1</span> 基本信息</a></li>
+		  <li role="presentation" class="active"><a href="${APP_PATH }/member/uploadCert.htm"><span class="badge">2</span> 资质文件上传</a></li>
+		  <li role="presentation"><a href="${APP_PATH }/member/apply2.htm"><span class="badge">3</span> 邮箱确认</a></li>
+		  <li role="presentation"><a href="${APP_PATH }/member/apply3.htm"><span class="badge">4</span> 申请确认</a></li>
 		</ul>
         
-		<form role="form" style="margin-top:20px;">
-		  <div class="form-group">
-			<label for="exampleInputEmail1">手执身份证照片</label>
-			<input type="file" class="form-control" >
-            <br>
-            <img src="${APP_PATH }/img/pic.jpg">
-		  </div>
-          <button type="button" onclick="window.location.href='${APP_PATH}/member/apply.htm'" class="btn btn-default">上一步</button>
+		<form id='uploadForm' role="form" style="margin-top:20px;" method="post" enctype="multipart/form-data">
+			<c:forEach items="${certs }" var="cert" varStatus="status">
+			  <div class="form-group">
+				<label for="exampleInputEmail1">${cert.name }</label>
+				<input type="hidden" name="certs[${status.index }].certid" value="${cert.id }"/>
+				<input type="file" name="certs[${status.index }].fileImg" class="form-control" >
+	            <br>
+	            <img src="${APP_PATH }/img/pic.jpg" style="display:none;">
+			  </div>
+			</c:forEach>
+          <button type="button" onclick="window.location.href='${APP_PATH}/member/basicinfo.htm'" class="btn btn-default">上一步</button>
 		  <button type="button" id="next" class="btn btn-success">下一步</button>
 		</form>
 		<hr>
@@ -81,26 +85,45 @@
     <script src="${APP_PATH }/jquery/jquery-2.1.1.min.js"></script>
     <script src="${APP_PATH }/bootstrap/js/bootstrap.min.js"></script>
 	<script src="${APP_PATH }/script/docs.min.js"></script>
+	<script src="${APP_PATH }/jquery/layer/layer.js"></script>
+	<script src="${APP_PATH }/jquery/jquery-form.min.js"></script>
 	<script>
 		  $('#myTab a').click(function (e) {
 	        e.preventDefault()
 	        $(this).tab('show')
 	      });
 		  $("#next").click(function(){
-			  $.ajax({
-				  type: "post",
-				  url: "${APP_PATH}/member/baseinfo.do",
-				  data: {
-					  "realname": $("#realname").val(),
-					  "cardnum": $("#cardnum").val(),
-					  "telephone": $("#telephone").val()
-				  },
-				  success: function(result){
-					  if(result.success){
-						  window.location.href="${APP_PATH}/member/apply1.htm";
-					  }
-				  }
-			  });
+			  var options = {
+			 		url : "${APP_PATH}/member/upload.do",
+			 		beforeSubmit : function(){
+						layerIndex = layer.msg("正在上传，请稍等...", {icon:1, shift:2});
+						return true;
+			 		},
+			 		success : function(result){
+			 			layer.close(layerIndex);
+			 			if(result.success){
+			 				layer.msg("上传成功", {time:1000, icon: 6, shift:2});
+			 				window.location.href = "${APP_PATH}/member/checkemail.htm";
+			 			}else{
+			 				layer.msg(result.message, {time:1000, icon: 5, shift:6});
+			 			}
+			 		}
+	 			};
+	 			$("#uploadForm").ajaxSubmit(options);	
+	 			return;
+		  });
+		  
+		  $(":file").change(function(event){
+			  var files = event.target.files;
+			  var file;
+			  if(files&&files.length>0){
+				  file = files[0];
+				  var URL = window.URL||window.webkitURL;//当前页面地址栏的路径
+				  var imgURL = URL.createObjectURL(file);//本地图片路径
+				  var imgObj = $(this).next().next();//获取同辈紧邻的元素
+				  imgObj.attr("src", imgURL);
+				  imgObj.show();
+			  }
 		  });
 	</script>
   </body>

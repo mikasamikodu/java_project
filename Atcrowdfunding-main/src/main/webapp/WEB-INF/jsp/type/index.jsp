@@ -95,6 +95,7 @@
     <script src="${APP_PATH }/bootstrap/js/bootstrap.min.js"></script>
 	<script src="${APP_PATH }/script/docs.min.js"></script>
 	<script src="${APP_PATH }/script/common.js"></script>
+	<script src="${APP_PATH }/jquery/layer/layer.js"></script>
         <script type="text/javascript">
             $(function () {
 			    $(".list-group-item").click(function(){
@@ -113,6 +114,51 @@
             <c:forEach items="${certTypes }" var="certType">
             	$("input:checkbox[accttype='${certType.accttype}'][certid='${certType.certid}']").attr("checked", true);
             </c:forEach>
+            
+            $("input:checkbox").click(function(){
+            	var flag = this.checked;
+            	var accttype = $(this).attr("accttype");
+            	var certid = $(this).attr("certid");
+            	if(flag){
+            		$.ajax({
+                   		type : "post",
+                   		url : "${APP_PATH}/type/addTypeCert.do",
+                   		data : {
+                   			"accttype": accttype,
+                   			"certid": certid
+                   		},
+                   		success : function(result){
+                   			if(result.success){
+                   				
+                   			}else{
+                   				layer.msg(result.message, {time:1000,icon:5,shift:3});
+                   			}
+                   		},
+                   		error: function(){
+                   			layer.msg("数据分配异常", {time:1000,icon:5,shift:3});
+                   		}
+            		});
+            	}else{
+            		$.ajax({
+                   		type : "post",
+                   		url : "${APP_PATH}/type/deleteTypeCert.do",
+                   		data : {
+                   			"accttype": accttype,
+                   			"certid": certid
+                   		},
+                   		success : function(result){
+                   			if(result.success){
+                   				
+                   			}else{
+                   				layer.msg(result.message, {time:1000,icon:5,shift:3});
+                   			}
+                   		},
+                   		error: function(){
+                   			layer.msg("数据分配异常", {time:1000,icon:5,shift:3});
+                   		}
+            		});
+            	}
+            });
         </script>
   </body>
 </html>

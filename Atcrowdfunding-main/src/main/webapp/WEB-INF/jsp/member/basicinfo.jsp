@@ -87,6 +87,7 @@
     <script src="${APP_PATH }/jquery/jquery-2.1.1.min.js"></script>
     <script src="${APP_PATH }/bootstrap/js/bootstrap.min.js"></script>
 	<script src="${APP_PATH }/script/docs.min.js"></script>
+	<script src="${APP_PATH }/jquery/layer/layer.js"></script>
 	<script>
 		  $('#myTab a').click(function (e) {
 	        e.preventDefault()
@@ -95,7 +96,7 @@
 		  $("#next").click(function(){
 			  $.ajax({
 				  type: "post",
-				  url: "${APP_PATH}/member/baseinfo.do",
+				  url: "${APP_PATH}/member/updateBasicinfo.do",
 				  data: {
 					  "realname": $("#realname").val(),
 					  "cardnum": $("#cardnum").val(),

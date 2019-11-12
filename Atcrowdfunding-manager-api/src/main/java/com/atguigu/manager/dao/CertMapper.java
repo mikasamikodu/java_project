@@ -13,4 +13,6 @@ public interface CertMapper {
     List<Cert> selectAll();
 
     int updateByPrimaryKey(Cert record);
+
+	List<Cert> findByAccttype(String accttype);
 }

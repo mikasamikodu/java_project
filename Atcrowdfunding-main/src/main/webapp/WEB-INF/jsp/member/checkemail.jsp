@@ -46,18 +46,18 @@
 
 		<ul class="nav nav-tabs" role="tablist">
 		  <li role="presentation" ><a href="#"><span class="badge">1</span> 基本信息</a></li>
-		  <li role="presentation" class="active"><a href="#"><span class="badge">2</span> 资质文件上传</a></li>
-		  <li role="presentation"><a href="#"><span class="badge">3</span> 邮箱确认</a></li>
+		  <li role="presentation"><a href="#"><span class="badge">2</span> 资质文件上传</a></li>
+		  <li role="presentation"  class="active"><a href="#"><span class="badge">3</span> 邮箱确认</a></li>
 		  <li role="presentation"><a href="#"><span class="badge">4</span> 申请确认</a></li>
 		</ul>
         
 		<form role="form" style="margin-top:20px;">
 		  <div class="form-group">
-			<label for="exampleInputEmail1">验证码</label>
-			<input type="text" class="form-control" id="exampleInputEmail1" placeholder="请输入你邮箱中接收到的验证码">
+			<label for="checkemail">邮箱地址</label>
+			<input type="text" class="form-control" id="checkemail" value="${member.email }" placeholder="请输入用于接收验证码的邮箱地址">
 		  </div>
-          <button type="button" onclick="javascript:;" class="btn btn-primary">重新发送验证码</button>
-		  <button type="button" onclick="window.location.href='member.html'"  class="btn btn-success">申请完成</button>
+          <button type="button" onclick="window.location.href='${APP_PATH}/member/uploadCert.htm'" class="btn btn-default">上一步</button>
+		  <button type="button" id="next" class="btn btn-success">下一步</button>
 		</form>
 		<hr>
     </div> <!-- /container -->
@@ -79,26 +79,38 @@
     <script src="${APP_PATH }/jquery/jquery-2.1.1.min.js"></script>
     <script src="${APP_PATH }/bootstrap/js/bootstrap.min.js"></script>
 	<script src="${APP_PATH }/script/docs.min.js"></script>
+	<script src="${APP_PATH }/jquery/layer/layer.js"></script>
 	<script>
 		  $('#myTab a').click(function (e) {
 	        e.preventDefault()
 	        $(this).tab('show')
 	      });
 		  $("#next").click(function(){
-			  $.ajax({
-				  type: "post",
-				  url: "${APP_PATH}/member/baseinfo.do",
-				  data: {
-					  "realname": $("#realname").val(),
-					  "cardnum": $("#cardnum").val(),
-					  "telephone": $("#telephone").val()
-				  },
-				  success: function(result){
-					  if(result.success){
-						  window.location.href="${APP_PATH}/member/";
+			  var checkemail = $("#checkemail").val();
+			  if(checkemail==null){
+				  layer.msg("邮箱不能为空！", {time:1000,icon:5,shift:2});
+				  return false;
+			  }else{
+				  $.ajax({
+					  type: "post",
+					  url: "${APP_PATH}/member/doCheckemail.do",
+					  data: {
+						  "checkemail": checkemail
+					  },
+					  beforeSend: function(){
+						  layerIndex = layer.msg("正在发送邮件！",{icon:1,shift:2});
+						  return true;
+					  },
+					  success: function(result){
+						  layer.close(layerIndex);
+						  if(result.success){
+							  window.location.href="${APP_PATH}/member/checkauthcode.htm";
+						  }else{
+							  layer.msg(result.message,{time:1000,icon:5,shift:2});
+						  }
 					  }
-				  }
-			  });
+				  });
+			  }
 		  });
 	</script>
   </body>

@@ -14,4 +14,8 @@ public interface MemberService {
 
 	int doRegister(Member member);
 
+	void updateEmail(String checkemail);
+
+	void updateAuthStatus(String string);
+
 }

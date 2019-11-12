@@ -15,12 +15,10 @@
 		<result column="telephone" property="telephone" jdbcType="VARCHAR" />
   </resultMap>
   
-  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_member
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  
   
   <insert id="insert" parameterType="com.atguigu.bean.Member">
     insert into t_member (id, loginacct,userpswd,username,email,authstatus,usertype,realname,cardnum,accttype,telephone)
@@ -34,7 +32,17 @@
   </update>
   <update id="updateAccttype" parameterType="com.atguigu.bean.Member">
     update t_member
-    set accttype = #{accttype,jdbcType=VARCHAR}
+    set accttype = #{accttype,jdbcType=CHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateEmail" parameterType="com.atguigu.bean.Member">
+    update t_member
+    set email = #{email,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateAuthStatus" parameterType="com.atguigu.bean.Member">
+    update t_member
+    set authstatus = #{authstatus,jdbcType=CHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateBaseinfo" parameterType="com.atguigu.bean.Member">

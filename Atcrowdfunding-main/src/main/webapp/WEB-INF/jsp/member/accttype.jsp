@@ -122,7 +122,7 @@
     			},
     			success: function(result){
     				if(result.success){
-    					window.location.href="${APP_PATH}/member/apply.htm";
+    					window.location.href="${APP_PATH}/member/baseinfo.htm";
     				}else{
     					layer.msg(result.message, {time:1000,icon:5,shift:6});
     				}

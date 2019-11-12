@@ -17,5 +17,9 @@ public class CertServiceImpl implements CertService {
 	public List<Cert> findAll() {
 		return certMapper.selectAll();
 	}
+	@Override
+	public List<Cert> findByAccttype(String accttype) {
+		return certMapper.findByAccttype(accttype);
+	}
 
 }

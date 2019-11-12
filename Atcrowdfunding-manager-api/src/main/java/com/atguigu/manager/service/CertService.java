@@ -8,4 +8,6 @@ public interface CertService {
 
 	List<Cert> findAll();
 
+	List<Cert> findByAccttype(String accttype);
+
 }

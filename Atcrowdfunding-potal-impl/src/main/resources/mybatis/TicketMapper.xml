@@ -27,6 +27,13 @@
     select * from t_Ticket
   </select>
   <update id="updatePstep" parameterType="com.atguigu.bean.Ticket">
-  	update t_Ticket set pstep = #{pstep} where id = #{id}
+  	update t_Ticket set pstep = #{pstep}
+  	<if test="authcode!=null">
+  		,authcode=#{authcode}
+  	</if>
+  	<if test="piid!=null">
+  		,piid=#{piid}
+  	</if>
+  	where id = #{id}
   </update>
 </mapper>

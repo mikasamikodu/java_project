@@ -27,4 +27,9 @@
     select id, name
     from t_cert
   </select>
+  <select id="findByAccttype" resultMap="BaseResultMap" >
+    select * from t_cert 
+    where id in 
+    (select certid from t_account_type_cert where accttype=#{accttype})
+  </select>
 </mapper>
