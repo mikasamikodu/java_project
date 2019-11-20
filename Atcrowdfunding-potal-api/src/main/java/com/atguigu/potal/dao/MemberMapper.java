@@ -26,5 +26,5 @@ public interface MemberMapper {
 
 	void updateEmail(String checkemail);
 
-	void updateAuthStatus(String string);
+	void updateAuthStatus(Member loginMember);
 }

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="zh-CN">
   <head>
@@ -53,7 +54,26 @@
 				<h3 class="panel-title"><i class="glyphicon glyphicon-th"></i> 数据列表</h3>
 			  </div>
 			  <div class="panel-body">
-				<img id="showImg" alt="流程定义图片" src="${APP_PATH }/jquery/layer/skin/default/loading-1.gif">
+				<form id="addForm">
+				  <div class="form-group">
+					<label>用户真实姓名:${member.username }</label>
+				  </div>
+				  <div class="form-group">
+					<label>用户银行卡号：${member.cardnum }</label>
+				  </div>
+				  <div class="form-group">
+					<label>用户电话:${member.telephone}</label>
+				  </div>
+				  <c:forEach items="${certImgs }" var="certimg">
+				  	<div class="form-group">
+						<label>${certimg.name }</label>
+						<br/>
+						<img src="${APP_PATH }/pictures/cert/${certimg.iconpath}">
+				  	</div>
+				  </c:forEach>
+				  <button type="button" id="passBtn" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i> 审核通过</button>
+				  <button type="button" id="refuseBtn" class="btn btn-danger"><i class="glyphicon glyphicon-refresh"></i> 审核拒绝</button>
+				</form>
 			  </div>
 			</div>
         </div>
@@ -73,10 +93,40 @@
 				} else {
 					$("ul", this).show("fast");
 				}
-			}
-		  });
-   		  $("#showImg").prop("src", "${APP_PATH}/process/doShowImg.do?id=${param.id}");
-       });
+			 }
+		   });
+		   $("#passBtn").click(function(){
+			   $.ajax({
+				   type: "post",
+				   url: "${APP_PATH}/authcert/pass.do",
+				   data: {
+					   "taskid": "${param.taskid}",
+					   "memberid": "${param.memberid}"
+				   },
+				   success: function(result){
+					   if(result.success){
+						   window.location.href="${APP_PATH}/authcert/index.htm"
+					   }
+				   }
+			   });
+		   });
+		   
+		   $("#refuseBtn").click(function(){
+			   $.ajax({
+				   type: "post",
+				   url: "${APP_PATH}/authcert/refuse.do",
+				   data: {
+					   "taskid": "${param.taskid}",
+					   "memberid": "${param.memberid}"
+				   },
+				   success: function(result){
+					   if(result.success){
+						   window.location.href="${APP_PATH}/authcert/index.htm"
+					   }
+				   }
+			   });
+		   });
+        });
     </script>
   </body>
 </html>

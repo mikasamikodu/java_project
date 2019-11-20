@@ -16,4 +16,8 @@ public interface TicketMapper {
 	Ticket getTicketByMemberid(Integer memberid);
 
 	void updatePstep(Ticket ticket);
+
+	Ticket getTicketByPiid(String piid);
+
+	void updateStatus(Integer memberid);
 }

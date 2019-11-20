@@ -40,8 +40,13 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public void updateAuthStatus(String string) {
-		memberMapper.updateAuthStatus(string);
+	public void updateAuthStatus(Member loginMember) {
+		memberMapper.updateAuthStatus(loginMember);
+	}
+
+	@Override
+	public Member getMemberById(Integer memberid) {
+		return memberMapper.selectByPrimaryKey(memberid);
 	}
 
 }

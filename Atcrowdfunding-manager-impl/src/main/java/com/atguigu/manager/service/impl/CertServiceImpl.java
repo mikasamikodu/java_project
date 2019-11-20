@@ -21,5 +21,9 @@ public class CertServiceImpl implements CertService {
 	public List<Cert> findByAccttype(String accttype) {
 		return certMapper.findByAccttype(accttype);
 	}
+	@Override
+	public Cert getCertById(Integer certid) {
+		return certMapper.selectByPrimaryKey(certid);
+	}
 
 }

@@ -16,6 +16,8 @@ public interface MemberService {
 
 	void updateEmail(String checkemail);
 
-	void updateAuthStatus(String string);
+	void updateAuthStatus(Member loginMember);
+
+	Member getMemberById(Integer memberid);
 
 }

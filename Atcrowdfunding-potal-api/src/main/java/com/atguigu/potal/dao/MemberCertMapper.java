@@ -1,6 +1,7 @@
 package com.atguigu.potal.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.atguigu.bean.MemberCert;
 
@@ -12,4 +13,6 @@ public interface MemberCertMapper {
     MemberCert selectByPrimaryKey(Integer id);
 
 	List<MemberCert> selectAll();
+
+	List<Map<String, Object>> getCertByMemberId(Integer memberid);
 }

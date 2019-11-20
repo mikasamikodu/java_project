@@ -10,4 +10,8 @@ public interface TicketService {
 
 	void updatePstep(Ticket ticket);
 
+	Ticket getTicketByPiid(String piid);
+
+	void updateStatus(Integer memberid);
+
 }

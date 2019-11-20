@@ -4,11 +4,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/auth_project")
+@RequestMapping("/authproject")
 public class AuthProjectController {
 
 	@RequestMapping("/index")
 	public String param() {
-		return "auth_project/index";
+		return "authproject/index";
 	}	  
 }

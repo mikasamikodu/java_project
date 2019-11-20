@@ -241,7 +241,7 @@ public class MemberController {
 				Task task = taskService.createTaskQuery().processInstanceId(ticket.getPiid()).taskAssignee(loginMember.getLoginacct()).singleResult();
 				taskService.complete(task.getId());
 				
-				memberService.updateAuthStatus("1");
+				memberService.updateAuthStatus(loginMember);
 				
 				ticket.setPstep("checkauthcode");
 				ticketService.updatePstep(ticket);
