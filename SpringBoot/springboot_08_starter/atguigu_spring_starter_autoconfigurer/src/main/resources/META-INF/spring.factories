@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.atguigu.atguigu_spring_starter_autoconfigurer.starter.HelloServiceAutoConfiguration

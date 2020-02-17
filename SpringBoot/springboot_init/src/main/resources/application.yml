@@ -1,0 +1,13 @@
+server:
+  port: 8082
+
+#person:
+#  name: tom
+#  age: 12
+#  boos: false
+#  date: 2019/12/21
+#  list: [a, b, c]
+#  map: {k1: v1, k2: v2}
+#  dog:
+#    name: cat
+#    age: 10

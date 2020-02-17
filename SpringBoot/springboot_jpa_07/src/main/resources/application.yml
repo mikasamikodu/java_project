@@ -1,0 +1,14 @@
+#指定数据库相关信息
+spring:
+  datasource:
+    url: jdbc:mysql://192.168.10.107/jpa
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.jdbc.Driver
+  #指定数据库表每次服务器启动时已更新的方式去查询表，规则是有就更新，没有就创建
+  #jpa相关配置可以查看JpaProperties
+  jpa:
+    hibernate:
+      ddl-auto: update
+    #控制台展示执行sql
+    show-sql: true
