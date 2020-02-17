@@ -99,12 +99,15 @@
 					  },
 					  success: function(result){
 						  if(result.success){
-							  layer.msg("验证通过，3秒后跳转到首页！",{time:3000,icon:6,shift:2},function(){
+							  layer.msg("验证通过，3秒后跳转到个人账户首页！",{time:3000,icon:6,shift:2},function(){
 								  window.location.href="${APP_PATH}/member/index.htm";
 							  });
 						  }else{
 							  layer.msg(result.message, {time:1000,icon:5,shift:2});
 						  }
+					  },
+					  error: function(){
+						  layer.msg("验证码检验异常", {time:1000,icon:5,shift:2});
 					  }
 				  });
 			  }

@@ -22,13 +22,13 @@
 	<span><i class="glyphicon glyphicon-ok"></i> 业务审核 <span class="badge" style="float:right">3</span></span> 
 	<ul style="margin-top:10px;padding-left:10px;display:none;">
 		<li style="height:30px;">
-			<a href="${APP_PATH}/user/auth_cert.htm"><i class="glyphicon glyphicon-check"></i> 实名认证审核</a> 
+			<a href="${APP_PATH}/user/authcert.htm"><i class="glyphicon glyphicon-check"></i> 实名认证审核</a> 
 		</li>
 		<li style="height:30px;">
-			<a href="${APP_PATH}/user/auth_adv.htm"><i class="glyphicon glyphicon-check"></i> 广告审核</a> 
+			<a href="${APP_PATH}/user/authadv.htm"><i class="glyphicon glyphicon-check"></i> 广告审核</a> 
 		</li>
 		<li style="height:30px;">
-			<a href="${APP_PATH}/user/auth_project.htm"><i class="glyphicon glyphicon-check"></i> 项目审核</a> 
+			<a href="${APP_PATH}/user/authproject.htm"><i class="glyphicon glyphicon-check"></i> 项目审核</a> 
 		</li>
 	</ul>
 </li>
@@ -51,7 +51,7 @@
 			<a href="${APP_PATH}/user/message.htm"><i class="glyphicon glyphicon-comment"></i> 消息模板</a> 
 		</li>
 		<li style="height:30px;">
-			<a href="${APP_PATH}/user/project_type.htm"><i class="glyphicon glyphicon-list"></i> 项目分类</a> 
+			<a href="${APP_PATH}/user/projecttype.htm"><i class="glyphicon glyphicon-list"></i> 项目分类</a> 
 		</li>
 		<li style="height:30px;">
 			<a href="${APP_PATH}/user/tag.htm"><i class="glyphicon glyphicon-tags"></i> 项目标签</a> 

@@ -236,7 +236,7 @@
             	$("#serchBtn").click(function(){
             		var input = $("#inputText").val();
             		json.input = input;
-            		queryPageUser(1);
+            		queryPageUser(0);
             	});
             
             	$("#allCheckbox").click(function(){

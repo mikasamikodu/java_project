@@ -12,6 +12,7 @@
 	<link rel="stylesheet" href="${APP_PATH }/bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" href="${APP_PATH }/css/font-awesome.min.css">
 	<link rel="stylesheet" href="${APP_PATH }/css/main.css">
+	<link rel="stylesheet" href="${APP_PATH }/css/pagination.css">
 	<style>
 	.tree li {
         list-style-type: none;
@@ -78,64 +79,11 @@
                   <th width="100">操作</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>实名认证审批流程</td>
-                  <td>2</td>
-                  <td>人工审核</td>
-                  <td>张三</td>
-                  <td>
-                      <button type="button" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-check"></i></button>
-				      <button type="button" class="btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"></i></button>
-				  </td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>实名认证审批流程</td>
-                  <td>2</td>
-                  <td>人工审核</td>
-                  <td>张三</td>
-                  <td>
-                      <button type="button" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-check"></i></button>
-				      <button type="button" class="btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"></i></button>
-				  </td>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td>实名认证审批流程</td>
-                  <td>2</td>
-                  <td>人工审核</td>
-                  <td>张三</td>
-                  <td>
-                      <button type="button" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-check"></i></button>
-				      <button type="button" class="btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"></i></button>
-				  </td>
-                </tr>
-                <tr>
-                  <td>4</td>
-                  <td>实名认证审批流程</td>
-                  <td>2</td>
-                  <td>人工审核</td>
-                  <td>张三</td>
-                  <td>
-                      <button type="button" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-check"></i></button>
-				      <button type="button" class="btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"></i></button>
-				  </td>
-                </tr>
-              </tbody>
+              <tbody></tbody>
 			  <tfoot>
 			     <tr >
 				     <td colspan="6" align="center">
-						<ul class="pagination">
-								<li class="disabled"><a href="#">上一页</a></li>
-								<li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-								<li><a href="#">2</a></li>
-								<li><a href="#">3</a></li>
-								<li><a href="#">4</a></li>
-								<li><a href="#">5</a></li>
-								<li><a href="#">下一页</a></li>
-							 </ul>
+						<ul class="pagination"></ul>
 					 </td>
 				 </tr>
 
@@ -152,6 +100,8 @@
     <script src="${APP_PATH }/bootstrap/js/bootstrap.min.js"></script>
 	<script src="${APP_PATH }/script/docs.min.js"></script>
 	<script src="${APP_PATH }/script/common.js"></script>
+	<script src="${APP_PATH }/jquery/layer/layer.js"></script>
+	<script src="${APP_PATH }/jquery/jquery.pagination.js"></script>
         <script type="text/javascript">
             $(function () {
 			    $(".list-group-item").click(function(){
@@ -165,7 +115,62 @@
 					}
 				});
 			    showMenu();
+			    queryPage(0);
             });
+            
+            var json = {
+            		"pageSize": 3 
+            };
+            function queryPage(pageNo,jq){
+            	json.pageNo = pageNo;
+            	
+            	$.ajax({
+	            	type: "post",
+	            	url: "${APP_PATH}/authcert/doIndex.do",
+	            	data: json,
+	            	beforeSend: function(){
+	            		layerIndex = layer.msg("正在加载数据...", {icon: 1,shift:2});
+	            		return true;
+	            	},
+	            	success: function(result){
+	            		layer.close(layerIndex);
+	            		if(result.success){
+	            			var page = result.page;
+	            			var datas = page.datas;
+	            			var content = '';
+	            			$.each(datas, function(i,task){
+	            				content += '<tr>';
+		                        content += '<td>'+(i+1)+'</td>';
+		                        content += '<td>'+task.proDefName+'</td>';
+		                        content += '<td>'+task.proDefVersion+'</td>';
+		                        content += '<td>'+task.taskName+'</td>';
+		                        content += '<td>'+task.member.username+'</td>';
+		                        content += '<td>',
+		                        content += '    <button type="button" onclick="window.location.href=\'${APP_PATH}/authcert/doShow.htm?memberid='+task.member.id+'&taskid='+task.taskId+'\'" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-check"></i></button>';
+		            			content += '  </td>';
+		                        content += '</tr>';
+	            			});
+	            			$("tbody").html(content);
+	            			
+	            			$(".pagination").pagination(page.totalSize, {
+	            				num_edge_entries: 1,//边缘页数
+                     			num_display_entries: 3, //主体页数
+                     			callback: queryPage,
+                     			items_per_page: page.pageSize, //每页显示1项
+                     			current_page: pageNo,
+                     			prev_text: "上一页",
+                     			next_text: "下一页"
+	            			});
+	            		}else{
+	            			layer.msg(result.message, {time:1000,icon:5,shift:2});
+	            		}
+	            	},
+	            	error: function(){
+	            		layer.msg("数据加载异常", {time:1000,icon:5,shift:2});
+	            	}
+	            });
+            	
+            }
         </script>
   </body>
 </html>

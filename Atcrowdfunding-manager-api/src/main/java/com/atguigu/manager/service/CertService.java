@@ -10,4 +10,6 @@ public interface CertService {
 
 	List<Cert> findByAccttype(String accttype);
 
+	Cert getCertById(Integer certid);
+
 }

@@ -27,4 +27,9 @@
     select id, memberid,certid,iconpath
     from t_member_cert
   </select>
+  <select id="getCertByMemberId" resultType="map">
+    SELECT tmc.iconpath as iconpath,tc.name as name
+    FROM t_member_cert tmc LEFT JOIN t_cert tc  ON tmc.certid=tc.id
+    WHERE  tmc.memberid = #{memberid}
+  </select>
 </mapper>

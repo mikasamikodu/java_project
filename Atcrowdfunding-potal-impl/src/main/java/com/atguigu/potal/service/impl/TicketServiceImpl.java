@@ -27,4 +27,14 @@ public class TicketServiceImpl implements TicketService {
 	public void updatePstep(Ticket ticket) {
 		ticketMapper.updatePstep(ticket);		
 	}
+
+	@Override
+	public Ticket getTicketByPiid(String piid) {
+		return ticketMapper.getTicketByPiid(piid);
+	}
+
+	@Override
+	public void updateStatus(Integer memberid) {
+		ticketMapper.updateStatus(memberid);
+	}
 }

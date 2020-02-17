@@ -26,6 +26,9 @@
   <select id="selectAll" resultMap="BaseResultMap" >
     select * from t_Ticket
   </select>
+  <select id="getTicketByPiid" resultMap="BaseResultMap" >
+    select * from t_Ticket where piid=#{piid}
+  </select>
   <update id="updatePstep" parameterType="com.atguigu.bean.Ticket">
   	update t_Ticket set pstep = #{pstep}
   	<if test="authcode!=null">
@@ -35,5 +38,9 @@
   		,piid=#{piid}
   	</if>
   	where id = #{id}
+  </update>
+  <update id="updateStatus" parameterType="com.atguigu.bean.Ticket">
+  	update t_Ticket set status = '1'
+  	where memberid = #{memberid} and status='0'
   </update>
 </mapper>
