@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>京东顶部导航条</title>
+    <link rel="stylesheet" href="./source/reset.css">
+    <link rel="stylesheet" href="./source/css/all.css">
+    <style>
+        body{
+            font: 12px/1.5 Microsoft YaHei,Heiti SC,tahoma,arial,Hiragino Sans GB,"\5B8B\4F53",sans-serif;
+        }
+        .clearfix::before,.clearfix::after{
+            content: '';
+            display: table;
+            clear: both;
+        }
+        /*第一层*/
+        .top-bar-wrapper{
+            /*最外层div占据一行*/
+            width: 100%;
+            /*设置行高，使得文字垂直居中，同时也可以代替元素高度 */
+            line-height: 30px;
+            /*设置整体背景色*/
+            background-color: rgba(227,228,229, 1);
+            /*设置背景色*/
+            border-bottom: 1px solid #ddd;
+        }
+
+        /*第二层*/
+        .top-bar{
+            /*设置内部的第二次div宽度*/
+            width: 1190px;
+            /*占据屏幕正中位置*/
+            margin: 0 auto;
+        }
+
+        /*设置第二层内字体颜色*/
+        .top-bar a, .top-bar span{
+            /*去除链接默认下划线*/
+            text-decoration: none;
+            /*设置链接默认字体颜色*/
+            color: rgba(153,153,153, 1);
+        }
+
+        /*第三层左侧部分*/
+        .location{
+            /*元素向左浮动*/
+            float: left;
+        }
+        .current-city{
+            /*开启定位提升元素层级*/
+            position: relative;
+            z-index: 9999;
+            /*设置元素两侧内边距*/
+            padding: 0 10px 2px;
+            border: 1px solid transparent;
+            border-bottom: none;
+        }
+        /*设置定位图标*/
+        .current-city i{
+            /*设置图标字体颜色*/
+            color: red;
+            /*设置图标字体大小*/
+            font-size: 12px;
+            /*设置图标字体两侧边距*/
+            margin-right: 4px;
+        }
+        .location:hover .current-city{
+            background-color: white;
+            border: 1px solid rgb(204, 204, 204);
+            border-bottom: none;
+        }
+        /*设置下拉框*/
+        .location .city-list{
+            /*设置下拉框宽度*/
+            width: 350px;
+            /*设置下拉框高度*/
+            height: 445px;
+            /*设置下拉框宽度*/
+            background-color: #fff;
+            /*设置外边框*/
+            border: 1px solid rgb(204, 204, 204);
+            box-shadow: 0 2px 3px rgba(0, 0, 0, .2);
+            /*开启绝对定位，使其位于定位元素下方*/
+            position: absolute;
+            /*设置上边距，使其位于定位元素下方*/
+            top: 31px;
+            z-index: 999;
+            display: none;
+        }
+        /*修改定位元素在鼠标悬浮时整体的背景色*/
+        .location:hover .city-list{
+            display: block;
+        }
+
+        /*第三层右侧部分*/
+        .shortcut{
+            float: right;
+        }
+        /*将所有的li自左向右浮动*/
+        .shortcut li{
+            float: left;
+        }
+        /*设置所有的链接在鼠标悬浮时的颜色*/
+        .shortcut li a:first-child:hover, .location a:hover{
+            color: red;
+        }
+        /*设置li之间的间隔线*/
+        .line{
+            /*设置宽度*/
+            width: 1px;
+            /*设置高度*/
+            height: 10px;
+            /*设置外边距*/
+            margin: 10px 12px;
+            /*设置背景色*/
+            background-color: rgba(153,153,153, .4);
+        }
+        /*设置免费注册和企业采购的字体颜色*/
+        .shortcut .highlight{
+            color: red;
+        }
+
+    /*    设置我的京东下拉框*/
+        .myjd{
+            padding: 0 7px 2px;
+            position: relative;
+            border: 1px solid transparent;
+            z-index: 9999;
+        }
+        .leftline{
+            margin-right: 5px;
+        }
+        .rightline{
+            margin-left: 5px;
+        }
+        .myjd-li:hover .myjd{
+            border: 1px solid rgb(204, 204, 204);
+            border-bottom: none;
+            background-color: #fff;
+        }
+        .service{
+            width: 281px;
+            height: 261px;
+            background-color: #fff;
+            border: 1px solid rgb(204, 204, 204);
+            box-shadow: 0 2px 3px rgba(0, 0, 0, .2);
+            position: absolute;
+            top: 32px;
+            display: none;
+            z-index: 999;
+        }
+        .myjd-li:hover .service{
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<div class="top-bar-wrapper">
+    <div class="top-bar clearfix">
+        <div class="location">
+            <div class="current-city">
+                <i class="fas fa-map-marker-alt"></i>
+                <a href="javascript:;">北京</a>
+            </div>
+            <div class="city-list"></div>
+        </div>
+        <ul class="shortcut">
+            <li>
+                <a href="javascript:;">你好，请登录</a>
+                <a  class="highlight" href="javascript:;">免费注册</a>
+            </li>
+            <li class="line"></li>
+            <li>
+                <a href="javascript:;">我的订单</a>
+            </li>
+            <li class="line leftline"></li>
+            <li class="myjd-li">
+                <div class="myjd">
+                    <a href="javascript:;">我的京东</a>
+                    <a class="fas fa-angle-down" href="javascript:;"></a>
+                </div>
+                <div class="service"></div>
+            </li>
+            <li class="line rightline"></li>
+            <li>
+                <a href="javascript:;">京东会员</a>
+            </li>
+            <li class="line"></li>
+            <li>
+                <a  class="highlight" href="javascript:;">企业采购</a>
+                <a class="fas fa-angle-down" href="javascript:;"></a>
+            </li>
+            <li class="line"></li>
+            <li>
+                <span>客户服务</span>
+                <a class="fas fa-angle-down" href="javascript:;"></a>
+            </li>
+            <li class="line"></li>
+            <li>
+                <span>网站导航</span>
+                <a class="fas fa-angle-down" href="javascript:;"></a>
+            </li>
+            <li class="line"></li>
+            <li>
+                <span>手机京东</span>
+            </li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>
