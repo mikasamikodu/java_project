@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        html{
+            /*设置当前网页的视距为800像素人眼距离网页的距离*/
+            perspective: 800px;
+        }
+        body{
+            border: 1px solid red;
+        }
+        .box1{
+            width: 100px;
+            height: 100px;
+            background-color: #b9cb41;
+            margin: 100px auto;
+            transition: .3s;
+            /*animation: test 1s ease-in-out infinite;*/
+        }
+        /*@keyframes test {
+            from{
+                transform: rotateY(180deg)  translateZ(400px)
+            }
+            to{
+                transform: rotateY(90deg)  translateZ(0px)
+            }
+        }*/
+        body:hover .box1{
+            /*
+                通过旋转可以使元素沿着x,y,z轴旋转指定的角度
+                    rotateX()
+                    rotateY()
+                    rotateZ()
+                        旋转的角度可以是720deg(720度,即2圈),1turn(一圈).200grad(相当于180度,半圈)
+            */
+            transform:  rotateY(180deg)  translateZ(400px);
+            /*transform: translateX(100px) rotateY(180deg)  ;*/
+            /*backface-visibility:设置元素背面是否可见*/
+            backface-visibility: visible;
+        }
+    </style>
+</head>
+<body>
+<div class="box1"></div>
+</body>
+</html>

@@ -1,0 +1,158 @@
+a{
+    text-decoration: none;
+}
+.border{
+    width: 100%;
+    background-color: #000;
+}
+.header{
+    width: 94%;
+    max-width: 1221px;
+    height: 48px;
+    padding: 0 3%;
+    margin: 0 auto;
+    background-color: #000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .left{
+        .meitu-icon{
+            width: 18px;
+            height: 48px;
+            position: relative;
+            li{
+                width: 100%;
+                height: 1px;
+                background-color: #fff;
+                position: absolute;
+                transform-origin: left center;
+                transition: 0.3s;
+                &:nth-child(1){
+                    top: 18px;
+                }
+                &:nth-child(2){
+                    top: 24px;
+                }
+                &:nth-child(3){
+                    top: 30px;
+                }
+            } 
+        }
+        .nav{
+            position: absolute;
+            top: 48px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            transition: 0.3s;
+            background-color: #000;
+            display: none;
+            padding-top: 35px;
+            li{
+                width: 82%;
+                line-height: 44px;
+                border-bottom: 1px solid rgb(36, 36, 36);
+                margin: 0 auto;
+                color: #FFF;
+                font-size: 14px;
+                a{
+                    display: block;
+                    color: #FFF;
+                    margin-right: 10px;
+                    font-size: 14px;
+                    &:hover{
+                        color: rgb(170, 170, 170);
+                    }
+                }
+                &:last-child a{
+                    display: inline-block;
+                }
+            }
+        }
+        &:hover{
+            .meitu-icon{
+                li{
+                    &:nth-child(1){
+                        transform: rotateZ(42deg);
+                    }
+                    &:nth-child(2){
+                        opacity: 0;
+                    }
+                    &:nth-child(3){
+                        transform: rotateZ(-42deg);
+                    }
+                }
+            }
+            .nav{
+                display: block;
+            }
+        }
+    }
+    .center{
+        a{
+            display: block;
+            width: 122px;
+            height: 32px;
+            background-image: url("../images/all.png"); 
+            background-size: 400px 400px;
+            transition: opacity 0.4s;
+            &:hover{
+                opacity: 0.7;
+            }
+        }
+    }
+    .right{
+        a{
+            display: block;
+            width: 22px;
+            height: 34px;
+            background-image: url("../images/all.png"); 
+            background-size: 400px 400px;
+            background-position-x: 235px;
+        }
+    }
+}
+@media only screen{
+    @media (min-width: 768px){
+        .header{
+            .left{
+                width: 80%;
+                order: 2;
+                .meitu-icon{
+                    display: none;
+                }
+                .nav{
+                    width: 100%;
+                    display: flex;
+                    justify-content: space-between;
+                    position: static;
+                    padding: 0;
+                    li{
+                        a{
+                            text-align: center;
+                            width: 100%;
+                        }
+                        span{
+                            display: none;
+                        }
+                    }
+                }
+				&:hover{
+					// .meitu-icon{
+					//     display: none;
+					// }
+					ul.nav{
+						display: flex;
+					}
+				}
+            }
+            .center{
+                order: 1;
+            }
+            .right{
+                order: 3;
+            }
+        }
+    }
+}

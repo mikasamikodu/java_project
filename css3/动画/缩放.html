@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .box1{
+            width: 100px;
+            height: 100px;
+            background-color: greenyellow;
+            margin: 100px auto;
+            transition: transform .5s;
+            /*设置变形的原点*/
+            transform-origin: 0 0 ;
+        }
+        .box1:hover{
+            /*
+                对元素进行缩放的函数
+                    scaleX(): 水平方向的缩放
+                    scaleY(): 垂直方向的缩放
+                    scale(): 水平垂直两个方向的缩放
+            */
+            transform: scale(.2);
+        }
+    </style>
+</head>
+<body>
+<div class="box1"></div>
+</body>
+</html>

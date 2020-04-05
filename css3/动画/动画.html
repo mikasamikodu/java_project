@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .box1{
+            width: 700px;
+            height: 700px;
+            background-color: #999999;
+        }
+        .box1 div{
+            width: 100px;
+            height: 100px;
+            background-color: #b9cb41;
+            margin-bottom: 100px;
+        }
+        .box2{
+            /*设置动画*/
+            /*animation-name:指定要对当前元素生效的名字*/
+            /*animation-name: test;*/
+            /*animation-duration:指定动画执行时间*/
+            /*animation-duration: 2s;*/
+            /*animation-delay:指定动画执行需要延迟的时间*/
+            /*animation-delay: 1s;*/
+            /*animation-timing-function:指定动画的时序函数*/
+            /*animation-timing-function: ease-in;*/
+            /*animation-iteration-count:指定动画的迭代器,或动画执行次数
+                可选值:
+                    数值: 执行的次数,默认是1
+                    infinite: 无限次
+            */
+            /*animation-iteration-count: 3;*/
+            /*animation-direction:指定动画的执行方向
+                 可选值:
+                    normal: 默认是从from向to方向运行,每次执行方向相同
+                    reverse:反着来,从to向from方向运行,每次执行方向相同
+                    alternate: 去时是从from向to方向运行,重复执行时会反方向运行,即从to向from方向运行
+                    alternate-reverse:去时是从to向from方向运行,重复执行时会反方向运行,即从from向to方向运行
+            */
+            /*animation-direction: alternate;*/
+            /*animation-play-state:指定动画的播放状态,
+                可选值:
+                    running: 默认值,动画执行
+                    paused: 动画暂停
+            */
+            /*animation-play-state: initial;*/
+            /*animation-fill-mode:动画的填充方式
+                可选值:
+                    none: 默认值,动画执行完毕元素回到原来位置
+                    forwards: 动画执行结束,元素停在动画结束位置
+                    backwards: 动画延时等待时,元素会处于开始位置,如果动画效果有颜色,则颜色会在等地延迟时就会有from的颜色变化,而不是保持元素原来颜色
+                    both: 结合了forwards与backwards的特性
+            */
+            /*animation-fill-mode: both;*/
+            /*  animation: 动画的简写方式,只对两个时间的位置有要求*/
+            animation: test 2s 2 1s alternate;
+        }
+        .box1:hover div{
+            /*margin-left: 600px;*/
+            animation-play-state: paused;
+        }
+
+        /*动画:
+            动画与过渡类似,都可以实现一些动态效果
+                不同的是过渡需要在某个属性发生变化时才会触发
+                动画可以自动触发
+            设置动画就必须先设置一个关键帧,关键帧设置了动画的每一个执行步骤
+        */
+        @keyframes test {
+            /*from表示动画开始的位置,也可以用0%表示*/
+            from{
+                margin-left: 0;
+                background-color: red;
+            }
+            /*to表示动画结束的位置,也可以用100%表示*/
+            to{
+                background-color: #b9cb41;
+                margin-left: 600px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="box1">
+    <div class="box2"></div>
+</div>
+</body>
+</html>

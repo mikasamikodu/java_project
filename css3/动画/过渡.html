@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .box1{
+            width: 700px;
+            height: 700px;
+            background-color: #999999;
+        }
+        .box1 div{
+            width: 100px;
+            height: 100px;
+            background-color: #b9cb41;
+            /*transition: all 2s;*/
+            margin-bottom: 100px;
+        /*    transition:过渡,
+                --通过过渡,可以指定一个属性发生变化的切换方式
+                --通过过渡可以创建一些非常好的效果,很好的提升用户体验
+        */
+            /*transition-property: 指定需要执行过渡效果的属性;
+                   多属性之间可以使用逗号隔开,如果所有属性都需要过渡效果,则可以使用all关键字,
+                   大部分属性都支持过渡效果
+            */
+            transition-property: all;
+            /*transition-property: height, width;*/
+            /*transition-duration: 指定执行过渡的持续时间;
+                指定的时间单位是秒(s)和毫秒(ms)
+                如果需要对不同属性执行不同过渡时间,可以在transition-property中将属性分开写,在transition-duration中按照位置写对应时间即可
+            */
+            transition-duration: 2s;
+            /*transition-duration: 1s, 2s;*/
+            /*transition-timing-function: 指定过渡的时序函数,即过渡的执行方式
+                    可选值:
+                        ease:默认值,慢速开始,先加速后减速停止,贝塞尔曲线对应cubic-bezier(.25, .1, .25, 1)
+                        linear:匀速运动,贝塞尔曲线对应cubic-bezier(0, 0, 0, 1)
+                        ease-in: 加速运动,慢速开始,加速然后停止
+                        ease-out: 减速运动,高速开始,减速然后停止
+                        ease-in-out:,慢速开始,先加速后减速停止,变化比ease剧烈
+                        cubic-bezier(x1, y1, x2, y2):贝塞尔曲线,参考网址:https://cubic-bezier.com
+                        steps(4):分步执行过渡效果,每过一秒执行一次效果,4次后效果执行完毕,
+                                 内部可以有两个参数,第一个指定执行步数,第二个指定在时间段开始前执行,还是之后执行
+                        steps(4, start):在时间段开始时就执行一次
+                        steps(4, end):在时间段结束时就执行一次,默认值
+
+            ;*/
+            /*transition-timing-function: ease;*/
+            /*transition-delay: ; 过渡效果的延迟时间,当触发过渡效果时,等待指定的延迟时间,再进行效果的过渡*/
+        }
+        .box2{
+            /*transition-timing-function: steps(4, start);*/
+            /*transition-delay: ; 过渡效果的延迟时间,当触发过渡效果时,等待指定的延迟时间,再进行效果的过渡*/
+            /*transition-delay: 1s;*/
+            /*transition可以将需要设置的东西一起设置,但是如果指定了两个时间的,后面的时间是延迟时间*/
+            transition: all 2s ease-in 1s;
+        }
+        .box3{
+            background-color: aqua;
+        }
+        .box1:hover div{
+            /*width: 200px;*/
+            /*height: 200px;*/
+            margin-left: 600px;
+        }
+    </style>
+</head>
+<body>
+<div class="box1">
+    <div class="box2"></div>
+    <div class="box3"></div>
+</div>
+</body>
+</html>

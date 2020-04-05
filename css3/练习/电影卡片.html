@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../source/reset.css">
+    <link rel="stylesheet" href="../source/css/all.css">
+    <style>
+        /*
+            第一层
+        */
+        .movie-card{
+            width: 240px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, .3);
+            margin: 50px auto;
+            /*overflow: hidden;*/
+        }
+
+        /*上边图片*/
+        .image-wrapper img{
+            width: 100%;
+            vertical-align: bottom;
+        }
+
+        /*中间内容*/
+        .content, .star-wrapper{
+            width: 100%;
+        }
+        .content li:first-child{
+            font-size: 18px;
+            color: #717171;
+            margin: 13px 18px 15px;
+        }
+        .content li:nth-child(2){
+            font-size: 14px;
+            color: rgba(100, 100, 100, .4);
+            margin: 15px 18px 20px;
+        }
+        .content li:nth-child(2)::before{
+            content: '\f3c5';
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            color: rgba(150, 150, 150, .4);
+            margin-right: 7px;
+            margin-left: 4px;
+        }
+        .content li:last-child{
+            font-size: 12px;
+            color: rgba(0, 0, 0, .2);
+            line-height: 20px;
+            margin: 20px 18px 13px 22px;
+        }
+
+        /*下边推荐度*/
+        .star-wrapper{
+            height: 46px;
+            border-top: 1px solid #e9e9e9;
+            font-size: 14px;
+            position: relative;
+            color: #ddd;
+        }
+        .star-wrapper li{
+            line-height: 46px;
+        }
+        .star-wrapper .fa-star{
+            float: left;
+        }
+        .star-wrapper li:first-child{
+            margin-left: 16px;
+        }
+        .star-wrapper li:first-child, .star-wrapper li:nth-child(2){
+             color: #b9cb41;
+         }
+        .star-wrapper .fa-tencent-weibo{
+            float: right;
+            margin-right: 16px;
+        }
+    </style>
+</head>
+<body>
+<div class="movie-card">
+    <div class="image-wrapper">
+        <a href="javascript:;">
+            <img src="../images/5.jpg" alt="">
+        </a>
+    </div>
+    <ul class="content">
+        <li>动画电影</li>
+        <li>动画</li>
+        <li>这不敌那英还哦不错看巴哈本菲卡部分卡巴斯基好吧角哎不对劲的机会季后赛</li>
+    </ul>
+    <ul class="star-wrapper">
+        <li class="fas fa-star"></li>
+        <li class="fas fa-star"></li>
+        <li class="fas fa-star"></li>
+        <li class="fas fa-star"></li>
+        <li class="fab fa-tencent-weibo"></li>
+    </ul>
+</div>
+</body>
+</html>

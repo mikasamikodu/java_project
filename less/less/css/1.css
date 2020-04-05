@@ -1,0 +1,8 @@
+.border {
+  border-style: dashed  dashed dashed solid;
+  border-color: transparent transparent transparent pink;
+  border-width: 100px;
+}
+.border2 {
+  border: 1px solid red;
+}

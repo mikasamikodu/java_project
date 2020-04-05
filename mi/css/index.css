@@ -1,0 +1,736 @@
+/*顶部导航条样式*/
+.topbar-wrapper{
+    /*占满屏幕宽度*/
+    width: 100%;
+    /*为所有文字设置行高，使文字垂直居中*/
+    line-height: 40px;
+    /*设置整体背景色*/
+    background-color: #333;
+}
+/*中间部分的容器*/
+/*集中设置容器内所有链接的公共样式*/
+.topbar a{
+    /*设置所有链接的文字大小*/
+    font-size: 12px;
+    /*设置所有链接的文字颜色*/
+    color: #b0b0b0;
+    /*设置所有链接的文字所在区域除文字外空白区域也可以点击*/
+    display: block;
+}
+/*设置鼠标悬浮在链接时链接的颜色*/
+.topbar a:hover{
+    color: rgb(255,255,242);
+}
+
+
+/*中间左侧*/
+/*将中间左侧部分以及所有ul内部的li向左浮动*/
+.topbar-nav, .topbar-nav li, .info li{
+    float: left;
+}
+/*设置分割线*/
+.topbar .line{
+    /*设置分割线字体大小*/
+    font-size: 12px;
+    /*设置分割线左右间距*/
+    margin: 0 7px;
+    /*设置分割线字体颜色*/
+    color: #424242;
+}
+/*将下载小米app的链接开启定位，方便二维码显示*/
+.app{
+    position: relative;
+}
+
+/*当鼠标悬浮在链接上，小三角和下方的二维码将一起显示*/
+.app:hover .download,
+.app:hover a::after{
+    display: block;
+    height: 148px;
+}
+/*利用伪元素设置链接下方的小三角*/
+.app a::after{
+    content: '';
+    /*设置边框，并将所有边框设置为透明色*/
+    border: 8px solid transparent;
+    /*将下侧边框设置为白色*/
+    border-bottom-color: #fff;
+    /*设置伪类元素宽高为空，只留下边框，结合上边两个设置可以将边框元素只显示下边的三角*/
+    width: 0;
+    height: 0;
+    /*开启绝对定位，方便将小三角放在链接下方*/
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    /*设置行高，使得元素可以正常显示，不受父元素样式影响*/
+    line-height: 1;
+    /*隐藏元素，当鼠标悬浮在链接上才会显示*/
+    display: none;
+    z-index: 34;
+}
+
+/*二维码部分*/
+.download{
+    /*设置宽高*/
+    width: 124px;
+    height: 0;
+    overflow: hidden;
+    /*开启绝对定位，方便将二维码放在链接下方*/
+    position: absolute;
+    top: 40px;
+    left: -40px;
+    /*制作阴影*/
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .3);
+    /*设置高度变化时的过渡效果*/
+    transition: height 0.5s;
+    z-index: 33;
+    background-color: #FFF;
+}
+/*设置二维码相关样式*/
+.download img{
+    /*设置图片宽度*/
+    width: 90px;
+    /*将元素设置为块元素方便水平居中*/
+    display: block;
+    margin: 18px auto 0;
+}
+/*设置二维码下方的文字*/
+.download span{
+    /*设置文字大小*/
+    font-size: 14px;
+    /*设置行高，使得元素可以正常显示，不受父元素样式影响*/
+    line-height: 1;
+    /*设置字体颜色*/
+    color: #333;
+    /*设置文字居中*/
+    text-align: center;
+    /*将元素设置为块元素方便水平居中*/
+    display: block;
+    margin: 12px auto;
+}
+
+
+/*右侧部分*/
+.info, .cart{
+    /*将元素整体向右浮动*/
+    float: right;
+}
+/*设置购物开启定位以及左外边距*/
+
+.cart{
+    position: relative;
+    margin-left: 24px;
+}
+/*设置购物车相关样式*/
+.cart a{
+    /*设置链接元素所占宽度*/
+    width: 120px;
+    /*设置链接元素背景色*/
+    background-color: rgb(66,66,66);
+    /*设置链接文字的水平居中*/
+    text-align: center;
+    /*设置链接文字的颜色*/
+    color: #b0b0b0;
+}
+/*设置购物车在鼠标悬浮时的样式*/
+.cart:hover a{
+    /*当购物车元素在鼠标悬浮其上时，改变链接元素的背景色和链接文字的颜色*/
+    background: #FFF;
+    color: #FF6700;
+}
+/*设置购物车图标的样式*/
+.cart em{
+    /*设置图标字体大小及右边距*/
+    font-size: 14px;
+    margin-right: 5px;
+}
+
+/*设置购物车下拉框的样式*/
+.cart .cart-content{
+    /*设置宽高*/
+    width: 316px;
+    height: 0;
+    /*防止文字溢出元素*/
+    overflow: hidden;
+    /*设置背景色*/
+    background-color: #fff;
+    /*设置阴影部分*/
+    box-shadow: 0 2px 10px rgba(0, 0, 0, .15);
+    /*开启绝对定位，通过设置top与left来设置悬浮框所在位置*/
+    position: absolute;
+    top: 40px;
+    left: -196px;
+    /*使用transition/*设置高度变化时的过渡效果，可以时悬浮框的高度从0到最大值时是缓慢出现，而不是一下就出现*/
+    transition: height 0.5s;
+    /*文字水平居中*/
+    text-align: center;
+    /*文字垂直居中*/
+    line-height: 100px;
+    z-index: 33;
+    /*设置文字大小*/
+    font-size: 12px;
+}
+/*设置购物车下拉框出啊先的效果*/
+.cart:hover .cart-content{
+    /*设置悬浮框出现时悬浮框的高度*/
+    height: 100px;
+}
+
+
+
+/*头部导航条样式*/
+.header{
+    /*设置外部容器的宽高以及背景色*/
+    width: 100%;
+    height: 100px;
+    background: #FFF;
+    position: relative;
+}
+
+/*左侧Logo样式*/
+.header-wrapper .logo{
+    /*将小米logo部分向左浮动，并设置外边距*/
+    float: left;
+    margin-top: 22px;
+    /*设置logo链接的宽高*/
+    width: 55px;
+    height: 55px;
+    position: relative;
+    overflow: hidden;
+}
+/*设置Logo链接样式，mi图标相关样式*/
+.header-wrapper .logo a{
+    /*将logo链接元素设置为块元素，否则无法设置其宽高*/
+    display: block;
+    width: 100%;
+    height: 100%;
+    /*设置logo背景色及背景图片*/
+    background-color: #ff6700;
+    background-image: url("../img/mi-logo.png");
+    /*将背景图片在元素中居中*/
+    background-position: center;
+    position: absolute;
+    left: 0;
+    transition: left 0.5s;
+}
+/*设置鼠标悬浮状态下，Logo的效果-mi图标*/
+.header-wrapper .logo:hover .mi{
+    left: 55px;
+}
+/*设置Logo链接样式，home图标相关样式*/
+.header-wrapper .logo .home{
+    background-image: url("../img/mi-home.png");
+    left: -55px;
+}
+/*设置鼠标悬浮状态下，Logo的效果-home图标*/
+.header-wrapper .logo:hover .home{
+    left: 0;
+}
+
+
+/*中间部分导航条样式*/
+.header-nav{
+    /*将头部中间部分导航条向左浮动*/
+    float: left;
+    /*设置导航条的行高，使文字水平居中*/
+    line-height: 100px;
+    /*设置导航条文字大小*/
+    font-size: 16px;
+    /*设置导航条的左外边距*/
+    margin-left: 30px;
+}
+/*导航条内部li相关样式*/
+.header-nav>li{
+    /*将ul中的li全部向左浮动并设置彼此之间的外间距*/
+    float: left;
+    margin: 0 10px;
+}
+/*修改第一个li的样式*/
+.header-nav>li:first-child{
+    margin-right: 15px;
+    /*开启定位，方便设置左侧导航栏的位置*/
+    position: relative;
+}
+/*设置第一个li中链接的样式*/
+.header-nav>li:first-child>a{
+    width: 124px;
+    text-align: right;
+    visibility: hidden;
+}
+/*设置所有li中链接的样式*/
+.header-nav>li>a{
+    display: block;
+    /*设置链接的颜色*/
+    color: #333333;
+}
+/*设置所有链接所属li在鼠标悬浮状态下的样式*/
+.header-nav>li:hover>a{
+    /*设置链接的颜色*/
+    color: #FF7517;
+}
+
+/*设置头部导航条下拉框样式*/
+/*下拉框整体样式*/
+.goods-info{
+    /*设置宽高*/
+    width: 100%;
+    height: 0;
+    /*开启定位,进行元素定位*/
+    position: absolute;
+    top: 100px;
+    left: 0;
+    /*设置行高,防止继承父元素样式*/
+    line-height: 1;
+    /*设置阴影*/
+    box-shadow: 0 4px 10px rgba(0, 0, 0, .15);
+    /*设置背景色*/
+    background-color: white;
+    /*设置元素出现时的过渡效果*/
+    transition: height 0.5s;
+    /*正常时隐藏元素*/
+    overflow: hidden;
+    /*提升元素层级,高于轮播图或侧边栏*/
+    z-index: 50;
+}
+/*设置导航条中哪些li可以激活下拉框*/
+.header-nav .active:hover~.goods-info,
+.goods-info:hover{
+    height: 228px;
+    border-top: 1px solid rgb(224, 224, 224);
+}
+/*设置下拉框内的样式*/
+.goods-list{
+    position: relative;
+}
+/*设置内部li的样式*/
+.goods-list li{
+    float: left;
+}
+/*设置内部li但不包含分割线li的样式*/
+.goods-list li:not(.good-line){
+    margin: 0 13px;
+}
+/*设置第一个li的个性样式*/
+.goods-list li:first-child{
+    margin-left: 22px;
+}
+/*设置分割线的样式*/
+.good-line{
+    width: 1px;
+    height: 110px;
+    background-color: #E0E0E0;
+    margin: 35px 10px auto;
+}
+/*设置li中图片的样式*/
+.goods-list li a img{
+    width: 160px;
+    height: 110px;
+    background-color: #FFF;
+    margin: 35px 0 20px;
+}
+/*设置li中图片下方第一个span的样式*/
+.goods-list li a span{
+    font-size: 12px;
+    display: block;
+    color: black;
+    text-align: center ;
+}
+/*设置li中图片下方第二个span的样式*/
+.goods-list li a span:last-child{
+    margin: 10px 0 36px;
+    color: #ff6700;
+}
+
+
+/*设置头部导航条中搜索框的样式*/
+.searcher-wrapper{
+    float: right;
+    width: 296px;
+    height: 50px;
+    margin-top: 25px;
+}
+/*设置搜索框所属表单样式*/
+.searcher-wrapper form{
+    float: right;
+}
+/*设置文本框的样式*/
+.searcher-wrapper input[type="search"]{
+    width: 224px;
+    height: 50px;
+    padding: 0 10px;
+    border: 1px solid #E0E0E0;
+    float: left;
+    font-size: 16px;
+    outline: none;
+}
+/*设置文本框在集中焦点状态下的样式*/
+.searcher-wrapper input[type="search"]:focus{
+    border: 1px solid #ff6700;
+}
+/*设置搜索按钮的样式*/
+.searcher-wrapper button{
+    width: 52px;
+    height: 50px;
+    padding: 0;
+    background-color: transparent;
+    border: 1px solid #E0E0E0;
+    border-left: none;
+    float: left;
+    font-size: 18px;
+    color: rgb(97, 97, 97);
+}
+/*设置搜索按钮在鼠标悬浮状态下的样式*/
+.searcher-wrapper button:hover{
+    background-color: #ff6700;
+    color: #fff;
+    border: none;
+}
+/*设置搜索按钮在集中焦点状态下的样式*/
+.searcher-wrapper input[type="search"]:focus+button{
+    border: 1px solid #ff6700;
+    border-left: none;
+}
+
+
+/*设置左侧导航栏的样式*/
+.left-banner{
+    /*开启绝对定位，元素将会出现在全部商品分类链接的下方*/
+    position: absolute;
+    /*调整左侧与父元素左边框距离来调整本身位置*/
+    left: -96px;
+    /*设置元素上下内边距*/
+    padding: 20px 0;
+    /*设置整体背景色*/
+    background-color: rgba(105,101,101,.6);
+    /*适当提高元素层级，将元素放在轮播图上方，头部导航条的下拉框的下方*/
+    z-index: 20;
+}
+/*设置li内部链接的样式*/
+.banner li a{
+    /*将元素转换为块元素，方便设置宽高*/
+    display: block;
+    /*设置宽高*/
+    width: 204px;
+    height: 42px;
+    /*设置做内边距*/
+    padding-left: 30px;
+    /*设置行高，使文字垂直居中*/
+    line-height: 42px;
+    /*设置链接字体的颜色*/
+    color: #fff;
+    /*设置链接字体大小*/
+    font-size: 14px;
+    /*开启定位，方便内部的图标进行定位*/
+    position: relative;
+}
+/*设置li在鼠标悬浮时，修改内部链接的背景色*/
+.banner li:hover a{
+    background-color: #ff6700;
+}
+/*设置li内部图标的样式*/
+.banner li a em{
+    /*开启定位，将元素放在li右侧*/
+    position: absolute;
+    /*修改元素与开启了定位父元素的右边距进行元素定位*/
+    right: 20px;
+    /*设置图标大小*/
+    font-size: 16px;
+    /*设置图标颜色*/
+    color: rgb(223, 223, 223);
+    line-height: 42px;
+}
+
+
+/*设置轮播图外层容器*/
+.banner-wrapper{
+    /*设置轮播图最外层容器宽度*/
+    width: 100%;
+    /*设置层级*/
+    z-index: 10;
+}
+/*设置轮播图容器*/
+.center-banner{
+    /*设置高度*/
+    height: 460px;
+    /*将其余图片隐藏*/
+    overflow: hidden;
+    /*开启定位，方便内部元素进行定位*/
+    position: relative;
+}
+/*设置图片样式*/
+.center-banner>li>a>img{
+    /*设置宽度*/
+    width: 100%;
+    /*图片垂直居中*/
+    vertical-align: center;
+}
+
+/*轮播图右下角的圆点*/
+.pointer{
+    /*开启绝对定位，进行元素定位*/
+    position: absolute;
+    bottom: 20px;
+    right: 30px;
+    /*提升元素层级，高于轮播图*/
+    z-index: 20;
+}
+/*设置圆点样式*/
+.pointer>a{
+    /*设置宽高*/
+    width: 6px;
+    height: 6px;
+    /*设置背景色*/
+    background-color: rgba(0, 0, 0, .4);
+    /*设置边框*/
+    border: 2px solid hsla(0, 0%, 100%, .3);
+    /*将元素转换为圆形*/
+    border-radius: 50%;
+    /*所有元素向左浮动,将圆点横向排列*/
+    float: left;
+    /*设置圆点之间间隔*/
+    margin-left: 10px;
+}
+/*设置圆点在鼠标悬浮时的表现,修改背景色和边框颜色*/
+.pointer>a:hover,
+.pointer>.active{
+    background-color: hsla(0, 0%, 100%, .5);
+    border-color: rgba(0, 0, 0, .3);
+}
+
+/*轮播图左右两侧的切换箭头的公共样式*/
+.arrow a{
+    /*将元素转换为块元素,方便设置宽高*/
+    display: block;
+    /*设置宽高*/
+    width: 41px;
+    height: 69px;
+    /*设置背景图片*/
+    background-image: url("../img/icon-slides.png");
+    /*开启定位,进行元素定位*/
+    position: absolute;
+    top: 50%;
+    margin-top: -35px;
+    /*将超出部分隐藏*/
+    overflow: hidden;
+    /*提升元素层级,高于轮播图*/
+    z-index: 20;
+}
+/*设置左侧箭头的样式*/
+.arrow .pre{
+    /*对左侧进行元素定位*/
+    left: 233px;
+    right: auto;
+    /*对雪碧图进行目标图片定位*/
+    background-position: -84px 0;
+}
+/*设置左侧箭头在鼠标悬浮状态下的样式*/
+.arrow .pre:hover{
+    /*对雪碧图进行目标图片定位*/
+    background-position: 0;
+}
+/*设置右侧箭头的样式*/
+.arrow .next{
+    /*对右侧进行元素定位*/
+    right: 0;
+    left: auto;
+    /*对雪碧图进行目标图片定位*/
+    background-position: -125px 0;
+}
+/*设置右侧箭头在鼠标悬浮状态下的样式*/
+.arrow .next:hover{
+    /*对雪碧图进行目标图片定位*/
+    background-position: -42px 0;
+}
+
+
+/*右侧边栏样式*/
+.right-side{
+    /*开启固定定位,对元素进行定位*/
+    position: fixed;
+    bottom: 80px;
+    left: 50%;
+    margin-left: 621px;
+}
+/*设置每个链接的样式*/
+.right-side li a{
+    /*将元素转化为块元素,设置宽高*/
+    display: block;
+    width: 25px;
+    height: 40px;
+    /*设置背景相关的大小,位置,平铺方式*/
+    background-size: 20px 20px;
+    background-position: center;
+    background-repeat: no-repeat;
+    /*设置边框*/
+    border: 1px solid #f5f5f5;
+}
+/*去除每个链接的下边框,但是不包含第五个元素*/
+.right-side li:not(:nth-child(5)) a{
+    border-bottom: none;
+}
+/*最后一个元素与其他元素分开,并隐藏,当视口高度达到一定值时会出现,方便用户快速回到顶部*/
+.right-side li:last-child a{
+    margin-top: 14px;
+    visibility: hidden;
+}
+/*设置第一个元素的背景图片*/
+.right-side li:nth-child(1) a{
+    background-image: url("../img/21.png");
+}
+/*设置第一个元素在鼠标悬浮状态下的背景图片*/
+.right-side li:nth-child(1):hover a{
+    background-image: url("../img/22.png");
+}
+/*设置第二个元素的背景图片*/
+.right-side li:nth-child(2)  a{
+    background-image: url("../img/23.png");
+}
+/*设置第二个元素在鼠标悬浮状态下的背景图片*/
+.right-side li:nth-child(2):hover a{
+    background-image: url("../img/24.png");
+}
+/*设置第三个元素的背景图片*/
+.right-side li:nth-child(3)  a{
+    background-image: url("../img/25.png");
+}
+/*设置第三个元素在鼠标悬浮状态下的背景图片*/
+.right-side li:nth-child(3):hover a{
+    background-image: url("../img/26.png");
+}
+/*设置第四个元素的背景图片*/
+.right-side li:nth-child(4) a{
+    background-image: url("../img/27.png");
+}
+/*设置第四个元素在鼠标悬浮状态下的背景图片*/
+.right-side li:nth-child(4):hover a{
+    background-image: url("../img/28.png");
+}
+/*设置第五个元素的背景图片*/
+.right-side li:nth-child(5) a{
+    background-image: url("../img/29.png");
+}
+/*设置第五个元素在鼠标悬浮状态下的背景图片*/
+.right-side li:nth-child(5):hover a{
+    background-image: url("../img/30.png");
+}
+/*设置第六个元素的背景图片*/
+.right-side li:nth-child(6) a{
+    background-image: url("../img/totop.png");
+}
+/*设置第六个元素在鼠标悬浮状态下的背景图片*/
+.right-side li:nth-child(6):hover a{
+    background-image: url("../img/totop_hover.png");
+}
+
+
+
+/*最下边广告部分样式*/
+/*最外层容器整体的样式*/
+div.ad{
+    /*设置上外边距*/
+    margin-top: 15px;
+    /*开启定位,方便下边元素作为参照容器*/
+    position: relative;
+}
+
+/*设置左侧快捷方式的样式*/
+.shutcut{
+    /*设置宽度,方便内部元素进行浮动*/
+    width: 228px;
+    /*设置字体大小*/
+    font-size: 12px;
+    /*设置内边距*/
+    padding: 3px;
+    /*内部字体水平居中*/
+    text-align: center;
+    /*设置整体背景色*/
+    background-color: #5f5750;
+    /*浮动,使得右侧图片可以并排*/
+    float: left;
+}
+/*设置快捷方式内部li的样式*/
+.shutcut li{
+    /*设置宽高*/
+    width: 70px;
+    height: 84px;
+    /*设置左右边距*/
+    padding: 0 3px;
+    /*浮动所有的li,使之成两排排列*/
+    float: left;
+    /*开启定位,方便后续左侧竖线和上侧竖线进行定位*/
+    position: relative;
+}
+/*设置li中链接的样式*/
+.shutcut li a{
+    /*转换为块元素,方便从父元素中继承宽高*/
+    display: block;
+    /*设置上内边距,将元素整体下移*/
+    padding-top: 18px;
+    /*设置字体颜色*/
+    color: #FFF;
+    /*设置透明度,可以在鼠标悬浮时产生过渡效果*/
+    opacity: 0.7;
+    /*设置透明度的过渡效果*/
+    transition: opacity 0.2s;
+}
+/*设置鼠标悬浮时,透明度恢复为1*/
+.shutcut li:hover a{
+    opacity: 1;
+}
+/*设置每个li上面的短线*/
+.shutcut li a::before{
+    content: '';
+    /*开启绝对定位,进行元素定位*/
+    position: absolute;
+    top: -1px;
+    left: 6px;
+    /*设置短线的宽高*/
+    width: 64px;
+    height: 1px;
+    /*设置短线的背景色*/
+    background-color: #665e57;
+}
+/*设置每个li左面的短线*/
+.shutcut li a::after{
+    content: '';
+    /*开启绝对定位,进行元素定位*/
+    position: absolute;
+    top: 6px;
+    left: 0;
+    /*设置短线的宽高*/
+    width: 1px;
+    height: 70px;
+    /*设置短线的背景色*/
+    background-color: #665e57;
+}
+/*设置链接中的图片样式*/
+.shutcut li a img{
+    /*将图片转换为块元素，产生换行效果*/
+    display: block;
+    /*设置元素宽高*/
+    width: 24px;
+    height: 24px;
+    /*设置外边距，将元素水平居中*/
+    margin: 0 auto 4px;
+}
+
+/*设置右侧三张图片的样式*/
+.second-ad{
+    /*图片整体向左浮动，与左侧的快捷方式进行并排*/
+    float: left;
+    /*开启定位，方便内部li进行浮动*/
+    position: relative;
+}
+/*对所有li进行浮动，使之并排*/
+.second-ad li{
+    float: left;
+    /*设置左外边距，将图片们分开*/
+    margin-left: 15px;
+}
+/*设置图片的宽度*/
+.second-ad img{
+    width: 321px;
+    vertical-align: center;
+}

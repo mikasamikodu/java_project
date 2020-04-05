@@ -1,0 +1,55 @@
+@import "sysnx.less" /*
+    这个是css的注释，会被解析到css中
+*/ body {
+  background-color: silver;
+  div {
+    width: 100px;
+    height: 100px;
+    background-color: #75bdc7;
+  }
+}
+.box3 {
+  width: 100px;
+}
+.box4 {
+  width: 100px;
+  height: 100px;
+  background-color: red;
+}
+.box1 .box2 {
+  color: red;
+}
+.box1 > .box3 {
+  color: red;
+}
+.box1 + .box4 {
+  color: red;
+}
+.box1:hover div {
+  color: red;
+}
+div .box1:hover.box2 {
+  color: red;
+}
+.p1,
+.p2 {
+  width: 100px;
+  height: 100px;
+}
+.p2 {
+  color: red;
+}
+.p3 {
+  color: red;
+}
+.p5 {
+  width: 100px;
+  height: 100px;
+  background-color: red;
+}
+.test {
+  width: 200px;
+}
+.bo {
+  width: 220px;
+}

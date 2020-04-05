@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .box{
+            width: 200px;
+            height: 200px;
+            /*
+                线性渐变可以设置一些复杂的背景颜色，可以实现从一个颜色向其他颜色过渡的效果
+                渐变是图片，需要通过background-image设置
+                线性渐变，颜色通过一条直线变化linear-gradient()
+                linear-gradient(red, yellow)：红色在开头，黄色在结尾，中间是过渡
+                指定线性渐变的方向：
+                   to top/to left/to right/to bottom案例: linear-gradient(to top, red, yellow);
+                   to  top left/to top right/to bottom left/to bottom right....案例: linear-gradient(to top left, red, yellow);
+                   deg：表示度数，案例：linear-gradient(45deg, red, yellow)
+                   turn：表示一圈，案例：linear-gradient(0.3turn, red, yellow)
+
+                   渐变可以同时指定多个颜色。多个颜色默认是平均分布的
+                   可以手动调整颜色分布情况：
+            */
+            /*background-image: linear-gradient(0.2turn, red, yellow, blue);*/
+            /*从上向下，80像素以上为纯红色，120像素以下为纯黄色，中间部分为过渡*/
+            /*background-image: linear-gradient(red 80px, yellow 120px);*/
+            /*repeating-linear-gradient：可以平铺的线性渐变，由于80像素到120像素中间的40像素为过渡区域，因此这40像素会从上到下重复5次*/
+            background-image: repeating-linear-gradient(red 80px, yellow 120px);
+        }
+    </style>
+</head>
+<body>
+<div class="box"></div>
+</body>
+</html>

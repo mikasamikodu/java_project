@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .box1{
+            width: 120px;
+            height: 180px;
+            background-image: url("../images/22.jpg");
+            /*background-position: -370px 0 ;*/
+            animation: test 0.4s 0.1s steps(4) infinite normal running both;
+        }
+        @keyframes test {
+            from{
+                background-position: -10px 0 ;
+            }
+            to{
+                background-position: -490px 0 ;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="box1"></div>
+</body>
+</html>

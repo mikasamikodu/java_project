@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 
+        不同设备的完美视口不同，
+            iphone6     --375
+            iphone6Plus --414
+        由于不同设备的视口不同，所以375px在不同设备有不同意义
+            例如在iphone6中375px就是全屏，在iphone6Plus中就会少一块
+        所以在移动端开发不能再用像素进行布局
+
+        vw表示视口的宽度(viewport width)
+            --100vw = 一个视口宽度
+            --1vw   = 1%的视口宽度
+        vw永远是相对于视口宽度计算的，而百分比是相对于其包含块（一般是父元素）计算的
+        移动端设计图宽度一般是375的整倍数，如375px，7550px,1125px
+        创建一个48*35的元素
+        100vw = 750px   0.13333vw = 1px
+        6.4vw = 48px
+        4.667 = 35px
+     -->
+</body>
+
+</html>

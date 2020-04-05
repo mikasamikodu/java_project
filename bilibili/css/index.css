@@ -1,0 +1,527 @@
+/*顶部-最外层容器*/
+.bili-banner{
+    /*设置宽高*/
+    width: 100%;
+    height: 155px;
+    /*设置背景图片*/
+    background-image: url("../images/top/bili-banner-bg.png");
+    /*将背景图居中*/
+    background-position: center center;
+    /*降低层级，在其他元素的下面，做一张整整的背景图*/
+    z-index: 0;
+    min-height: 155px;
+    min-width: 999px;
+}
+
+/*顶部-顶部-第二层容器*/
+.top-banner{
+    /*设置高度*/
+    height: 36px;
+    /*设置内边距，将文字向下挤*/
+    padding: 10px 0;
+    /*提升层级，盖住背景图*/
+    z-index: 1;
+    /*设置背景色，线性渐变色*/
+    background-image: linear-gradient(rgba(0, 0, 0, .4), transparent);
+    position: relative;
+}
+
+/*设置顶部-左侧主站信息导航条*/
+.top-left-banner{
+    /*设置整体行高*/
+    line-height: 36px;
+    /*元素浮动，使得所有元素可以并排*/
+    position: absolute;
+    left: 24px;
+    margin-right: 10px;
+}
+/*设置内部li样式*/
+.top-left-banner>li{
+    /*浮动li，使之横向排列*/
+    float: left;
+    /*设置右外边距，将li分隔开*/
+    margin-right: 12px;
+    position: relative;
+}
+/*设置li内链接的样式*/
+.top-left-banner>li>a{
+    /*设置颜色*/
+    color: #fff;
+    /*设置字体大小*/
+    font-size: 14px;
+    /*设置字体阴影*/
+    text-shadow: 0 1px 1px rgba(0, 0, 0, .3);
+}
+/*设置链接内图标的样式*/
+.top-left-banner>li>a i{
+    /*设置图标大小*/
+    font-size: 20px;
+    /*设置右外边距,将文字与图标分开*/
+    margin-right: 3px;
+}
+
+/*游戏中心*/
+.game-center{
+    /*设置宽高*/
+    width: 466px;
+    height: 256px;
+    /*设置背景色*/
+    background-color: #FFF;
+    /*开启绝对定位,将元素定位到li下面*/
+    position: absolute;
+    top: 50px;
+    left: -52px;
+    /*设置层级,防止元素被下面的内容挡住*/
+    z-index: 100;
+    /*设置元素的圆角*/
+    border-radius: 4px;
+    /*设置元素阴影*/
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, .3);
+    display: none;
+}
+/*设置元素左侧内容样式*/
+.game-center .left{
+    /*设置宽,高度由内容撑开*/
+    width: 264px;
+    /*浮动,使元素可以与右侧元素并排*/
+    float: left;
+    /*设置上外边距*/
+    margin-top: 12px;
+}
+/*设置内部每个li的浮动*/
+.game-center .left li{
+    float: left;
+}
+/*设置第一个li*/
+.game-center .left li:first-child{
+    /*设置宽高*/
+    width: 240px;
+    height: 128px;
+    /*设置左外边距和下外边距*/
+    margin-left: 11px;
+    margin-bottom: 6px;
+}
+/*设置li中的链接*/
+.game-center .left li:first-child a{
+    /*开启定位,方便图片下边的文字进入图片里面*/
+    position: relative;
+    /*将元素转换为块元素,方便设置宽高*/
+    display: block;
+}
+/*设置li内图片*/
+.game-center .left li:first-child img{
+    /*设置宽高*/
+    width: 240px;
+    height: 128px;
+    /*设置圆角*/
+    border-radius: 4px;
+}
+/*设置li内的文字*/
+.game-center .left li:first-child span{
+    /*开启绝对定位，将元素转化为块元素，并将元素移入图片左下角*/
+    position: absolute;
+    bottom: 14px;
+    left: 0;
+    /*设置宽*/
+    width: 220px;
+    /*设置行高，使文字垂直居中*/
+    line-height: 30px;
+    /*设置左右行距，将文字右移*/
+    padding: 0 10px;
+    /*设置文字大小*/
+    font-size: 12px;
+    /*设置文字颜色*/
+    color: #FFF;
+    /*设置元素圆角*/
+    border-radius: 4px;
+    /*设置线性渐变的背景色*/
+    background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, .7));
+}
+/*设置剩下的三个li的公共样式*/
+.game-center .left li:not(:first-child){
+    /*设置宽高*/
+    width: 66px;
+    height: 104px;
+    /*设置上边和左右两侧的内边距，固定图片*/
+    padding: 6px 11px 0;
+}
+/*设置li内链接的样式*/
+.game-center .left li:not(:first-child) a{
+    /*将元素转化为块元素，设置宽高*/
+    display: block;
+    width: 64px;
+    height: 104px;
+}
+/*设置li内图片的样式*/
+.game-center .left li:not(:first-child) img{
+    /*设置元素宽高*/
+    width: 64px;
+    height: 64px;
+    /*设置元素圆角*/
+    border-radius: 12px;
+}
+/*设置li内的文字*/
+.game-center .left li:not(:first-child) span{
+    /*将元素转化为块元素,设置宽高*/
+    display: block;
+    width: 4em;
+    height: 13px;
+    /*设置上下边距,并将元素水平居中*/
+    margin: 4px auto;
+    /*设置文字大小*/
+    font-size: 14px;
+    /*设置行高,不继承父元素行高*/
+    line-height: 1;
+    /*设置文字颜色*/
+    color: #222;
+    /*设置文字不换行,并将多余文字隐藏*/
+    white-space: nowrap;
+    overflow: hidden;
+}
+/*设置右侧元素的样式*/
+.game-center .right{
+    /*设置宽高,固定元素*/
+    width: 201px;
+    height: 234px;
+    /*浮动元素,使之可以与左侧元素并排*/
+    float: right;
+    /*设置左边框*/
+    border-left: 1px solid rgba(0, 0, 0, .1);
+    /*设置左侧阴影*/
+    box-shadow: -2px 0 3px rgba(0, 0, 0, .2);
+    /*设置与上边图片的边距*/
+    margin-top: 14px;
+    /*设置行高*/
+    line-height: 28px;
+}
+/*设置元素顶部图片样式*/
+.game-center .right li:first-child img{
+    /*设置宽高*/
+    width: 96px;
+    height: 29px;
+    /*设置边距,固定元素位置*/
+    margin: -2px 0 0 -7px;
+}
+/*设置元素内文字的样式*/
+.game-center .right li:not(:first-child) a{
+    /*设置左外边距*/
+    margin-left: 16px;
+    /*设置文字大小*/
+    font-size: 12px;
+    /*设置文字颜色*/
+    color: #222;
+}
+/*设置下拉框右侧的图片样式*/
+.game-image{
+    /*设置宽高*/
+    width: 220px;
+    /*设置高为0,以设置过渡效果*/
+    height: 0;
+    transition: height 0.3s;
+    /*开启绝对定位，进行元素定位*/
+    position: absolute;
+    bottom: 0;
+    left: 455px;
+    z-index: 20;
+    /*设置背景图片*/
+    background-image: url("../images/game/right.png");
+}
+/*当在鼠标经过下拉框右侧排行榜时，显示下拉框右侧的图片*/
+.game-center .right>li:not(:first-child):hover~.game-image{
+    height: 220px;
+}
+/*设置下拉框上的小三角样式*/
+.game-center-li::after{
+    content: '';
+    /*将宽高设置为0,只留下边框*/
+    width: 0;
+    height: 0;
+    /*设置边框,将颜色设置为透明,隐藏边框*/
+    border: 8px solid transparent;
+    /*将下侧边框显示出来*/
+    border-bottom-color: #ffffff;
+    /*开启定位,进行元素定位*/
+    position: absolute;
+    bottom: -14px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    /*隐藏元素,当鼠标悬浮时显示*/
+    display: none;
+}
+/*当鼠标悬浮在游戏中心时,显示下拉框*/
+.game-center-li:hover .game-center,
+.game-center-li:hover::after{
+    display: block;
+}
+
+/*设置直播li的下拉框*/
+.live-center{
+    /*设置宽度*/
+    width: 504px;
+    /*设置内边距，进行边缘留白*/
+    padding: 20px 0 20px 20px;
+    /*设置元素下侧的圆角*/
+    border-radius: 0 0 4px 4px;
+    /*设置阴影*/
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, .2);
+    /*设置背景色*/
+    background-color: #FFF;
+    /*开启绝对定位，进行元素定位*/
+    position: absolute;
+    top: 50px;
+    left: -50px;
+    /*隐藏元素，在鼠标悬浮时显示*/
+    display: none;
+}
+/*设置直播左侧部分*/
+.live-center .hot-live{
+    /*设置宽度，高度由内容撑开*/
+    width: 254px;
+    /*元素浮动,可使元素与右侧ul并排*/
+    float: left;
+    /*设置右侧的分割线*/
+    border-right: 1px solid rgba(0, 0, 0, .1);
+}
+/*设置内部li的浮动*/
+.live-center .hot-live li{
+    float: left;
+}
+/*设置两个ul上面的标题样式*/
+.live-center h3{
+    /*设置文字大小*/
+    font-size: 14px;
+    /*设置文字颜色*/
+    color: #ea759f;
+    /*设置行高，使文字垂直居中*/
+    line-height: 30px;
+    /*设置字体粗细*/
+    font-weight: 700;
+}
+/*设置右侧ul上面的标题的位置*/
+.live-center h3:nth-child(3){
+    /*开启绝对定位，进行元素定位*/
+    position: absolute;
+    top: 20px;
+    left: 296px;
+}
+/*设置li内的链接样式*/
+.live-center .hot-live li a{
+    /*将元素转化为块元素并设置宽高*/
+    display: block;
+    width: 64px;
+    /*设置外边距，分开所有的li*/
+    margin: 10px 17px 0 0;
+    /*开启定位，准备将下面的live文字弄到图片上*/
+    position: relative;
+}
+/*设置链接内的图片样式*/
+.live-center .hot-live li a img{
+    /*设置宽度*/
+    width: 100%;
+    /*将图片边缘设置为圆形*/
+    border-radius: 50%;
+}
+/*设置LIVE的样式*/
+.live-center .hot-live li a div{
+    /*开启绝对定位,将文字弄到图片上*/
+    position: absolute;
+    top: 0;
+    left: 0;
+    /*设置宽高*/
+    width: 64px;
+    /*设置行高,文字垂直居中*/
+    line-height: 64px;
+    /*设置背景色*/
+    background-color: rgba(0, 0, 0, .5);
+    /*设置文字首行缩进*/
+    text-indent: 22px;
+    /*设置文字颜色,大小,粗细*/
+    color: #FFF;
+    font-size: 17px;
+    font-weight: 700;
+    /*将元素设置为圆形*/
+    border-radius: 50%;
+    /*设置文字2d转换效果*/
+    transform: scale(0);
+    /*设置透明度过渡效果(0->1)*/
+    opacity: 0;
+    /*设置过渡效果的变化速度为贝塞尔曲线*/
+    transition: all .2s cubic-bezier(.22,.58,.12,.98);
+}
+/*设置LIVE前面的红点*/
+.live-center .hot-live li a div::before{
+    content: '';
+    /*开启绝对定位,进行元素定位*/
+    position: absolute;
+    top: 27px;
+    left: 8px;
+    /*设置元素宽高*/
+    width: 12px;
+    height: 12px;
+    /*设置元素背景色*/
+    background-color: #ff699e;
+    /*设置元素图像*/
+    border-radius: 50%;
+}
+/*设置元素所属li在鼠标悬浮时,元素的显示*/
+.live-center .hot-live li:hover a div{
+    opacity: 1;
+    transform: scale(1);
+}
+/*设置图片下面文字的样式*/
+.live-center .hot-live li a p{
+    /*设置文字上下边距*/
+    margin: 3px 0;
+    /*设置元素宽度*/
+    width: 100%;
+    /*设置元素行高,防止继承父元素样式*/
+    line-height: 1;
+    /*文字水平居中*/
+    text-align: center;
+    /*设置文字颜色*/
+    color: #000;
+    /*设置文字留白不换行*/
+    white-space: nowrap;
+    /*设置文字超出当前行显示内容区时如何处理*/
+    text-overflow: ellipsis;
+    /*将多余文字隐藏*/
+    overflow: hidden;
+}
+/*设置右侧ul的样式*/
+.live-center .hot-act{
+    /*设置宽度，高度由内容撑开*/
+    width: 249px;
+    /*元素浮动,可使元素与左侧ul并排*/
+    float: left;
+}
+/*设置内部链接的样式*/
+.live-center .hot-act a{
+    /*将元素转化为块元素并设置宽高*/
+    display: block;
+    width: 208px;
+    height: 85px;
+    /*设置内边距，分开所有的li*/
+    padding: 10px 21px;
+}
+/*设置鼠标悬浮在链接上时,背景色出现*/
+.live-center .hot-act a:hover{
+    background-color: rgba(0, 0, 0, .1);
+}
+/*设置链接内图片样式*/
+.live-center .hot-act a img{
+    /*设置宽高*/
+    width: 100%;
+    height: 100%;
+    /*设置元素的圆角*/
+    border-radius: 3px;
+}
+/*设置下拉框上边的小三角样式*/
+.live-center-li::after{
+    content: '';
+    /*设置宽高为0,只显示边框*/
+    width: 0;
+    height: 0;
+    /*设置边框,颜色透明,只将下边缘设为白色*/
+    border: 8px solid transparent;
+    border-bottom-color: #FFF;
+    /*开启绝对定位,进行元素定位*/
+    position: absolute;
+    bottom: -14px;
+    left: -14px;
+    right: 0;
+    /*将元素水平居中显示*/
+    margin: 0 auto;
+    /*隐藏元素,当鼠标悬浮时显示*/
+    display: none;
+}
+/*当鼠标悬浮时,小三角和下拉框一起显示*/
+.live-center-li:hover .live-center,
+.live-center-li:hover::after{
+    display: block;
+}
+
+
+/*设置顶部-中间的搜索框*/
+.top-middle-banner{
+    width: 500px;
+    /*设置水平方向外边距*/
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    /*向左浮动，使元素与其他块元素并排*/
+    position: absolute;
+    /*设置搜索框的角*/
+    border-radius: 2px;
+    padding-right: 38px;
+}
+/*设置文本框的内容*/
+.top-middle-banner input[type='text']{
+    /*设置宽高*/
+    width: 100%;
+    /*设置透明的外边框*/
+    border: 1px solid hsla(0,0%,100%,0);
+    /*设置水平内边距*/
+    padding-left: 16px;
+    /*设置文字大小*/
+    font-size: 14px;
+    /*设置行高,将文字垂直居中*/
+    line-height: 34px;
+    /*设置文字颜色*/
+    color: #999;
+    box-sizing: border-box;
+}
+/*设置搜索按钮样式*/
+.top-middle-banner button{
+    /*设置宽高*/
+    width: 48px;
+    height: 38px;
+    /*设置做外边距,将搜索框左边框与文本框右边框重合*/
+    margin-left: -10px;
+    /*设置背景色*/
+    background-color: #e7e7e7;
+    /*去除按钮默认边框*/
+    border: none;
+    /*设置内部图标颜色*/
+    color: #505050;
+    position: absolute;
+    right: 10px;
+    top: 0;
+}
+
+/*右侧用户信息导航条*/
+.top-right-banner{
+    position: absolute;
+    right: 28px;
+    line-height: 36px;
+    margin-left: 10px;
+}
+.top-right-banner li{
+    float: left;
+    margin-left: 12px;
+}
+.top-right-banner li a{
+    /*设置颜色*/
+    color: #fff;
+    /*设置字体大小*/
+    font-size: 14px;
+    /*设置字体阴影*/
+    text-shadow: 0 1px 1px rgba(0, 0, 0, .3);
+}
+.top-right-banner li:first-child a{
+    display: block;
+    width: 36px;
+    height: 36px;
+    background-image: url("../images/top/me.jpg");
+    background-position: center center;
+    background-size: 36px 36px;
+    border-radius: 50%;
+    margin-right: 6px;
+}
+.top-right-banner li:last-child a{
+    display: block;
+    width: 100px;
+    height: 36px;
+    background-color: #fb7299;
+    text-align: center;
+}

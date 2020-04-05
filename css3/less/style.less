@@ -1,0 +1,81 @@
+//这个是less中的注释，不会被解析到css中
+// 通过@import可以将其他less文件引入到这里面
+@import"sysnx.less"
+/*
+    这个是css的注释，会被解析到css中
+*/
+body{
+    background-color: silver;
+    div{
+        width: 100px;
+        height: 100px;
+        background-color: rgb(117, 189, 199);
+    }
+}
+// 变量，可以在变量中存储一个任意的数值
+// 并且我们可以在需要时任意修改变量中的值
+// 变量的语法：@变量名
+@a:100px;
+@b:red;
+@c:box4;
+.box3{
+    width: @a;
+}
+.@{c}{
+    width: @a;
+    height: $width;
+    background-color: @b;
+}
+
+.box1{
+    .box2{
+        color: red;
+    }
+    >.box3{
+        color: red;
+    }
+    +.box4{
+        color: red;
+    }
+    // &代表外层的父元素
+    &:hover div{
+        color: red;
+    }
+    div &:hover.box2{
+        color: red;
+    }
+}
+.p1{
+    width: 100px;
+    height: 100px;
+}
+// :extend()为当前选择器扩展指定的选择器的样式(选择器分组)
+.p2:extend(.p1){
+    color: red;
+}
+.p3{
+    // 直接对直送的样式进行引用，这里就相当于将p1的样式在这里进行了复制
+    // mixin：混合，将p2中独有的样式复制过来
+    .p2();
+}
+// 使用类选择器可以在选择器后面添加一对括号，这时我们就创建了一个mixin
+.p4(){//这个是一个混合函数，不会出现在css中，而是供其他选择器引用
+    width: 100px;
+    height: 100px;
+    background-color: red;
+}
+.p5{
+    .p4();
+}
+// 混合函数，在混合函数中是可以传参的,可以设置默认值(@s:200px)
+.test2(@s){
+    width: @s;
+}
+.test{
+    // 调用混合函数时就必须按照顺序填写参数，也可以按照变量名:值(@s:200px)的方式传参
+    .test2(200px);
+}
+// 在less中所有的数值都可以直接运算,包含加减乘除
+.bo{
+    width: 100px + 120px;
+}

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+<!--        在现实生活中，我们经常使用表格来表示一些格式化数据
+            例如课程表，人名单，成绩单
+            同样在网页中，我们也需要使用表格，我们可以通过table标签来创建一个表格
+-->
+    </style>
+</head>
+<body>
+<!--table标签创建表格-->
+    <table border="1" align="center" width="30%">
+<!--table标签内部的tr标签创建表格的一行-->
+        <tr>
+<!--            tr标签内部的td标签代表一个单元格-->
+            <td>1</td>
+<!--           rowspan 代表向下合并2个单元格 ，对应单元格位置是空的才可以-->
+            <td rowspan="2">2</td>
+<!--           colspan代表向右合并2个单元格 ，对应单元格位置是空的才可以-->
+            <td colspan="2">3</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>3</td>
+            <td>4</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
+            <td>4</td>
+        </tr>
+    </table>
+
+</body>
+</html>

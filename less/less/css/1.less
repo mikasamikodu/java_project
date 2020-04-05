@@ -1,0 +1,29 @@
+.triangle(@_){//使用@_去匹配第一个形参
+	width: 0;
+	height: 0;
+	overflow: hidden;
+}
+.triangle(R, @w, @c){//三角朝向右侧的三角
+	
+	border-style: dashed  dashed dashed solid;
+	border-color: transparent transparent transparent @c;
+	border-width: @w;
+	
+}
+
+.triangle(L, @w, @c){//三角朝向左侧的三角
+	border-style: dashed solid dashed dashed;
+	border-color: transparent @c transparent transparent;
+	border-width: @w;
+}
+
+//使用函数
+.border{
+	.triangle(R, 100px, pink);//向左侧的三角
+}
+.border1(@a, @b, @c){
+	border: @arguments;//@arguments就代表了上面的三个形参
+}
+.border2{
+	.border1(1px,solid, red);
+}

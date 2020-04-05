@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../source/reset.css">
+    <link rel="stylesheet" href="../source/css/all.css">
+    <style>
+        /*
+            第一层
+        */
+        .movie-card{
+            width: 240px;
+            background-color: rgba(255, 255, 255, 1);
+            box-shadow: 0 0 10px rgba(0, 0, 0, .3);
+            margin: 50px auto;
+            overflow: hidden;
+        }
+
+        /*上边图片*/
+        .image-wrapper img{
+            width: 100%;
+            vertical-align: bottom;
+        }
+
+        /*中间内容*/
+        .content, .star-wrapper{
+            width: 100%;
+        }
+        .content li:first-child{
+            font-size: 18px;
+            color: rgba(0, 0, 0, .4);
+            margin: 10px 18px;
+        }
+        .content li:nth-child(2){
+            font-size: 12px;
+            color: rgba(100, 100, 100, .4);
+            margin: 10px 18px 15px;
+        }
+        .content li:nth-child(2)::before{
+            content: '\f3c5';
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            color: rgba(150, 150, 150, .4);
+            margin-right: 5px;
+        }
+        .content li:last-child{
+            font-size: 10px;
+            color: rgba(0, 0, 0, .2);
+            line-height: 15px;
+            margin: 15px 18px 10px;
+        }
+
+        /*下边推荐度*/
+        .star-wrapper{
+            border-top: 1px solid rgba(100, 100, 100, .3);
+        }
+        .star-wrapper li{
+            font-size: 20px;
+            padding: 10px 0;
+            font-size: 14px;
+        }
+        .star-wrapper li:not(:last-child){
+            float: left;
+        }
+        .star-wrapper li:first-child{
+            margin-left: 15px;
+        }
+        .star-wrapper li:first-child, .star-wrapper li:nth-child(2){
+            color: lawngreen;
+        }
+        .star-wrapper li:nth-child(3), .star-wrapper li:nth-child(4){
+            color: rgba(100, 100, 100, .3);
+        }
+        .star-wrapper li:last-child{
+            float: right;
+            margin-right: 15px;
+            color: rgba(50, 50, 50, .5);
+        }
+    </style>
+</head>
+<body>
+<div class="movie-card">
+    <div class="image-wrapper">
+        <a href="javascript:;">
+            <img src="../images/5.jpg" alt="">
+        </a>
+    </div>
+    <ul class="content">
+        <li>动画电影</li>
+        <li>动画</li>
+        <li>这不敌那英还哦不错看巴哈本菲卡部分卡巴斯基好吧角哎不对劲的机会季后赛</li>
+    </ul>
+    <ul class="star-wrapper">
+        <li class="fas fa-star"></li>
+        <li class="fas fa-star"></li>
+        <li class="fas fa-star"></li>
+        <li class="fas fa-star"></li>
+        <li class="fab fa-tencent-weibo"></li>
+    </ul>
+</div>
+</body>
+</html>

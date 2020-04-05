@@ -1,0 +1,143 @@
+// 生成指定数量的列,列的第一步
+.make-grid-columns() {
+  // Common styles for all sizes of grid columns, widths 1-12
+  .col(@index) { // 第一步，此时只有一个参数
+    @item: ~".col-xs-@{index}, .col-sm-@{index}, .col-md-@{index}, .col-lg-@{index}";
+    .col((@index + 1), @item);
+	// .col(2, ~".col-xs-1, .col-sm-1, .col-md-1, .col-lg-1");
+  }
+  .col(@index, @list) when (@index =< @grid-columns) { // 第二步在这里进行循环，因为有两个参数且index<12
+    @item: ~".col-xs-@{index}, .col-sm-@{index}, .col-md-@{index}, .col-lg-@{index}";
+    .col((@index + 1), ~"@{list}, @{item}");
+	//第一次：.col(3, ~".col-xs-1, .col-sm-1, .col-md-1, .col-lg-1,.col-xs-2, .col-sm-2, .col-md-2, .col-lg-2");
+	//第二次：.col(4, ~".col-xs-1, .col-sm-1, .col-md-1, .col-lg-1,.col-xs-2, .col-sm-2, .col-md-2, .col-lg-2,col-xs-3, .col-sm-3, .col-md-3, .col-lg-3");
+	//...
+	/*最后一次:.col(13, ~".col-xs-1, .col-sm-1, .col-md-1,.col-lg-1,
+						 .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2,
+						 col-xs-3, .col-sm-3, .col-md-3, .col-lg-3,
+						 ...,
+						 col-xs-12, .col-sm-12, .col-md-12, .col-lg-12
+						 ");
+  */
+  }	
+  }
+  
+  /*
+		最终结果：
+		.col-xs-1, .col-sm-1, .col-md-1,.col-lg-1,
+		 .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2,
+		 col-xs-3, .col-sm-3, .col-md-3, .col-lg-3,
+		 ...,
+		 col-xs-12, .col-sm-12, .col-md-12, .col-lg-12{
+			 position: relative;
+			 min-height: 1px;
+			 padding-left:  15px;
+			 padding-right: 15px;
+		 }
+  */ 
+  
+  .col(@index, @list) when (@index > @grid-columns) { // 最终的一步
+    @{list} {
+      position: relative;
+      // Prevent columns from collapsing when empty
+      min-height: 1px;
+      // Inner gutter via padding
+      padding-left:  ceil((@grid-gutter-width / 2));
+      padding-right: floor((@grid-gutter-width / 2));
+    }
+  }
+  .col(1); // 从这里开始执行
+}
+//列的第二步
+.float-grid-columns(@class) {
+  .col(@index) { // 第一步，此时只有一个参数
+    @item: ~".col-@{class}-@{index}";
+    .col((@index + 1), @item);
+	// .col(2, ~".col-@{class}-1");@{class}可能是xs,sm,md,lg
+  }
+  .col(@index, @list) when (@index =< @grid-columns) { // 第二步在这里进行循环，因为有两个参数且index<12
+    @item: ~".col-@{class}-@{index}";
+    .col((@index + 1), ~"@{list}, @{item}");
+	//第一次：.col(3, ~".col-@{class}-1, .col-@{class}-2");
+	//第二次：.col(4, ~".col-@{class}-1, .col-@{class}-2, .col-@{class}-3");
+	//...
+	/*最后一次:.col(13, ~".col-@{class}-1,.col-@{class}-2,....col-@{class}-12");
+*/
+  }
+  /*
+	.col(13, ~".col-@{class}-1,.col-@{class}-2,....col-@{class}-12{
+		float: left;
+	}
+  */
+  .col(@index, @list) when (@index > @grid-columns) { // 最终的一步
+    @{list} {
+      float: left;
+    }
+  }
+  .col(1); // 从这里开始执行
+}
+
+.calc-grid-column(@index, @class, @type) when (@type = width) and (@index > 0) {
+  .col-@{class}-@{index} {
+    width: percentage((@index / @grid-columns));
+  }
+  /*
+	.col-xs-12 {
+	  width: 12/12;
+	}
+	.col-xs-11 {
+	  width: 11/12;
+	}
+  */
+}
+.calc-grid-column(@index, @class, @type) when (@type = push) and (@index > 0) {
+  .col-@{class}-push-@{index} {
+    left: percentage((@index / @grid-columns));
+  }
+  /*
+  	.col-xs-push-12 {
+  	  right: 12/12;
+  	}
+  */
+}
+.calc-grid-column(@index, @class, @type) when (@type = push) and (@index = 0) {
+  .col-@{class}-push-0 {
+    left: auto;
+  }
+}
+.calc-grid-column(@index, @class, @type) when (@type = pull) and (@index > 0) {
+  .col-@{class}-pull-@{index} {
+    right: percentage((@index / @grid-columns));
+  }
+  /*
+	.col-xs-pull-12 {
+	  right: 12/12;
+	}
+  */
+}
+.calc-grid-column(@index, @class, @type) when (@type = pull) and (@index = 0) {
+  .col-@{class}-pull-0 {
+    right: auto;
+  }
+}
+.calc-grid-column(@index, @class, @type) when (@type = offset) {
+  .col-@{class}-offset-@{index} {
+    margin-left: percentage((@index / @grid-columns));
+  }
+}
+
+// Basic looping in LESS
+.loop-grid-columns(@index, @class, @type) when (@index >= 0) {
+  .calc-grid-column(@index, @class, @type);
+  // next iteration
+  .loop-grid-columns((@index - 1), @class, @type);
+}
+
+// Create grid for specific class
+.make-grid(@class) {
+  .float-grid-columns(@class);
+  .loop-grid-columns(@grid-columns, @class, width);
+  .loop-grid-columns(@grid-columns, @class, pull);
+  .loop-grid-columns(@grid-columns, @class, push);
+  .loop-grid-columns(@grid-columns, @class, offset);
+}

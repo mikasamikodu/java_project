@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body{
+            background-color: #dedede;
+        }
+        .box1{
+            width: 200px;
+            height: 200px;
+            background-color: rgb(123, 216, 221);
+            margin: 0 auto;
+            transform: translateX(50%) ;
+        }
+        .box2{
+            width: 200px;
+            height: 200px;
+            background-color: rgb(23, 116, 121);
+            margin: 0 auto;
+        }
+    /*    变形:指通过css改变元素的形状或位置
+            -变形不会影响到元素的布局
+            -transform用于设置元素的变形效果
+                 -平移:
+                    translateX(): 沿着x轴方向平移,元素移动时,原来的位置还占着,移动后的位置不会脱离文档流,但也不会挤压其他元素,但会覆盖其他元素
+                    translateY(): 沿着y轴方向平移
+                    translateZ(): 沿着z轴方向平移
+                       平移元素时所使用的百分比是相对于自身大小的
+    */
+        .box3{
+            background-color: #b9cb41;
+            position: absolute;
+            /*top: 0;这种方式只适用于元素宽高确定的情况
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;*/
+            top: 50%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-50%);
+        /*    这种方式适用于不确定元素宽高确定的情况*/
+        }
+        .box4,.box5{
+            width: 220px;
+            height: 300px;
+            background-color: #FFF;
+            float: left;
+            margin: 0 10px;
+            transition: all .3s;
+        }
+        .box4:hover, .box5:hover{
+            transform: translateY(-5px);
+            box-shadow: 0 0 5px rgba(0, 0, 0, .4);
+        }
+    </style>
+</head>
+<body>
+<div class="box1"></div>
+<div class="box2"></div>
+<div class="box3">1111111111111111</div>
+<div class="box4"></div>
+<div class="box5"></div>
+</body>
+</html>

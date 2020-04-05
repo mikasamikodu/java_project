@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* 使用媒体查询
+                语法：@media 查询规则()
+                媒体类型：
+                    all 所有设备
+                    print 打印设备
+                    screen 带屏幕的设备
+                    speech 屏幕阅读器
+                    媒体类型可同时规定多个，用逗号分开
+                    可以在媒体类型前添加一个only，表示只有一个生效
+                    only看似写与不写一样，写这个目的是兼容一些老浏览器
+                    例如： @media only screen{}
+
+        */
+        
+        @media print {
+            body {
+                background-color: #bfa;
+            }
+        }
+        /* 
+            媒体特性：
+                width: 视口宽度
+                height: 视口高度
+
+                min-width: 视口最小宽度(当视口大于这个值时生效)
+                max-width: 视口最大宽度(当视口小于这个值时生效)
+                案例：@media (max-width: 500px) {}
+
+            样手切换的分界点，一般被称为断点，也就是网页会在这个时候发生变化
+            一般常用的点：
+                小于768px  超小屏幕  max-width=768px
+                大于768px  小屏幕    min-width=768px
+                大于992px  中型屏幕  min-width=992px
+                大于1200px 大屏幕    min-width=1200px
+                案例
+                    -满足两个条件：@media (min-width: 500px) and (max-width: 700px) {}样式在屏幕大小处于500px-700px时生效
+                    -满足其中一个条件：@media (min-width: 700px),(max-width: 500px) {}样式在屏幕大小小于500px或大于700px时生效
+        */
+        
+        @media (min-width: 700px),
+        (max-width: 500px) {
+            body {
+                background-color: #bfa;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 
+        响应式布局：
+            -网页可以根据不同的设备或窗口大小呈现不同的效果
+            -使用响应式布局，可以使一个网页适用于所有的设备
+            -响应布局dd额关键就是媒体查询
+            -通过媒体查询可以为不同的设备，或不同状态的设备分别设置样式
+
+ -->
+</body>
+
+</html>

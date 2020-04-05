@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .box{
+            width: 300px;
+            height: 300px;
+            /*
+                radial-gradient()：径向渐变，产生放射性效果，如太阳般
+                默认情况下径向渐变的形状会根据元素的形状来计算
+                    正方形-圆形
+                    长方形-椭圆形
+                    案例：
+                    以元素中心为径向渐变原点，半径100的圆，从内向外由红边黄，非渐变部分为黄色
+                    background-image: radial-gradient(100px 100px, red, yellow);
+                    以元素中心为径向渐变原点，半径100的圆，从内向外由红边黄，非渐变部分为黄色
+                    background-image: radial-gradient(100px, red, yellow);
+                    以元素中心为径向渐变原点，椭圆，从内向外由红边黄，非渐变部分为黄色
+                    background-image: radial-gradient(100px 200px, red, yellow);
+                -可手动指定径向渐变的形状
+                    circle-圆形
+                    ellipse-椭圆形
+                    案例：background-image: radial-gradient(ellipse, red, yellow);
+
+                以元素中心为径向渐变原点，半径100的圆从内向外由红边黄，并将中心渐变部分从内向外重复，每半径100px重复一次
+                repeating-radial-gradient(100px 100px, red, yellow);
+
+                手动指定径向渐变原点
+                设置径向渐变原点为元素左上角(0,0)位置，并作出半径为100px的径向渐变圆
+                background-image: radial-gradient(100px 100px at 0 0, red, yellow);
+                设置径向渐变原点为元素中心位置，并作出半径为100px的径向渐变圆
+                background-image: radial-gradient(100px 100px at center center, red, yellow);
+                设置径向渐变原点为元素中心位置，并作出径向渐变圆
+                background-image: radial-gradient(at center center, red, yellow);
+
+                最终语法：
+                    radial-gradient(大小 at 位置,颜色 位置,颜色 位置,颜色 位置);颜色可写多个
+                    大小可选值：
+                        circle-圆形
+                        ellipse-椭圆形
+                        像素
+                        closest-side  近边
+                        closest-corner  近角
+                        farthest-side   远边
+                        farthest-corner  远角
+                   位置：
+                    top bottom left right center 像素
+                    大小和位置都是可选的，可以都不写或写其一
+            */
+            background-image: radial-gradient(at center center, red, yellow);
+        }
+    </style>
+</head>
+<body>
+<div class="box"></div>
+</body>
+</html>

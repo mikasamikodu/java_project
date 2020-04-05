@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .box1{
+            width: 500px;
+            height: 500px;
+            border-bottom: 10px solid black;
+            margin: 50px auto;
+            overflow: hidden;
+        }
+        .box2{
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: aqua;
+            position: absolute;
+            animation: run 0.3s 0.1s ease-in 4 alternate both;
+        }
+        @keyframes run{
+            from{
+                top: 0;
+            }
+            to{
+                top: 450px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="box1">
+        <div class="box2"></div>
+    </div>
+</body>
+</html>

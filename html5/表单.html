@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--
+    表单：
+        -在现实中表单用于提交数据
+        -在网页中也可以使用表单，网页中的表单时将本地的数据提交给远程的服务器
+        -使用form标签创建一个表单
+-->
+<!--    form的属性：
+            action：表单要提交的服务器地址
+-->
+    <form action="target.html">
+<!--        文本框，
+            注意：数据要提交给服务器的话还需要指定文本框的name属性
+            autocomplete:自动补全，on为开启,，off为关闭
+            readonly:设置表单项为只读状态，提交时内容会提交
+            disabled:设置表单项为禁用状态，提交时内容不会提交
+            autofocus:设置表单项自动获取焦点
+-->
+        文本框：<input type="text" name="name" autocomplete="off" readonly disabled><br>
+<!--        密码框-->
+        密码框：<input type="password" name="password" autofocus><br>
+<!--        单选框：只能选择一项
+            这样的选择框一般都需要指定value属性用于区分不同的选项
+            checked表示默认被选中的项，没有值只是一个属性
+-->
+        单选框：<input type="radio" name="hello" value="a">
+               <input type="radio" name="hello" value="b" checked><br>
+<!--        复选框：用法和单选框基本相同，不同的是可同时选中多项-->
+        多选框：<input type="checkbox" name="world" value="a">
+               <input type="checkbox" name="world" value="b" checked><br>
+<!--       下拉列表 -->
+        下拉列表：<select name="mm" id="top">
+                    <option value="big">大的</option>
+                    <option value="middle">中等</option>
+                    <option value="small" selected>小的</option>
+                 </select><br>
+<!--        提交按钮-->
+        <input type="submit">
+<!--        重置按钮-->
+        <input type="reset">
+<!--        按钮-->
+        <input type="button" value="按钮"><br>
+
+        <button type="submit">提交</button>
+        <button type="reset">重置</button>
+        <button type="button">按钮</button>
+    </form>
+</body>
+</html>
