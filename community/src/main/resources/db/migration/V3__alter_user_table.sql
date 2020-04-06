@@ -1,0 +1,1 @@
+alter TABLE `user`add bio varchar(256) null;
