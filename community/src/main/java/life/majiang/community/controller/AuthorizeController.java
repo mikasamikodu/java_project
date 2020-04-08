@@ -5,6 +5,7 @@ import life.majiang.community.dto.GithubUser;
 import life.majiang.community.mapper.UserMapper;
 import life.majiang.community.model.User;
 import life.majiang.community.provider.GithubProvider;
+import life.majiang.community.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -22,8 +23,8 @@ public class AuthorizeController {
     @Autowired
     private GithubProvider githubProvider;
 
-    @Autowired(required = false)
-    private UserMapper userMapper;
+    @Autowired
+    private UserService userService;
 
     //    从application.properties中读取相关配置注入到github的请求参数中
     @Value("${github.client.id}")
@@ -45,30 +46,18 @@ public class AuthorizeController {
         accessTokenDto.setRedirect_uri(redirect_uri);
         accessTokenDto.setState(state);
 //上面是封装请求参数
-        try {
 //得到返回的access_token
-            String access_token = githubProvider.getAccessToken(accessTokenDto);
+        String access_token = githubProvider.getAccessToken(accessTokenDto);
 //            使用access_token得到用户数据
-            GithubUser githubUser = githubProvider.getUser(access_token);
-            if(githubUser!=null){
+        GithubUser githubUser = githubProvider.getUser(access_token);
+        if(githubUser!=null){
 //                如果得到从github返回的用户信息，将其插入到数据库
-                User user = new User();
-                user.setAccountId(githubUser.getId().toString());
-                user.setName(githubUser.getName());
-                user.setToken(UUID.randomUUID().toString());
-                user.setGmtCreate(System.currentTimeMillis());
-                user.setGmtModified(user.getGmtCreate());
-                user.setBio(githubUser.getBio());
-                userMapper.insert(user);
+            String token = userService.saveUser(githubUser);
 //                将用户信息放入cookie,方便在服务器重启时用户也可以不用反复登录
-                response.addCookie(new Cookie("token", user.getToken()));
-                return "redirect:/";
-            }else{
-                return "redirect:/";
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+            response.addCookie(new Cookie("token", token));
+            return "redirect:/";
+        }else{
+            return "redirect:/";
         }
-        return "index";
     }
 }

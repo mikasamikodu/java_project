@@ -1,50 +1,123 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>码匠社区</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/community.css">
     <script type="application/javascript" src="js/jquery-1.12.4.js" ></script>
     <script type="application/javascript" src="js/bootstrap.min.js" ></script>
+
+    <!--<link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="../static/css/community.css">
+    <script type="application/javascript" src="../static/js/jquery-1.12.4.js" ></script>
+    <script type="application/javascript" src="../static/js/bootstrap.min.js" ></script>-->
 </head>
 <body>
 <!--    头部导航栏-->
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">码匠社区</a>
-            </div>
+    <div th:fragment="header">
+        <nav class="navbar navbar-default header">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/">码匠社区</a>
+                </div>
 
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <form class="navbar-form navbar-left">
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="搜索问题">
-                    </div>
-                    <button type="submit" class="btn btn-default">搜索</button>
-                </form>
-                <ul class="nav navbar-nav">
-                    <li><a href="#">Java 权威面试指南</a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li th:if="${session.user==null}"><a href="https://github.com/login/oauth/authorize?client_id=fe9dcfb978f05dbb7851&redirect_uri=http://localhost:8080/callback&scope=user&state=1">登录</a></li>
-                    <li th:if="${session.user!=null}" class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span th:text="${session.user.getName()}"></span><span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">消息中心</a></li>
-                            <li><a href="#">个人资料</a></li>
-                            <li><a href="#">退出</a></li>
-                        </ul>
-                    </li>
-                </ul>
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <form class="navbar-form navbar-left">
+                        <div class="form-group">
+                            <label>
+                                <input type="text" class="form-control" name="question" placeholder="搜索问题">
+                            </label>
+                        </div>
+                        <button type="submit" class="btn btn-default">搜索</button>
+                    </form>
+                    <ul class="nav navbar-nav">
+                        <li><a href="#">Java 权威面试指南</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li th:if="${session.user==null}">
+                            <a href="https://github.com/login/oauth/authorize?client_id=fe9dcfb978f05dbb7851&redirect_uri=http://localhost:8080/callback&scope=user&state=1">
+                                登录
+                            </a>
+                        </li>
+                        <li th:if="${session.user!=null}"><a href="/publish"><span class="glyphicon glyphicon-edit"></span> 发起</a></li>
+                        <li th:if="${session.user!=null}" class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                <img class="top-avatar" th:src="${session.user.getAvatarUrl()}" th:alt="${session.user.getName()}">
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/profile/question">我的问题</a></li>
+                                <li><a href="#">个人资料</a></li>
+                                <li><a href="#">退出</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </div>
-    </nav>
+        </nav>
+    </div>
+	
+	<!-- 首页列表 -->  
+	<div class="container container-header">
+        <div class="row">
+            <div class="col-md-9 col-sm-12 col-xs-12 question-list">
+                <h3 class="title"><span class="glyphicon glyphicon-list"></span> 发现</h3>
+                <hr>
+				<div class="media border" th:each="question: ${data.getQuestions()}">
+				  <div class="media-left media-middle">
+					<a href="#">
+					  <img class="media-object left-avatar" th:src="${question.getAvatarUrl()}"  οnerrοr="javascript:this.src='image/avatar.jpeg'">
+					</a>
+				  </div>
+				  <div class="media-body">
+					<h4 class="media-heading right-top-title"><a href="#"><span th:text="${question.getTitle()}"></span></a></h4>
+                    <ul class="content clearfix">
+                      <li><span th:text="${question.getCommentCount()}"></span>个回复</li>
+                      <li><span th:text="${question.getViewCount()}"></span>次浏览</li>
+                      <li><span th:text="${#dates.format(question.getGmtModified(), 'yyyy月mm-dd')}"></span></li>
+                    </ul>
+				  </div>
+				</div>
+
+                <nav aria-label="Page navigation" class="clearfix">
+                    <ul class="pagination paging">
+                        <li th:if="${data.getPageNum()>4}">
+                            <a th:href="@{/(pageNum=1)}" aria-label="First">
+                                <span aria-hidden="true">&lt;&lt;</span>
+                            </a>
+                        </li>
+                        <li th:if="${data.getPageNum()!=1}">
+                            <a th:href="@{/(pageNum=${data.getPageNum()}-1)}" aria-label="Previous">
+                                <span aria-hidden="true">&lt;</span>
+                            </a>
+                        </li>
+                        <li th:each="page: ${data.getPages()}" th:class="${page==data.getPageNum()}?'active':''"><a th:href="@{/(pageNum=${page})}"><span th:text="${page}"></span></a></li>
+                        <li th:if="${data.getPageNum()!=data.getPagesCount()}">
+                            <a th:href="@{/(pageNum=${data.getPageNum()}+1)}" aria-label="Next">
+                                <span aria-hidden="true">&gt;</span>
+                            </a>
+                        </li>
+                        <li th:if="${data.getPageNum()<data.getPagesCount()-3}">
+                            <a th:href="@{/(pageNum=${data.getPagesCount()})}" aria-label="Last">
+                                <span aria-hidden="true">&gt;&gt;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+			<div class="col-md-3 col-sm-12 col-xs-12 topic-list">
+                <h3 class="title">热门话题</h3>
+			</div>
+	    </div>
+	</div>
 </body>
 </html>

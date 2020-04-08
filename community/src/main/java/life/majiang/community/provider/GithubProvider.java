@@ -30,6 +30,7 @@ public class GithubProvider {
         return token;
     }
 
+
     public GithubUser getUser(String access_token){
 //        通过access_token再次向github发送请求用户数据
         RestTemplate restTemplate = new RestTemplate();

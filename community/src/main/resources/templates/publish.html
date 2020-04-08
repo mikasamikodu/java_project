@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>码匠社区</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/community.css">
+    <script type="application/javascript" src="js/jquery-1.12.4.js" ></script>
+    <script type="application/javascript" src="js/bootstrap.min.js" ></script>
+</head>
+<body>
+    <div th:replace="index::header"></div>
+    <div class="container container-header">
+        <div class="row">
+            <div class="col-md-9 col-sm-12 col-xs-12 question-left">
+                <h3><span class="glyphicon glyphicon-edit"></span>发起</h3>
+                <hr>
+                <form action="/publish" method="post" class="clearfix question-form">
+                    <div class="form-group label-bottom">
+                        <label for="title">问题标题 (简单概要) :</label>
+                        <input type="text" class="form-control" id="title" name="title" placeholder="问题标题...">
+                    </div>
+                    <div class="form-group label-bottom">
+                        <label for="description">问题补充 (必填，请参照右侧提示):</label>
+                        <textarea class="form-control" id="description" name="description" cols="30" rows="10"></textarea>
+                    </div>
+                    <div class="form-group label-bottom">
+                        <label for="tag">添加标签:</label>
+                        <input type="text" class="form-control" id="tag"name="tag" placeholder="创建或搜索添加新话题...">
+                    </div>
+                    <button type="submit" class="btn btn-success btn-publish">发布</button>
+                </form>
+            </div>
+            <div class="col-md-3 col-sm-12 col-xs-12 question-right">
+                <ul class="tip-list">
+                    <h4>问题发起指南</h4>
+                    <li><b>问题标题:</b>请用<span style="color:red;">精简</span>的语言描述您发布的问题，不超过25字</li>
+                    <li><b>问题补充:</b>详细补充您的问题内容，并确保问题描述清晰直观，并提供一些相关资料;</li>
+                    <li><b>选择标签:</b>选择一个或者多个合适的标签，用逗号隔开，每个标签不超过<span style="color: red;">10</span>字</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

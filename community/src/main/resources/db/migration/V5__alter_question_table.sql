@@ -1,0 +1,1 @@
+alter TABLE question add creator_id integer null;
