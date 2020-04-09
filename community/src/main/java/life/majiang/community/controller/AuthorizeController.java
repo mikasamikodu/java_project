@@ -2,8 +2,6 @@ package life.majiang.community.controller;
 
 import life.majiang.community.dto.AccessTokenDto;
 import life.majiang.community.dto.GithubUser;
-import life.majiang.community.mapper.UserMapper;
-import life.majiang.community.model.User;
 import life.majiang.community.provider.GithubProvider;
 import life.majiang.community.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.UUID;
-
+//处理github授权的问题
 @Controller
 public class AuthorizeController {
 

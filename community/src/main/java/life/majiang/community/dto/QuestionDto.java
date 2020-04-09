@@ -1,5 +1,6 @@
 package life.majiang.community.dto;
 
+import life.majiang.community.model.User;
 import lombok.Data;
 
 @Data
@@ -15,5 +16,5 @@ public class QuestionDto {
     private Integer likeCount;
     private String tag;
     private Integer creatorId;
-    private String avatarUrl;
+    private User user;
 }

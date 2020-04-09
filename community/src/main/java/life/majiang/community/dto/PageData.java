@@ -8,7 +8,7 @@ import java.util.List;
 public class PageData {
 
 //    所有问题
-    private List<QuestionDto> questions;
+    private List<QuestionDto> questionDtos;
 //    一页的问题数量
     private Integer pageSize;
 //    当前页码

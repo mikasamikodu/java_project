@@ -8,12 +8,6 @@
     <link rel="stylesheet" href="css/community.css">
     <script type="application/javascript" src="js/jquery-1.12.4.js" ></script>
     <script type="application/javascript" src="js/bootstrap.min.js" ></script>
-
-    <!--<link rel="stylesheet" href="../static/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../static/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="../static/css/community.css">
-    <script type="application/javascript" src="../static/js/jquery-1.12.4.js" ></script>
-    <script type="application/javascript" src="../static/js/bootstrap.min.js" ></script>-->
 </head>
 <body>
 <!--    头部导航栏-->
@@ -72,14 +66,14 @@
             <div class="col-md-9 col-sm-12 col-xs-12 question-list">
                 <h3 class="title"><span class="glyphicon glyphicon-list"></span> 发现</h3>
                 <hr>
-				<div class="media border" th:each="question: ${data.getQuestions()}">
+				<div class="media border" th:each="question: ${data.getQuestionDtos()}">
 				  <div class="media-left media-middle">
 					<a href="#">
-					  <img class="media-object left-avatar" th:src="${question.getAvatarUrl()}"  οnerrοr="javascript:this.src='image/avatar.jpeg'">
+					  <img class="media-object left-avatar" th:src="${question.getUser().getAvatarUrl()}"  οnerrοr="javascript:this.src='image/avatar.jpeg'">
 					</a>
 				  </div>
 				  <div class="media-body">
-					<h4 class="media-heading right-top-title"><a href="#"><span th:text="${question.getTitle()}"></span></a></h4>
+					<h4 class="media-heading right-top-title"><a th:href="@{'/question/'+${question.getId()}}"><span th:text="${question.getTitle()}"></span></a></h4>
                     <ul class="content clearfix">
                       <li><span th:text="${question.getCommentCount()}"></span>个回复</li>
                       <li><span th:text="${question.getViewCount()}"></span>次浏览</li>

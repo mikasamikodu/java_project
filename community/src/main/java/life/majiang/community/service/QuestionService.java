@@ -14,4 +14,7 @@ public interface QuestionService {
     PageData findPageData(Integer pageNum, Integer pageSize);
 //    查询个人首页问题列表
     PageData findPageDataById(Integer pageNum, Integer pageSize, Integer id);
+
+//    查询单个问题信息及相关的人员信息
+    PageData findQuestionById(Integer id);
 }
