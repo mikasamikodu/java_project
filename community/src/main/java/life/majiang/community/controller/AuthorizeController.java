@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 //处理github授权的问题
 @Controller
@@ -48,12 +49,32 @@ public class AuthorizeController {
         GithubUser githubUser = githubProvider.getUser(access_token);
         if(githubUser!=null){
 //                如果得到从github返回的用户信息，将其插入到数据库
-            String token = userService.saveUser(githubUser);
+            String token = userService.saveOrUpdateUser(githubUser);
 //                将用户信息放入cookie,方便在服务器重启时用户也可以不用反复登录
-            response.addCookie(new Cookie("token", token));
+            Cookie cookie = new Cookie("token", token);
+            cookie.setPath("/");
+            cookie.setMaxAge(7*24*60*60);
+            response.addCookie(cookie);
+
             return "redirect:/";
         }else{
             return "redirect:/";
         }
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request,HttpServletResponse response){
+        Cookie[] cookies = request.getCookies();//获取cookie数组
+        for (Cookie c:cookies) {
+            if (c.getName().equals("token")) {
+                Cookie cookie = new Cookie(c.getName(), null);
+                cookie.setMaxAge(0);
+                cookie.setPath("/");
+                response.addCookie(cookie);
+                request.getSession().removeAttribute("user");
+                break;
+            }
+        }
+        return "redirect:/";
     }
 }

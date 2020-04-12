@@ -10,11 +10,14 @@
     <script type="application/javascript" src="/js/bootstrap.min.js" ></script>
 </head>
 <body>
+
+<!--问题详情页-->
+
     <div th:replace="index::header"></div>
     <div class="container container-header">
         <div class="row">
             <div class="col-md-9 col-sm-12 col-xs-12 question-left" th:each="questionDto: ${data.getQuestionDtos()}">
-                <h3><span th:text="${questionDto.getTitle()}">11111111111</span></h3>
+                <h3><span th:text="${questionDto.getTitle()}"></span></h3>
                 <span class="text-muted">
                     作者 <span th:text="${questionDto.getUser().getName()}"></span> |
                     发布时间 <span th:text="${#dates.format(questionDto.getGmtCreate(), 'yyyy-mm-dd')}"></span> |
@@ -23,21 +26,23 @@
                 <hr  class="text-muted">
                 <div class="description"><span th:text="${questionDto.getDescription()}"></span></div>
                 <hr  class="text-muted">
-                <div class="text-muted edit"><span class="glyphicon glyphicon-pencil"></span> 编辑</div>
+                <div th:if="${(session.user!=null)&&(questionDto.getUser().getId()==session.user.getId())}" class="text-muted edit">
+                    <a th:href="@{'/publish/'+${questionDto.getId()}}"><span class="glyphicon glyphicon-pencil"></span> 编辑</a></div>
             </div>
             <div class="col-md-3 col-sm-12 col-xs-12 question-right">
-                <div>发起人</div>
+                <h4>发起人</h4>
                 <div class="media">
                     <div class="media-left">
                         <a href="#">
-                            <img class="media-object" th:src="${data.getQuestionDtos()[0].getUser().getAvatarUrl()}" οnerrοr="javascript:this.src='image/avatar.jpeg';">
+                            <img class="media-object launch-person" th:src="${data.getQuestionDtos()[0].getUser().getAvatarUrl()}" οnerrοr="javascript:this.src='image/avatar.jpeg';">
                         </a>
                     </div>
                     <div class="media-body name-right">
-                        <div class="media-heading"><span th:text="${data.getQuestionDtos()[0].getUser().getName()}"></span></div>
-                        <span th:text="${data.getQuestionDtos()[0].getUser().getBio()}">1111</span>
+                        <div class="media-heading launch-person-name"><span th:text="${data.getQuestionDtos()[0].getUser().getName()}"></span></div>
+                        <span class="text-muted" th:text="${data.getQuestionDtos()[0].getUser().getBio()}"></span>
                     </div>
                 </div>
+                <h4>相关问题</h4>
             </div>
         </div>
     </div>

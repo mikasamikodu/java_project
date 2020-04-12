@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface QuestionService {
 //    保存问题内容
-    void saveQuestion(Question question);
+    void saveOrUpdateQuestion(Question question);
 //查询首页问题列表
     PageData findPageData(Integer pageNum, Integer pageSize);
 //    查询个人首页问题列表

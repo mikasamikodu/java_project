@@ -13,6 +13,7 @@ a{
     margin-bottom: 30px;
 }
 .question-left{
+    border-right: 1px solid rgb(230, 230, 230);
     padding: 0 30px;
 }
 .question-form{
@@ -34,7 +35,6 @@ a{
     line-height: 25px;
 }
 .question-right{
-    height: 1094px;
     border-left: 1px solid rgb(229, 229, 229);
     padding-top: 30px;
 }
@@ -84,10 +84,6 @@ hr{
     line-height: 20px;
     margin: 0;
 }
-.topic-list{
-    height: 935px;
-    border-left: 1px solid rgb(230, 230, 230);
-}
 .paging{
     float: right;
 }
@@ -96,4 +92,10 @@ hr{
 }
 .description, div.edit{
     margin: 15px 0;
+}
+.launch-person{
+    width: 32px;
+}
+launch-person-name{
+    margin-bottom: 2px;
 }

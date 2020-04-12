@@ -3,11 +3,11 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>码匠社区</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="css/community.css">
-    <script type="application/javascript" src="js/jquery-1.12.4.js" ></script>
-    <script type="application/javascript" src="js/bootstrap.min.js" ></script>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/css/community.css">
+    <script type="/application/javascript" src="js/jquery-1.12.4.js" ></script>
+    <script type="/application/javascript" src="js/bootstrap.min.js" ></script>
 </head>
 <body>
     <div th:replace="index::header"></div>
@@ -17,19 +17,27 @@
                 <h3><span class="glyphicon glyphicon-edit"></span>发起</h3>
                 <hr>
                 <form action="/publish" method="post" class="clearfix question-form">
+                    <input type="hidden" name="id" th:if="${id!=null}" th:value="${id}">
                     <div class="form-group label-bottom">
                         <label for="title">问题标题 (简单概要) :</label>
-                        <input type="text" class="form-control" id="title" name="title" placeholder="问题标题...">
+                        <input type="text" class="form-control" id="title" name="title" th:value="${title}" placeholder="问题标题...">
                     </div>
                     <div class="form-group label-bottom">
                         <label for="description">问题补充 (必填，请参照右侧提示):</label>
-                        <textarea class="form-control" id="description" name="description" cols="30" rows="10"></textarea>
+                        <textarea class="form-control" id="description" name="description" cols="30" rows="10">[[${description}]]</textarea>
                     </div>
                     <div class="form-group label-bottom">
                         <label for="tag">添加标签:</label>
-                        <input type="text" class="form-control" id="tag"name="tag" placeholder="创建或搜索添加新话题...">
+                        <input type="text" class="form-control" id="tag"name="tag" th:value="${tag}" placeholder="创建或搜索添加新话题...">
                     </div>
-                    <button type="submit" class="btn btn-success btn-publish">发布</button>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-9 col-sm-12 col-xs-12">
+                                <span th:if="${error!=null}" th:text="${error}"></span>
+                            </div>
+                            <div class="col-md-3 col-sm-12 col-xs-12"><button type="submit" class="btn btn-success btn-publish">发布</button></div>
+                        </div>
+                    </div>
                 </form>
             </div>
             <div class="col-md-3 col-sm-12 col-xs-12 question-right">

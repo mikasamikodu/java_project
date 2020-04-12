@@ -15,16 +15,12 @@ import javax.servlet.http.HttpServletRequest;
 public class IndexController {
 
     @Autowired
-    private UserService userService;
-
-    @Autowired
     private QuestionService questionService;
 
     @GetMapping("/")
     public String greeting(@RequestParam(name="pageNum",defaultValue = "1") Integer pageNum,
                            @RequestParam(name="pageSize",defaultValue = "10") Integer pageSize,
                            HttpServletRequest request, Model model) {
-
         PageData data = questionService.findPageData(pageNum, pageSize);
         model.addAttribute("data", data);
         return "index";

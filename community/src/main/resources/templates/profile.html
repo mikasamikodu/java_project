@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>[[#{sectionName}]]</title>
+    <title th:text="${sectionName}"></title>
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/css/community.css">
@@ -61,7 +61,7 @@
                     </ul>
                 </nav>
             </div>
-			<div class="col-md-3 col-sm-12 col-xs-12 topic-list">
+			<div class="col-md-3 col-sm-12 col-xs-12">
                 <div class="list-group">
                     <a href="/profile/question" class="list-group-item active">我的问题</a>
                     <a href="/profile/replies" class="list-group-item"><span class="badge">14</span>最新回复</a>
