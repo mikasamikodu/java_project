@@ -16,6 +16,9 @@ a{
     border-right: 1px solid rgb(230, 230, 230);
     padding: 0 30px;
 }
+.question-left h3{
+    padding-left: 23px;
+}
 .question-form{
     padding: 23px;
 }
@@ -98,4 +101,10 @@ hr{
 }
 launch-person-name{
     margin-bottom: 2px;
+}
+
+/*error.html*/
+.jumbotron-header{
+    background-color: transparent;
+    text-align: center;
 }

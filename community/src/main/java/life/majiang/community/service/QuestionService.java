@@ -17,4 +17,6 @@ public interface QuestionService {
 
 //    查询单个问题信息及相关的人员信息
     PageData findQuestionById(Integer id);
+
+    void addViewCount(Integer id);
 }

@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title th:text="${data.getQuestionDtos()[0].getTitle()}"></title>
+    <title th:text="${data.getQuestionDtos()[0].getQuestion().getTitle()}"></title>
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/css/community.css">
@@ -17,17 +17,17 @@
     <div class="container container-header">
         <div class="row">
             <div class="col-md-9 col-sm-12 col-xs-12 question-left" th:each="questionDto: ${data.getQuestionDtos()}">
-                <h3><span th:text="${questionDto.getTitle()}"></span></h3>
+                <h3><span th:text="${questionDto.getQuestion().getTitle()}"></span></h3>
                 <span class="text-muted">
                     作者 <span th:text="${questionDto.getUser().getName()}"></span> |
-                    发布时间 <span th:text="${#dates.format(questionDto.getGmtCreate(), 'yyyy-mm-dd')}"></span> |
-                    浏览量 <span th:text="${questionDto.getViewCount()}"></span>
+                    发布时间 <span th:text="${#dates.format(questionDto.getQuestion().getGmtCreate(), 'yyyy-mm-dd')}"></span> |
+                    浏览量 <span th:text="${questionDto.getQuestion().getViewCount()}"></span>
                 </span>
                 <hr  class="text-muted">
-                <div class="description"><span th:text="${questionDto.getDescription()}"></span></div>
+                <div class="description"><span th:text="${questionDto.getQuestion().getDescription()}"></span></div>
                 <hr  class="text-muted">
                 <div th:if="${(session.user!=null)&&(questionDto.getUser().getId()==session.user.getId())}" class="text-muted edit">
-                    <a th:href="@{'/publish/'+${questionDto.getId()}}"><span class="glyphicon glyphicon-pencil"></span> 编辑</a></div>
+                    <a th:href="@{'/publish/'+${questionDto.getQuestion().getId()}}"><span class="glyphicon glyphicon-pencil"></span> 编辑</a></div>
             </div>
             <div class="col-md-3 col-sm-12 col-xs-12 question-right">
                 <h4>发起人</h4>

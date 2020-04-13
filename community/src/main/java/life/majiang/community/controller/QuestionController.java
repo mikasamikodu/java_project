@@ -16,6 +16,7 @@ public class QuestionController {
 
     @GetMapping("/question/{id}")
     public String reply(@PathVariable("id") Integer id, Model model){
+        questionService.addViewCount(id);
         PageData data = questionService.findQuestionById(id);
         model.addAttribute("data", data);
         return "question";

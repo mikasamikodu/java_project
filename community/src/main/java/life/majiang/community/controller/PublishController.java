@@ -28,11 +28,11 @@ public class PublishController {
     @GetMapping("/publish/{id}")
     public String edit(@PathVariable("id") Integer id, Model model){
         PageData data = questionService.findQuestionById(id);
-        QuestionDto questionDto = data.getQuestionDtos().get(0);
-        model.addAttribute("title", questionDto.getTitle());
-        model.addAttribute("description", questionDto.getDescription());
-        model.addAttribute("tag", questionDto.getTag());
-        model.addAttribute("id", questionDto.getId());
+        Question question = data.getQuestionDtos().get(0).getQuestion();
+        model.addAttribute("title", question.getTitle());
+        model.addAttribute("description", question.getDescription());
+        model.addAttribute("tag", question.getTag());
+        model.addAttribute("id", question.getId());
         return "publish";
     }
 
