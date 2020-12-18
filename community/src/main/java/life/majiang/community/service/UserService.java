@@ -8,4 +8,6 @@ public interface UserService {
     String saveOrUpdateUser(GithubUser githubUser);
 
     User findByToken(String token);
+
+    User findById(Long userId);
 }

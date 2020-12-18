@@ -60,4 +60,13 @@ public class UserserviceImpl implements UserService {
         }
         return user;
     }
+
+    @Override
+    public User findById(Long userId) {
+        UserExample example = new UserExample();
+        example.createCriteria().andIdEqualTo(userId);
+        return userMapper.selectByExample(example).get(0);
+    }
+
+
 }

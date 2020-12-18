@@ -13,10 +13,10 @@ public interface QuestionService {
 //查询首页问题列表
     PageData findPageData(Integer pageNum, Integer pageSize);
 //    查询个人首页问题列表
-    PageData findPageDataById(Integer pageNum, Integer pageSize, Integer id);
+    PageData findPageDataById(Integer pageNum, Integer pageSize, Long id);
 
 //    查询单个问题信息及相关的人员信息
-    PageData findQuestionById(Integer id);
+    PageData findQuestionById(Long id);
 
-    void addViewCount(Integer id);
+    void addViewCount(Long id);
 }

@@ -1,0 +1,1 @@
+alter table comment modify like_count integer default 0 null;

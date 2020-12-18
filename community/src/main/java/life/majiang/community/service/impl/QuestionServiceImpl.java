@@ -17,7 +17,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class QuestionServiceImpl implements QuestionService {
@@ -40,10 +42,7 @@ public class QuestionServiceImpl implements QuestionService {
             questionMapper.updateByExampleSelective(question, example);
         }else{
             question.setGmtCreate(question.getGmtModified());
-            question.setViewCount(0);
-            question.setLikeCount(0);
-            question.setCommentCount(0);
-            int insert = questionMapper.insert(question);
+            int insert = questionMapper.insertSelective(question);
 //            需要检验是否更新成功（是否更新了一条数据）
             if(insert!=1){
                 throw new CustomException(CustomErrorCode.QUESTION_NOT_FOUND);
@@ -57,14 +56,16 @@ public class QuestionServiceImpl implements QuestionService {
         data.setPageCount(count);
         data.setPageSize(pageSize);
         data.setPages(data.setThePages(pageNum, count, pageSize));
-        List<Question> questions = questionMapper.selectByExampleWithBLOBsWithRowbounds(new QuestionExample(), new RowBounds((data.getPageNum()-1)*pageSize, pageSize));
+        QuestionExample example = new QuestionExample();
+        example.setOrderByClause("gmt_create desc");
+        List<Question> questions = questionMapper.selectByExampleWithBLOBsWithRowbounds(example, new RowBounds((data.getPageNum()-1)*pageSize, pageSize));
         data = getData(data, questions);
         return data;
     }
 
 //个人问题列表，查找自己所有的问题
     @Override
-    public PageData findPageDataById(Integer pageNum, Integer pageSize, Integer id) {
+    public PageData findPageDataById(Integer pageNum, Integer pageSize, Long id) {
         QuestionExample example = new QuestionExample();
         example.createCriteria().andCreatorIdEqualTo(id);
         Integer count = (int) questionMapper.countByExample(example);
@@ -74,6 +75,7 @@ public class QuestionServiceImpl implements QuestionService {
         data.setPages(data.setThePages(pageNum, count, pageSize));
         QuestionExample example1 = new QuestionExample();
         example1.createCriteria().andCreatorIdEqualTo(id);
+        example1.setOrderByClause("gmt_create desc");
         List<Question> questions = questionMapper.selectByExampleWithBLOBsWithRowbounds(example1, new RowBounds((data.getPageNum()-1)*pageSize, pageSize));
         data = getData(data, questions);
         return data;
@@ -81,7 +83,7 @@ public class QuestionServiceImpl implements QuestionService {
 
 //    查找首页单个问题
     @Override
-    public PageData findQuestionById(Integer id) {
+    public PageData findQuestionById(Long id) {
         List<QuestionDto> questionDtos = new ArrayList<>();
         QuestionDto questionDto = new QuestionDto();
         questionDtos.add(questionDto);
@@ -105,8 +107,9 @@ public class QuestionServiceImpl implements QuestionService {
         return data;
     }
 
+//    增加阅读数
     @Override
-    public void addViewCount(Integer id) {
+    public void addViewCount(Long id) {
         Question question = new Question();
         question.setId(id);
         question.setViewCount(1);
@@ -116,10 +119,17 @@ public class QuestionServiceImpl implements QuestionService {
 
     public PageData getData(PageData data, List<Question> questions){
         List<QuestionDto> questionDtos = new ArrayList<>();
+        Map<Long, User> userMap = new HashMap<>();
         for(Question question: questions){
-            UserExample example3 = new UserExample();
-            example3.createCriteria().andIdEqualTo(question.getCreatorId());
-            User user = userMapper.selectByExample(example3).get(0);
+            Long creatorId = question.getCreatorId();
+            User user = userMap.get(creatorId);
+            if (user == null){
+                UserExample example = new UserExample();
+                example.createCriteria().andIdEqualTo(creatorId);
+                User user1 = userMapper.selectByExample(example).get(0);
+                userMap.put(user1.getId(), user1);
+                user = user1;
+            }
             QuestionDto questionDto = new QuestionDto();
             questionDto.setUser(user);
             questionDto.setQuestion(question);

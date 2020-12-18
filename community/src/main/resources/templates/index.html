@@ -8,6 +8,15 @@
     <link rel="stylesheet" href="css/community.css">
     <script type="application/javascript" src="js/jquery-1.12.4.js" ></script>
     <script type="application/javascript" src="js/bootstrap.min.js" ></script>
+    <script>
+        window.onload = function(){
+            let item = window.localStorage.getItem("closeable");
+            if (item == "true"){
+                window.close();
+                window.localStorage.removeItem("closeable");
+            }
+        }
+    </script>
 </head>
 <body>
 <!--    头部导航栏-->

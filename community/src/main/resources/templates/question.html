@@ -2,12 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title th:text="${data.getQuestionDtos()[0].getQuestion().getTitle()}"></title>
+    <title th:text="${questionDto.getQuestion().getTitle()}"></title>
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/css/community.css">
     <script type="application/javascript" src="/js/jquery-1.12.4.js" ></script>
     <script type="application/javascript" src="/js/bootstrap.min.js" ></script>
+    <script type="application/javascript" src="/js/community.js" ></script>
 </head>
 <body>
 
@@ -16,7 +17,7 @@
     <div th:replace="index::header"></div>
     <div class="container container-header">
         <div class="row">
-            <div class="col-md-9 col-sm-12 col-xs-12 question-left" th:each="questionDto: ${data.getQuestionDtos()}">
+            <div class="col-md-9 col-sm-12 col-xs-12 reply-left">
                 <h3><span th:text="${questionDto.getQuestion().getTitle()}"></span></h3>
                 <span class="text-muted">
                     作者 <span th:text="${questionDto.getUser().getName()}"></span> |
@@ -27,19 +28,76 @@
                 <div class="description"><span th:text="${questionDto.getQuestion().getDescription()}"></span></div>
                 <hr  class="text-muted">
                 <div th:if="${(session.user!=null)&&(questionDto.getUser().getId()==session.user.getId())}" class="text-muted edit">
-                    <a th:href="@{'/publish/'+${questionDto.getQuestion().getId()}}"><span class="glyphicon glyphicon-pencil"></span> 编辑</a></div>
+                    <a th:href="@{'/publish/'+${questionDto.getQuestion().getId()}}"><span class="glyphicon glyphicon-pencil"></span> 编辑</a>
+                </div>
+
+                <div class="commentBorder">
+                    <h4><span th:text="${questionDto.getQuestion().getCommentCount()}"></span>个回复</h4>
+                    <div class="media commentList"  th:each="commentAndUserDto: ${commentAndUserDtos}">
+                        <div class="media-left media-middle">
+                            <a href="#">
+                                <img class="media-object " th:src="${commentAndUserDto.getUser().getAvatarUrl()}">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <div class="media-heading myName"><span th:text="${commentAndUserDto.getUser().getName()}"></span> - <span th:text="${commentAndUserDto.getUser().getBio()}"></span></div>
+                            <div><span th:text="${commentAndUserDto.getComment().getContent()}"></span></div>
+                        </div>
+                        <div class="commentBottom">
+                            <span class="glyphicon glyphicon-thumbs-up"></span>
+                            <span class="btn glyphicon glyphicon-comment" th:data-id="${commentAndUserDto.getComment().getId()}" onclick="collapseComment(this)"></span>
+                            <span class="pull-right" th:text="${#dates.format(commentAndUserDto.getComment().getGmtCreate(), 'yyyy-MM-dd')}"></span>
+                        </div>
+                        <div class="collapse childCommentBorder" th:id="${'comment-'+commentAndUserDto.getComment().getId()}">
+                            <div class="well childComment" th:each="childCommentDto: ${childCommentDtos}">
+                                <div class="media-left media-middle">
+                                    <a href="#">
+                                        <img class="media-object childImg img-rounded" th:src="${childCommentDto.getUser().getAvatarUrl()}">
+                                    </a>
+                                </div>
+                                <div class="media-body">
+                                    <div class="media-heading myName"><span th:text="${childCommentDto.getUser().getName()}"></span> - <span th:text="${#dates.format(childCommentDto.getComment().getGmtCreate(), 'yyyy-MM-dd ')}"></span></div>
+                                    <div><span th:text="${childCommentDto.getComment().getContent()}"></span></div>
+                                </div>
+                            </div>
+
+                            <form class="childCommentForm clearfix">
+                                <div class="input-top">
+                                    <input type="hidden" id="parentCommentId" th:value="${commentAndUserDto.getComment().getId()}">
+                                    <input type="text" class="form-control" id="childComment" placeholder="评论一下" onfocus="btnShow()">
+                                </div>
+                                <div id="commentBtn" hidden="hidden">
+                                    <input type="reset" class="commentBtn subBtn" value="取消">
+                                    <button type="button" class="commentBtn subBtn" onclick="subbmitChildComment()">评论</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div th:if="${(session.user!=null)}" class="col-md-12 col-sm-12 col-xs-12 myreply clearfix">
+                    <div>
+                        <img class="img-rounded" th:src="${session.user.getAvatarUrl()}"> <span th:text="${session.user.getName()}"></span>
+                    </div>
+                    <input type="hidden" name="parentId" id="parentId" th:value="${questionDto.getQuestion().getId()}">
+                    <textarea name="content" cols="30" rows="10" id="content" required></textarea>
+                    <button type="button" class="subBtn" onclick="subbmitComment()">回复</button>
+                </div>
+                <div th:if="${(session.user==null)}" class="text-center col-md-12 col-sm-12 col-xs-12 myreply-unlogin">
+                    要回复问题请先<a href="https://github.com/login/oauth/authorize?client_id=fe9dcfb978f05dbb7851&redirect_uri=http://localhost:8080/callback&scope=user&state=1">登录</a>
+                </div>
             </div>
             <div class="col-md-3 col-sm-12 col-xs-12 question-right">
                 <h4>发起人</h4>
                 <div class="media">
                     <div class="media-left">
                         <a href="#">
-                            <img class="media-object launch-person" th:src="${data.getQuestionDtos()[0].getUser().getAvatarUrl()}" οnerrοr="javascript:this.src='image/avatar.jpeg';">
+                            <img class="media-object launch-person" th:src="${questionDto.getUser().getAvatarUrl()}" οnerrοr="javascript:this.src='image/avatar.jpeg';">
                         </a>
                     </div>
                     <div class="media-body name-right">
-                        <div class="media-heading launch-person-name"><span th:text="${data.getQuestionDtos()[0].getUser().getName()}"></span></div>
-                        <span class="text-muted" th:text="${data.getQuestionDtos()[0].getUser().getBio()}"></span>
+                        <div class="media-heading launch-person-name"><span th:text="${questionDto.getUser().getName()}"></span></div>
+                        <span class="text-muted" th:text="${questionDto.getUser().getBio()}"></span>
                     </div>
                 </div>
                 <h4>相关问题</h4>

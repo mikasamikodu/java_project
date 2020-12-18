@@ -38,8 +38,10 @@ public class GithubProvider {
         HttpMethod method = HttpMethod.GET;
         headers.setContentType(MediaType.parseMediaType("application/json; charset=utf-8"));
         Map<String, String> map = new HashMap<>();
-        map.put("Authorization", "token OAUTH-TOKEN");
+//        map.put("Authorization", "token OAUTH-TOKEN");
+//        map.put("access_token", access_token);
         HttpEntity<Map<String, String>> entity = new HttpEntity<>(map, headers);
+//        String url = "https://api.github.com/user";
         String url = "https://api.github.com/user?access_token="+access_token;
         GithubUser user = restTemplate.exchange(url, method, entity, GithubUser.class).getBody();
         return user;

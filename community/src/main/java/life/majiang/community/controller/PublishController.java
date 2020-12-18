@@ -26,7 +26,7 @@ public class PublishController {
     }
 
     @GetMapping("/publish/{id}")
-    public String edit(@PathVariable("id") Integer id, Model model){
+    public String edit(@PathVariable("id") Long id, Model model){
         PageData data = questionService.findQuestionById(id);
         Question question = data.getQuestionDtos().get(0).getQuestion();
         model.addAttribute("title", question.getTitle());
