@@ -51,7 +51,7 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>1.2.62</version>
+            <version>1.2.83</version>
         </dependency>
 <!--        连接mysql数据库的驱动-->
         <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java-->
